@@ -1,0 +1,5 @@
+project_id = ""
+
+[functions.fetch-stats]
+verify_jwt = false
+entrypoint = "./functions/fetch-stats/index.ts"
