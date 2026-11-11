@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { Users, Layout, RotateCcw, RefreshCw, BarChart3, Save, Check } from 'lucide-react';
+import { Users, Layout, RotateCcw, RefreshCw, BarChart3, Save, Check, DownloadCloud } from 'lucide-react';
 import type { Player, PlayerDB } from './types';
 import { PLAYER_DB } from './constants';
 import { randomBonus } from './lib/players';
@@ -7,6 +7,7 @@ import { getPlayerStats } from './data/stats';
 import { getTitolarita, hasTitolaritaData, TITOLARE_VALUE } from './data/titolarita';
 import { useMatchday } from './hooks/useMatchday';
 import { useRoster } from './hooks/useRoster';
+import { supabase } from './lib/supabase';
 import RosterManager from './components/RosterManager';
 import FormationView from './components/FormationView';
 import MatchdaySelector from './components/MatchdaySelector';
@@ -44,6 +45,8 @@ function makePlayer(db: PlayerDB): Player {
 function App() {
   const [tab, setTab] = useState<Tab>('rosa');
   const [savedFlash, setSavedFlash] = useState(false);
+  const [syncing, setSyncing] = useState(false);
+  const [syncMessage, setSyncMessage] = useState<string | null>(null);
   const { players, loading, addPlayer, removePlayer, setPlayers } = useRoster();
   const { matchdayNum, calendario, changeMatchday } = useMatchday();
 
@@ -71,6 +74,38 @@ function App() {
   function resetData() {
     if (confirm('Vuoi cancellare tutta la rosa?')) {
       setPlayers([]);
+    }
+  }
+
+  async function aggiornaDati() {
+    setSyncing(true);
+    setSyncMessage(null);
+    try {
+      const { data: sessionData } = await supabase.auth.getSession();
+      const token = sessionData.session?.access_token ?? import.meta.env.VITE_SUPABASE_ANON_KEY;
+      const fnUrl = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/fetch-stats?force=true`;
+      const resp = await fetch(fnUrl, {
+        headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+      });
+      if (!resp.ok) throw new Error(`Errore ${resp.status}`);
+      const body = await resp.json();
+      if (body.error) throw new Error(body.error);
+      const r = body.results ?? {};
+      const parts: string[] = [];
+      if (r.formazioni?.count != null) parts.push(`${r.formazioni.count} formazioni`);
+      if (r.infortunati?.count != null) parts.push(`${r.infortunati.count} squadre infortunati`);
+      if (r.stats?.count != null) parts.push(`${r.stats.count} statistiche`);
+      const failed = Object.entries(r).filter(([, v]) => (v as { status?: string }).status === 'error');
+      if (failed.length > 0) {
+        setSyncMessage(`Aggiornamento parziale: ${parts.join(', ') || 'nessun dato'}. Riprova più tardi.`);
+      } else {
+        setSyncMessage(`Dati aggiornati: ${parts.join(', ')}`);
+      }
+    } catch (e) {
+      setSyncMessage(`Aggiornamento non riuscito: ${(e as Error).message}`);
+    } finally {
+      setSyncing(false);
+      setTimeout(() => setSyncMessage(null), 6000);
     }
   }
 
@@ -115,6 +150,14 @@ function App() {
           </div>
           <div className="flex gap-2 md:gap-3 items-center">
             <MatchdaySelector value={matchdayNum} onChange={changeMatchday} />
+            <button
+              onClick={aggiornaDati}
+              disabled={syncing}
+              className="px-3 md:px-4 py-2 rounded-lg font-semibold text-sm transition flex items-center gap-2 bg-green-600/90 hover:bg-green-500 text-white disabled:opacity-60 disabled:cursor-not-allowed shadow-lg shadow-green-600/20"
+            >
+              <DownloadCloud className={`w-4 h-4 ${syncing ? 'animate-bounce' : ''}`} />
+              <span className="hidden sm:inline">{syncing ? 'Aggiornamento…' : 'Aggiorna dati'}</span>
+            </button>
             <div className="flex gap-2">
               <button
                 onClick={() => setTab('rosa')}
@@ -154,6 +197,12 @@ function App() {
           </div>
         </div>
       </header>
+
+      {syncMessage ? (
+        <div className="fixed top-20 left-1/2 -translate-x-1/2 z-50 bg-gray-800 border border-gray-600 text-gray-100 text-sm px-4 py-2.5 rounded-lg shadow-xl max-w-md text-center">
+          {syncMessage}
+        </div>
+      ) : null}
 
       <main className="max-w-6xl mx-auto p-4 mt-4 mb-8">
         {players.length === 0 && tab === 'rosa' ? (
