@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { Users, Layout, RotateCcw, RefreshCw, BarChart3, Check, DownloadCloud, Database } from 'lucide-react';
+import { Users, Layout, RotateCcw, RefreshCw, BarChart3, Save, Check, DownloadCloud, Database } from 'lucide-react';
 import type { Player, PlayerDB } from './types';
 import { PLAYER_DB } from './constants';
 import { randomBonus } from './lib/players';
@@ -49,7 +49,8 @@ function App() {
   const [savedFlash, setSavedFlash] = useState(false);
   const [syncing, setSyncing] = useState(false);
   const [syncMessage, setSyncMessage] = useState<string | null>(null);
-  const { players, loading, error, addPlayer, removePlayer, setPlayers, reload } = useRoster();
+  const [saving, setSaving] = useState(false);
+  const { players, loading, error, addPlayer, removePlayer, setPlayers, reload, saveAll } = useRoster();
   const { matchdayNum, calendario, changeMatchday } = useMatchday();
   const live = useLiveData(matchdayNum);
   const [showRosaList, setShowRosaList] = useState(false);
@@ -115,6 +116,15 @@ function App() {
     }
   }
 
+  async function saveRosa() {
+    setSaving(true);
+    const ok = await saveAll(players);
+    setSaving(false);
+    setSavedFlash(ok);
+    if (!ok) setSyncMessage(`Salvataggio non riuscito: ${error || 'riprova'}`);
+    setTimeout(() => { setSavedFlash(false); setSyncMessage(null); }, 2500);
+  }
+
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-900 text-gray-100 flex items-center justify-center">
@@ -168,18 +178,6 @@ function App() {
               <span className="hidden sm:inline">{syncing ? 'Aggiornamento…' : 'Aggiorna dati'}</span>
             </button>
             <div className="flex gap-2">
-              <button
-                onClick={() => { setShowRosaList(true); setTab('rosa'); reload(); }}
-                className={`px-3 md:px-4 py-2 rounded-lg font-semibold text-sm transition flex items-center gap-2 border ${
-                  showRosaList && tab === 'rosa'
-                    ? 'bg-emerald-700 border-emerald-500 text-white'
-                    : 'bg-gray-800 border-gray-600 text-gray-200 hover:bg-gray-700'
-                }`}
-              >
-                <Users className="w-4 h-4" />
-                <span className="hidden sm:inline">Mia rosa</span>
-                <span className="px-1.5 py-0.5 rounded-md bg-emerald-600 text-[10px] font-bold">{players.length}</span>
-              </button>
               <button
                 onClick={() => { setTab('rosa'); setShowRosaList(false); }}
                 className={`px-3 md:px-4 py-2 rounded-lg font-semibold text-sm transition flex items-center gap-2 ${
@@ -242,28 +240,38 @@ function App() {
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <p className="text-sm text-gray-400">
-                {players.length} giocatori in rosa · Letti direttamente dal database
+                {players.length} giocatori in rosa · Le modifiche vengono salvate con "Salva Rosa"
               </p>
-              <button
-                onClick={() => { reload(); setSavedFlash(true); setTimeout(() => setSavedFlash(false), 2000); }}
-                className={`px-4 py-2 rounded-lg font-bold text-sm transition flex items-center gap-2 shadow-lg ${
-                  savedFlash
-                    ? 'bg-green-600 text-white'
-                    : 'bg-green-600/80 hover:bg-green-500 text-white'
-                }`}
-              >
-                {savedFlash ? (
-                  <>
-                    <Check className="w-4 h-4" />
-                    Database aggiornato!
-                  </>
-                ) : (
-                  <>
-                    <RefreshCw className="w-4 h-4" />
-                    Ricarica dal database
-                  </>
-                )}
-              </button>
+              <div className="flex gap-2">
+                <button
+                  onClick={saveRosa}
+                  disabled={saving}
+                  className={`px-4 py-2 rounded-lg font-bold text-sm transition flex items-center gap-2 shadow-lg disabled:opacity-60 disabled:cursor-not-allowed ${
+                    savedFlash
+                      ? 'bg-green-600 text-white'
+                      : 'bg-green-600/80 hover:bg-green-500 text-white'
+                  }`}
+                >
+                  {savedFlash ? (
+                    <>
+                      <Check className="w-4 h-4" />
+                      Rosa Salvata!
+                    </>
+                  ) : (
+                    <>
+                      <Save className="w-4 h-4" />
+                      Salva Rosa
+                    </>
+                  )}
+                </button>
+                <button
+                  onClick={() => { reload(); setShowRosaList(true); }}
+                  className="px-4 py-2 rounded-lg font-bold text-sm transition flex items-center gap-2 shadow-lg bg-gray-700 hover:bg-gray-600 text-white border border-gray-600"
+                >
+                  <Users className="w-4 h-4" />
+                  Mia rosa
+                </button>
+              </div>
             </div>
             <RosterManager players={playersWithTitolarita} onAdd={addPlayer} onRemove={removePlayer} calendario={calendario} matchdayNum={matchdayNum} />
           </div>

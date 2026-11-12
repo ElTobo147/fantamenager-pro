@@ -103,5 +103,44 @@ export function useRoster() {
 
   const reload = useCallback(() => loadFromSupabase(), []);
 
-  return { players, loading, error, addPlayer, removePlayer, setPlayers: setPlayersDirect, reload };
+  // Explicit full sync: replaces the database roster with the given players.
+  // Returns true when the database reflects the list.
+  const saveAll = useCallback(async (updated: Player[]): Promise<boolean> => {
+    try {
+      const rows = updated.map((p) => ({
+        id: p.id,
+        nome: p.nome,
+        squadra: p.squadra,
+        ruolo: p.ruolo,
+        qt: p.qt,
+        eta: p.eta,
+        bonus: p.bonus,
+        percentuale_titolarita: p.percentualeTitolarita,
+      }));
+      // Diff-based sync: insert new rows, remove deleted rows, no full wipe.
+      const { data: existing, error: fetchError } = await supabase.from('roster_entries').select('id');
+      if (fetchError) throw fetchError;
+      const existingIds = new Set((existing ?? []).map((r) => r.id as string));
+      const keepIds = new Set(rows.map((r) => r.id));
+
+      const toInsert = rows.filter((r) => !existingIds.has(r.id));
+      const toDelete = [...existingIds].filter((id) => !keepIds.has(id));
+
+      if (toInsert.length > 0) {
+        const { error: insErr } = await supabase.from('roster_entries').insert(toInsert);
+        if (insErr) throw insErr;
+      }
+      for (const id of toDelete) {
+        const { error: delErr } = await supabase.from('roster_entries').delete().eq('id', id);
+        if (delErr) throw delErr;
+      }
+      setError('');
+      return true;
+    } catch (e) {
+      setError((e as Error).message);
+      return false;
+    }
+  }, []);
+
+  return { players, loading, error, addPlayer, removePlayer, setPlayers: setPlayersDirect, reload, saveAll };
 }
