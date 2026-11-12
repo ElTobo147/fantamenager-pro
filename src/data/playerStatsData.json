@@ -1,0 +1,4826 @@
+{
+  "RAIMONDO|FROSINONE": {
+    "gol": 7,
+    "assist": 0,
+    "xg": 6.5,
+    "xa": 0.6,
+    "fm": 9.57,
+    "pv": 7
+  },
+  "GATTI|JUVENTUS": {
+    "gol": 1,
+    "assist": 0,
+    "xg": 1.7,
+    "xa": 0.6,
+    "fm": 9.5,
+    "pv": 1
+  },
+  "GOGLICHIDZE|MONZA": {
+    "gol": 1,
+    "assist": 0,
+    "xg": 1.7,
+    "xa": 0.6,
+    "fm": 9.5,
+    "pv": 1
+  },
+  "MALEN|ROMA": {
+    "gol": 6,
+    "assist": 0,
+    "xg": 5.7,
+    "xa": 0.6,
+    "fm": 9.42,
+    "pv": 6
+  },
+  "THURAM|INTER": {
+    "gol": 4,
+    "assist": 2,
+    "xg": 4.0,
+    "xa": 2.1,
+    "fm": 9.0,
+    "pv": 6
+  },
+  "VARELA G.|MONZA": {
+    "gol": 4,
+    "assist": 0,
+    "xg": 4.0,
+    "xa": 0.5,
+    "fm": 9.0,
+    "pv": 5
+  },
+  "MARTINEZ L.|INTER": {
+    "gol": 4,
+    "assist": 0,
+    "xg": 3.9,
+    "xa": 0.5,
+    "fm": 8.8,
+    "pv": 5
+  },
+  "RABIOT|MILAN": {
+    "gol": 4,
+    "assist": 3,
+    "xg": 3.9,
+    "xa": 2.8,
+    "fm": 8.71,
+    "pv": 7
+  },
+  "MOREIRA|MILAN": {
+    "gol": 3,
+    "assist": 1,
+    "xg": 3.1,
+    "xa": 1.2,
+    "fm": 8.7,
+    "pv": 5
+  },
+  "MALDINI|CAGLIARI": {
+    "gol": 4,
+    "assist": 0,
+    "xg": 3.8,
+    "xa": 0.4,
+    "fm": 8.58,
+    "pv": 6
+  },
+  "CARLOS AUGUSTO|INTER": {
+    "gol": 2,
+    "assist": 2,
+    "xg": 2.2,
+    "xa": 2.0,
+    "fm": 8.4,
+    "pv": 5
+  },
+  "KULENOVIC|TORINO": {
+    "gol": 2,
+    "assist": 0,
+    "xg": 2.1,
+    "xa": 0.4,
+    "fm": 8.33,
+    "pv": 3
+  },
+  "ODENTHAL|SASSUOLO": {
+    "gol": 2,
+    "assist": 0,
+    "xg": 2.1,
+    "xa": 0.4,
+    "fm": 8.33,
+    "pv": 3
+  },
+  "CALHANOGLU|INTER": {
+    "gol": 3,
+    "assist": 0,
+    "xg": 2.9,
+    "xa": 0.4,
+    "fm": 8.3,
+    "pv": 5
+  },
+  "NOSLIN|LAZIO": {
+    "gol": 2,
+    "assist": 2,
+    "xg": 2.1,
+    "xa": 1.9,
+    "fm": 8.2,
+    "pv": 5
+  },
+  "ADZIC|SASSUOLO": {
+    "gol": 3,
+    "assist": 1,
+    "xg": 2.9,
+    "xa": 1.1,
+    "fm": 8.17,
+    "pv": 6
+  },
+  "KVERNADZE|FROSINONE": {
+    "gol": 3,
+    "assist": 1,
+    "xg": 2.9,
+    "xa": 1.1,
+    "fm": 8.14,
+    "pv": 7
+  },
+  "LIBERALI|COMO": {
+    "gol": 1,
+    "assist": 0,
+    "xg": 1.2,
+    "xa": 0.3,
+    "fm": 8.0,
+    "pv": 2
+  },
+  "BONNY|INTER": {
+    "gol": 2,
+    "assist": 0,
+    "xg": 2.0,
+    "xa": 0.3,
+    "fm": 8.0,
+    "pv": 4
+  },
+  "ADAMS C.|TORINO": {
+    "gol": 2,
+    "assist": 0,
+    "xg": 2.0,
+    "xa": 0.3,
+    "fm": 8.0,
+    "pv": 4
+  },
+  "KRSTOVIC|ATALANTA": {
+    "gol": 4,
+    "assist": 1,
+    "xg": 3.6,
+    "xa": 1.1,
+    "fm": 7.86,
+    "pv": 7
+  },
+  "OSMAJIC|GENOA": {
+    "gol": 3,
+    "assist": 1,
+    "xg": 2.8,
+    "xa": 1.1,
+    "fm": 7.83,
+    "pv": 6
+  },
+  "FRATTESI|LAZIO": {
+    "gol": 3,
+    "assist": 0,
+    "xg": 2.8,
+    "xa": 0.3,
+    "fm": 7.79,
+    "pv": 7
+  },
+  "ENEM|BOLOGNA": {
+    "gol": 1,
+    "assist": 0,
+    "xg": 1.2,
+    "xa": 0.2,
+    "fm": 7.75,
+    "pv": 2
+  },
+  "CALÒ|FROSINONE": {
+    "gol": 2,
+    "assist": 2,
+    "xg": 2.0,
+    "xa": 1.8,
+    "fm": 7.71,
+    "pv": 7
+  },
+  "ZHEGROVA|JUVENTUS": {
+    "gol": 2,
+    "assist": 1,
+    "xg": 2.0,
+    "xa": 1.0,
+    "fm": 7.7,
+    "pv": 5
+  },
+  "ESPOSITO F.P.|INTER": {
+    "gol": 2,
+    "assist": 1,
+    "xg": 2.0,
+    "xa": 1.0,
+    "fm": 7.67,
+    "pv": 6
+  },
+  "ROBINSON J.|MONZA": {
+    "gol": 1,
+    "assist": 0,
+    "xg": 1.2,
+    "xa": 0.2,
+    "fm": 7.67,
+    "pv": 3
+  },
+  "EKKELENKAMP|UDINESE": {
+    "gol": 3,
+    "assist": 1,
+    "xg": 2.7,
+    "xa": 1.0,
+    "fm": 7.64,
+    "pv": 7
+  },
+  "CISSÈ A.|MILAN": {
+    "gol": 2,
+    "assist": 0,
+    "xg": 1.9,
+    "xa": 0.2,
+    "fm": 7.62,
+    "pv": 4
+  },
+  "ROMERO D.|PARMA": {
+    "gol": 2,
+    "assist": 0,
+    "xg": 1.9,
+    "xa": 0.2,
+    "fm": 7.6,
+    "pv": 5
+  },
+  "TAVARES N.|LAZIO": {
+    "gol": 1,
+    "assist": 3,
+    "xg": 1.1,
+    "xa": 2.6,
+    "fm": 7.58,
+    "pv": 6
+  },
+  "DYBALA|ROMA": {
+    "gol": 0,
+    "assist": 4,
+    "xg": 0.3,
+    "xa": 3.4,
+    "fm": 7.58,
+    "pv": 6
+  },
+  "ESPOSITO SE.|SASSUOLO": {
+    "gol": 1,
+    "assist": 1,
+    "xg": 1.1,
+    "xa": 1.0,
+    "fm": 7.5,
+    "pv": 4
+  },
+  "DOUVIKAS|COMO": {
+    "gol": 3,
+    "assist": 0,
+    "xg": 2.7,
+    "xa": 0.2,
+    "fm": 7.5,
+    "pv": 7
+  },
+  "GORTER|LECCE": {
+    "gol": 1,
+    "assist": 0,
+    "xg": 1.1,
+    "xa": 0.2,
+    "fm": 7.5,
+    "pv": 2
+  },
+  "VERGARA|NAPOLI": {
+    "gol": 1,
+    "assist": 1,
+    "xg": 1.1,
+    "xa": 1.0,
+    "fm": 7.5,
+    "pv": 3
+  },
+  "VOLPATO|SASSUOLO": {
+    "gol": 1,
+    "assist": 0,
+    "xg": 1.1,
+    "xa": 0.2,
+    "fm": 7.5,
+    "pv": 3
+  },
+  "SAGRADO|VENEZIA": {
+    "gol": 1,
+    "assist": 1,
+    "xg": 1.1,
+    "xa": 1.0,
+    "fm": 7.5,
+    "pv": 3
+  },
+  "ZEBALLOS|MONZA": {
+    "gol": 1,
+    "assist": 0,
+    "xg": 1.1,
+    "xa": 0.2,
+    "fm": 7.5,
+    "pv": 2
+  },
+  "PAZ N.|COMO": {
+    "gol": 2,
+    "assist": 2,
+    "xg": 1.9,
+    "xa": 1.8,
+    "fm": 7.43,
+    "pv": 7
+  },
+  "PULISIC|MILAN": {
+    "gol": 1,
+    "assist": 1,
+    "xg": 1.1,
+    "xa": 1.0,
+    "fm": 7.38,
+    "pv": 4
+  },
+  "DE BRUYNE|NAPOLI": {
+    "gol": 3,
+    "assist": 1,
+    "xg": 2.7,
+    "xa": 1.0,
+    "fm": 7.36,
+    "pv": 7
+  },
+  "SOULÈ|ROMA": {
+    "gol": 2,
+    "assist": 1,
+    "xg": 1.9,
+    "xa": 1.0,
+    "fm": 7.36,
+    "pv": 7
+  },
+  "DIAO|COMO": {
+    "gol": 2,
+    "assist": 1,
+    "xg": 1.8,
+    "xa": 1.0,
+    "fm": 7.33,
+    "pv": 6
+  },
+  "ZIELINSKI|INTER": {
+    "gol": 1,
+    "assist": 2,
+    "xg": 1.0,
+    "xa": 1.8,
+    "fm": 7.33,
+    "pv": 6
+  },
+  "KONÈ M.|ROMA": {
+    "gol": 2,
+    "assist": 0,
+    "xg": 1.8,
+    "xa": 0.2,
+    "fm": 7.33,
+    "pv": 6
+  },
+  "PISILLI|ROMA": {
+    "gol": 2,
+    "assist": 0,
+    "xg": 1.8,
+    "xa": 0.2,
+    "fm": 7.3,
+    "pv": 5
+  },
+  "KOOPMEINERS|JUVENTUS": {
+    "gol": 1,
+    "assist": 1,
+    "xg": 1.0,
+    "xa": 1.0,
+    "fm": 7.25,
+    "pv": 4
+  },
+  "FAVASULI|NAPOLI": {
+    "gol": 0,
+    "assist": 1,
+    "xg": 0.2,
+    "xa": 1.0,
+    "fm": 7.25,
+    "pv": 2
+  },
+  "MASTANTUONO|FIORENTINA": {
+    "gol": 3,
+    "assist": 0,
+    "xg": 2.6,
+    "xa": 0.1,
+    "fm": 7.21,
+    "pv": 7
+  },
+  "DELE-BASHIRU|LAZIO": {
+    "gol": 1,
+    "assist": 0,
+    "xg": 1.0,
+    "xa": 0.1,
+    "fm": 7.17,
+    "pv": 3
+  },
+  "COULIBALY L.|LECCE": {
+    "gol": 2,
+    "assist": 1,
+    "xg": 1.8,
+    "xa": 0.9,
+    "fm": 7.14,
+    "pv": 7
+  },
+  "HAINAUT|VENEZIA": {
+    "gol": 2,
+    "assist": 1,
+    "xg": 1.8,
+    "xa": 0.9,
+    "fm": 7.14,
+    "pv": 7
+  },
+  "ALMQVIST|PARMA": {
+    "gol": 1,
+    "assist": 1,
+    "xg": 1.0,
+    "xa": 0.9,
+    "fm": 7.12,
+    "pv": 4
+  },
+  "ROMANO|CAGLIARI": {
+    "gol": 1,
+    "assist": 0,
+    "xg": 1.0,
+    "xa": 0.1,
+    "fm": 7.08,
+    "pv": 6
+  },
+  "MENDY P.|CAGLIARI": {
+    "gol": 1,
+    "assist": 1,
+    "xg": 1.0,
+    "xa": 0.9,
+    "fm": 7.08,
+    "pv": 6
+  },
+  "BARELLA|INTER": {
+    "gol": 1,
+    "assist": 2,
+    "xg": 1.0,
+    "xa": 1.7,
+    "fm": 7.08,
+    "pv": 6
+  },
+  "ISAKSEN|LAZIO": {
+    "gol": 2,
+    "assist": 0,
+    "xg": 1.8,
+    "xa": 0.1,
+    "fm": 7.08,
+    "pv": 6
+  },
+  "TIAGO GABRIEL|LECCE": {
+    "gol": 2,
+    "assist": 0,
+    "xg": 1.8,
+    "xa": 0.1,
+    "fm": 7.08,
+    "pv": 6
+  },
+  "MANGAS|MONZA": {
+    "gol": 1,
+    "assist": 2,
+    "xg": 1.0,
+    "xa": 1.7,
+    "fm": 7.08,
+    "pv": 6
+  },
+  "BERARDI|SASSUOLO": {
+    "gol": 2,
+    "assist": 0,
+    "xg": 1.8,
+    "xa": 0.1,
+    "fm": 7.08,
+    "pv": 6
+  },
+  "HOJLUND|NAPOLI": {
+    "gol": 2,
+    "assist": 0,
+    "xg": 1.8,
+    "xa": 0.1,
+    "fm": 7.07,
+    "pv": 7
+  },
+  "ORSOLINI|BOLOGNA": {
+    "gol": 1,
+    "assist": 0,
+    "xg": 1.0,
+    "xa": 0.1,
+    "fm": 7.0,
+    "pv": 4
+  },
+  "KAIKI|COMO": {
+    "gol": 1,
+    "assist": 0,
+    "xg": 1.0,
+    "xa": 0.1,
+    "fm": 7.0,
+    "pv": 4
+  },
+  "BATURINA|COMO": {
+    "gol": 2,
+    "assist": 0,
+    "xg": 1.8,
+    "xa": 0.1,
+    "fm": 7.0,
+    "pv": 6
+  },
+  "PONGRACIC|FIORENTINA": {
+    "gol": 1,
+    "assist": 0,
+    "xg": 1.0,
+    "xa": 0.1,
+    "fm": 7.0,
+    "pv": 2
+  },
+  "ZACCAGNI|LAZIO": {
+    "gol": 1,
+    "assist": 3,
+    "xg": 1.0,
+    "xa": 2.5,
+    "fm": 7.0,
+    "pv": 7
+  },
+  "GILMOUR|NAPOLI": {
+    "gol": 1,
+    "assist": 0,
+    "xg": 1.0,
+    "xa": 0.1,
+    "fm": 7.0,
+    "pv": 4
+  },
+  "LULLI|ROMA": {
+    "gol": 1,
+    "assist": 0,
+    "xg": 1.0,
+    "xa": 0.1,
+    "fm": 7.0,
+    "pv": 5
+  },
+  "BRAGANCA|TORINO": {
+    "gol": 1,
+    "assist": 0,
+    "xg": 1.0,
+    "xa": 0.1,
+    "fm": 7.0,
+    "pv": 4
+  },
+  "BREMER|JUVENTUS": {
+    "gol": 2,
+    "assist": 0,
+    "xg": 1.7,
+    "xa": 0.1,
+    "fm": 6.93,
+    "pv": 7
+  },
+  "DIOUF|INTER": {
+    "gol": 0,
+    "assist": 3,
+    "xg": 0.1,
+    "xa": 2.5,
+    "fm": 6.92,
+    "pv": 6
+  },
+  "MORA|ROMA": {
+    "gol": 1,
+    "assist": 0,
+    "xg": 0.9,
+    "xa": 0.1,
+    "fm": 6.9,
+    "pv": 5
+  },
+  "PINAMONTI|LAZIO": {
+    "gol": 1,
+    "assist": 1,
+    "xg": 0.9,
+    "xa": 0.9,
+    "fm": 6.88,
+    "pv": 4
+  },
+  "KAMARA H.|UDINESE": {
+    "gol": 2,
+    "assist": 0,
+    "xg": 1.7,
+    "xa": 0.1,
+    "fm": 6.86,
+    "pv": 7
+  },
+  "MOTA|MONZA": {
+    "gol": 0,
+    "assist": 1,
+    "xg": 0.1,
+    "xa": 0.9,
+    "fm": 6.83,
+    "pv": 3
+  },
+  "PIOTROWSKI|UDINESE": {
+    "gol": 1,
+    "assist": 0,
+    "xg": 0.9,
+    "xa": 0.1,
+    "fm": 6.83,
+    "pv": 3
+  },
+  "KESSIÈ|ATALANTA": {
+    "gol": 1,
+    "assist": 0,
+    "xg": 0.9,
+    "xa": 0.1,
+    "fm": 6.83,
+    "pv": 3
+  },
+  "WESLEY|ROMA": {
+    "gol": 0,
+    "assist": 1,
+    "xg": 0.1,
+    "xa": 0.9,
+    "fm": 6.8,
+    "pv": 5
+  },
+  "CASTRO S.|ROMA": {
+    "gol": 1,
+    "assist": 0,
+    "xg": 0.9,
+    "xa": 0.1,
+    "fm": 6.8,
+    "pv": 5
+  },
+  "GILA|MILAN": {
+    "gol": 1,
+    "assist": 0,
+    "xg": 0.9,
+    "xa": 0.1,
+    "fm": 6.79,
+    "pv": 7
+  },
+  "LOBOTKA|NAPOLI": {
+    "gol": 1,
+    "assist": 0,
+    "xg": 0.9,
+    "xa": 0.1,
+    "fm": 6.79,
+    "pv": 7
+  },
+  "RASPADORI|ATALANTA": {
+    "gol": 1,
+    "assist": 0,
+    "xg": 0.9,
+    "xa": 0.1,
+    "fm": 6.75,
+    "pv": 4
+  },
+  "POBEGA|BOLOGNA": {
+    "gol": 1,
+    "assist": 0,
+    "xg": 0.9,
+    "xa": 0.1,
+    "fm": 6.75,
+    "pv": 6
+  },
+  "BERNARDESCHI|BOLOGNA": {
+    "gol": 1,
+    "assist": 0,
+    "xg": 0.9,
+    "xa": 0.1,
+    "fm": 6.75,
+    "pv": 6
+  },
+  "MINA|CAGLIARI": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.1,
+    "xa": 0.1,
+    "fm": 6.75,
+    "pv": 2
+  },
+  "MANDRAGORA|TORINO": {
+    "gol": 1,
+    "assist": 1,
+    "xg": 0.9,
+    "xa": 0.9,
+    "fm": 6.75,
+    "pv": 6
+  },
+  "GUEYE|UDINESE": {
+    "gol": 1,
+    "assist": 0,
+    "xg": 0.9,
+    "xa": 0.1,
+    "fm": 6.75,
+    "pv": 4
+  },
+  "RAMON|COMO": {
+    "gol": 1,
+    "assist": 0,
+    "xg": 0.9,
+    "xa": 0.0,
+    "fm": 6.71,
+    "pv": 7
+  },
+  "CANCELLIERI|LAZIO": {
+    "gol": 1,
+    "assist": 0,
+    "xg": 0.9,
+    "xa": 0.0,
+    "fm": 6.7,
+    "pv": 5
+  },
+  "GUDMUNDSSON A.|LAZIO": {
+    "gol": 1,
+    "assist": 0,
+    "xg": 0.9,
+    "xa": 0.0,
+    "fm": 6.67,
+    "pv": 3
+  },
+  "BISSECK|INTER": {
+    "gol": 1,
+    "assist": 0,
+    "xg": 0.9,
+    "xa": 0.0,
+    "fm": 6.67,
+    "pv": 6
+  },
+  "SUCIC P.|INTER": {
+    "gol": 1,
+    "assist": 0,
+    "xg": 0.9,
+    "xa": 0.0,
+    "fm": 6.67,
+    "pv": 6
+  },
+  "GONZALEZ N.|JUVENTUS": {
+    "gol": 1,
+    "assist": 0,
+    "xg": 0.9,
+    "xa": 0.0,
+    "fm": 6.67,
+    "pv": 6
+  },
+  "BRACAGLIA|FROSINONE": {
+    "gol": 1,
+    "assist": 1,
+    "xg": 0.8,
+    "xa": 0.8,
+    "fm": 6.64,
+    "pv": 7
+  },
+  "CONCEICAO|JUVENTUS": {
+    "gol": 1,
+    "assist": 1,
+    "xg": 0.8,
+    "xa": 0.8,
+    "fm": 6.64,
+    "pv": 7
+  },
+  "RAMOS G.|MILAN": {
+    "gol": 2,
+    "assist": 1,
+    "xg": 1.6,
+    "xa": 0.8,
+    "fm": 6.64,
+    "pv": 7
+  },
+  "ADAMS A.|VENEZIA": {
+    "gol": 2,
+    "assist": 0,
+    "xg": 1.6,
+    "xa": 0.0,
+    "fm": 6.64,
+    "pv": 7
+  },
+  "ZALEWSKI|ATALANTA": {
+    "gol": 0,
+    "assist": 2,
+    "xg": 0.0,
+    "xa": 1.6,
+    "fm": 6.62,
+    "pv": 4
+  },
+  "LANG|NAPOLI": {
+    "gol": 1,
+    "assist": 0,
+    "xg": 0.8,
+    "xa": 0.0,
+    "fm": 6.6,
+    "pv": 5
+  },
+  "ADOPO|CAGLIARI": {
+    "gol": 0,
+    "assist": 2,
+    "xg": 0.0,
+    "xa": 1.6,
+    "fm": 6.58,
+    "pv": 6
+  },
+  "N'DRI|LECCE": {
+    "gol": 1,
+    "assist": 0,
+    "xg": 0.8,
+    "xa": 0.0,
+    "fm": 6.58,
+    "pv": 6
+  },
+  "LONTANI|PARMA": {
+    "gol": 1,
+    "assist": 0,
+    "xg": 0.8,
+    "xa": 0.0,
+    "fm": 6.58,
+    "pv": 6
+  },
+  "MESSIAS|GENOA": {
+    "gol": 1,
+    "assist": 0,
+    "xg": 0.8,
+    "xa": 0.0,
+    "fm": 6.57,
+    "pv": 7
+  },
+  "SCHMID|FROSINONE": {
+    "gol": 0,
+    "assist": 3,
+    "xg": 0.0,
+    "xa": 2.4,
+    "fm": 6.57,
+    "pv": 7
+  },
+  "GAETANO|ATALANTA": {
+    "gol": 1,
+    "assist": 1,
+    "xg": 0.8,
+    "xa": 0.8,
+    "fm": 6.5,
+    "pv": 5
+  },
+  "SCAMACCA|ATALANTA": {
+    "gol": 1,
+    "assist": 0,
+    "xg": 0.8,
+    "xa": 0.0,
+    "fm": 6.5,
+    "pv": 6
+  },
+  "MIRANDA J.|BOLOGNA": {
+    "gol": 0,
+    "assist": 2,
+    "xg": 0.0,
+    "xa": 1.6,
+    "fm": 6.5,
+    "pv": 6
+  },
+  "MKHITARYAN|INTER": {
+    "gol": 0,
+    "assist": 1,
+    "xg": 0.0,
+    "xa": 0.8,
+    "fm": 6.5,
+    "pv": 3
+  },
+  "PEDRAZA|LAZIO": {
+    "gol": 0,
+    "assist": 1,
+    "xg": 0.0,
+    "xa": 0.8,
+    "fm": 6.5,
+    "pv": 3
+  },
+  "SAELEMAEKERS|MILAN": {
+    "gol": 0,
+    "assist": 1,
+    "xg": 0.0,
+    "xa": 0.8,
+    "fm": 6.5,
+    "pv": 4
+  },
+  "CHUKWUEZE|MILAN": {
+    "gol": 0,
+    "assist": 2,
+    "xg": 0.0,
+    "xa": 1.6,
+    "fm": 6.5,
+    "pv": 7
+  },
+  "COLPANI|MONZA": {
+    "gol": 1,
+    "assist": 0,
+    "xg": 0.8,
+    "xa": 0.0,
+    "fm": 6.5,
+    "pv": 4
+  },
+  "POLITANO|NAPOLI": {
+    "gol": 1,
+    "assist": 1,
+    "xg": 0.8,
+    "xa": 0.8,
+    "fm": 6.5,
+    "pv": 6
+  },
+  "GIOVANE|NAPOLI": {
+    "gol": 0,
+    "assist": 1,
+    "xg": 0.0,
+    "xa": 0.8,
+    "fm": 6.5,
+    "pv": 2
+  },
+  "HERMOSO|ROMA": {
+    "gol": 1,
+    "assist": 0,
+    "xg": 0.8,
+    "xa": 0.0,
+    "fm": 6.5,
+    "pv": 7
+  },
+  "BAKOLA|SASSUOLO": {
+    "gol": 0,
+    "assist": 2,
+    "xg": 0.0,
+    "xa": 1.6,
+    "fm": 6.5,
+    "pv": 6
+  },
+  "COMUZZO|TORINO": {
+    "gol": 1,
+    "assist": 0,
+    "xg": 0.8,
+    "xa": 0.0,
+    "fm": 6.5,
+    "pv": 5
+  },
+  "ABANKWAH|UDINESE": {
+    "gol": 1,
+    "assist": 0,
+    "xg": 0.8,
+    "xa": 0.0,
+    "fm": 6.5,
+    "pv": 6
+  },
+  "BUSIO|VENEZIA": {
+    "gol": 0,
+    "assist": 2,
+    "xg": 0.0,
+    "xa": 1.6,
+    "fm": 6.5,
+    "pv": 4
+  },
+  "BALERDI|ROMA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.5,
+    "pv": 5
+  },
+  "OYONO A.|FROSINONE": {
+    "gol": 0,
+    "assist": 1,
+    "xg": 0.0,
+    "xa": 0.8,
+    "fm": 6.43,
+    "pv": 7
+  },
+  "MASINI|FROSINONE": {
+    "gol": 0,
+    "assist": 1,
+    "xg": 0.0,
+    "xa": 0.8,
+    "fm": 6.43,
+    "pv": 7
+  },
+  "PELLEGRINO M.|FIORENTINA": {
+    "gol": 2,
+    "assist": 0,
+    "xg": 1.6,
+    "xa": 0.0,
+    "fm": 6.43,
+    "pv": 7
+  },
+  "MATIC|SASSUOLO": {
+    "gol": 0,
+    "assist": 1,
+    "xg": 0.0,
+    "xa": 0.8,
+    "fm": 6.43,
+    "pv": 7
+  },
+  "BOWIE|SASSUOLO": {
+    "gol": 1,
+    "assist": 0,
+    "xg": 0.8,
+    "xa": 0.0,
+    "fm": 6.43,
+    "pv": 7
+  },
+  "JIMENEZ A.|FIORENTINA": {
+    "gol": 1,
+    "assist": 1,
+    "xg": 0.8,
+    "xa": 0.8,
+    "fm": 6.42,
+    "pv": 6
+  },
+  "MANCINI|ROMA": {
+    "gol": 0,
+    "assist": 1,
+    "xg": 0.0,
+    "xa": 0.8,
+    "fm": 6.42,
+    "pv": 6
+  },
+  "FATAH|LECCE": {
+    "gol": 1,
+    "assist": 0,
+    "xg": 0.8,
+    "xa": 0.0,
+    "fm": 6.42,
+    "pv": 6
+  },
+  "VALLE|COMO": {
+    "gol": 0,
+    "assist": 2,
+    "xg": 0.0,
+    "xa": 1.6,
+    "fm": 6.4,
+    "pv": 5
+  },
+  "DOVBYK|BOLOGNA": {
+    "gol": 1,
+    "assist": 0,
+    "xg": 0.8,
+    "xa": 0.0,
+    "fm": 6.38,
+    "pv": 4
+  },
+  "MILLA|COMO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.38,
+    "pv": 4
+  },
+  "DOEKHI|LAZIO": {
+    "gol": 0,
+    "assist": 1,
+    "xg": 0.0,
+    "xa": 0.8,
+    "fm": 6.38,
+    "pv": 4
+  },
+  "SAMARDZIC|ATALANTA": {
+    "gol": 1,
+    "assist": 0,
+    "xg": 0.8,
+    "xa": 0.0,
+    "fm": 6.36,
+    "pv": 7
+  },
+  "MANDAS|LAZIO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.36,
+    "pv": 7
+  },
+  "PROVSTGAARD|LAZIO": {
+    "gol": 1,
+    "assist": 0,
+    "xg": 0.8,
+    "xa": 0.0,
+    "fm": 6.36,
+    "pv": 7
+  },
+  "DOIG|SASSUOLO": {
+    "gol": 1,
+    "assist": 0,
+    "xg": 0.8,
+    "xa": 0.0,
+    "fm": 6.36,
+    "pv": 7
+  },
+  "KEMPF|COMO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.33,
+    "pv": 3
+  },
+  "LOCATELLI|JUVENTUS": {
+    "gol": 0,
+    "assist": 1,
+    "xg": 0.0,
+    "xa": 0.8,
+    "fm": 6.33,
+    "pv": 3
+  },
+  "DAVIS K.|UDINESE": {
+    "gol": 0,
+    "assist": 2,
+    "xg": 0.0,
+    "xa": 1.6,
+    "fm": 6.33,
+    "pv": 6
+  },
+  "CAQUERET|COMO": {
+    "gol": 0,
+    "assist": 1,
+    "xg": 0.0,
+    "xa": 0.8,
+    "fm": 6.3,
+    "pv": 5
+  },
+  "GHEDJEMIS|FROSINONE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.3,
+    "pv": 5
+  },
+  "CRISTANTE|ROMA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.3,
+    "pv": 5
+  },
+  "MOLINA N.|ROMA": {
+    "gol": 0,
+    "assist": 1,
+    "xg": 0.0,
+    "xa": 0.8,
+    "fm": 6.3,
+    "pv": 5
+  },
+  "CAMBIAGHI|BOLOGNA": {
+    "gol": 0,
+    "assist": 2,
+    "xg": 0.0,
+    "xa": 1.6,
+    "fm": 6.29,
+    "pv": 7
+  },
+  "PICCOLI|BOLOGNA": {
+    "gol": 1,
+    "assist": 0,
+    "xg": 0.8,
+    "xa": 0.0,
+    "fm": 6.29,
+    "pv": 7
+  },
+  "DIMARCO|INTER": {
+    "gol": 0,
+    "assist": 1,
+    "xg": 0.0,
+    "xa": 0.8,
+    "fm": 6.29,
+    "pv": 7
+  },
+  "MODRIC|MILAN": {
+    "gol": 0,
+    "assist": 1,
+    "xg": 0.0,
+    "xa": 0.8,
+    "fm": 6.29,
+    "pv": 7
+  },
+  "LAURIENTÈ|SASSUOLO": {
+    "gol": 0,
+    "assist": 1,
+    "xg": 0.0,
+    "xa": 0.8,
+    "fm": 6.29,
+    "pv": 7
+  },
+  "KEAN|COMO": {
+    "gol": 0,
+    "assist": 1,
+    "xg": 0.0,
+    "xa": 0.8,
+    "fm": 6.25,
+    "pv": 4
+  },
+  "BELAHYANE|LAZIO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.25,
+    "pv": 6
+  },
+  "ROVELLA|LAZIO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.25,
+    "pv": 2
+  },
+  "DIA|LAZIO": {
+    "gol": 0,
+    "assist": 1,
+    "xg": 0.0,
+    "xa": 0.8,
+    "fm": 6.25,
+    "pv": 2
+  },
+  "GOLLINI|ROMA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.25,
+    "pv": 2
+  },
+  "CACCIAMANI|TORINO": {
+    "gol": 0,
+    "assist": 1,
+    "xg": 0.0,
+    "xa": 0.8,
+    "fm": 6.25,
+    "pv": 6
+  },
+  "LEYSEN F.|SASSUOLO": {
+    "gol": 0,
+    "assist": 1,
+    "xg": 0.0,
+    "xa": 0.8,
+    "fm": 6.25,
+    "pv": 6
+  },
+  "DA CUNHA|COMO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.21,
+    "pv": 7
+  },
+  "THORSTVEDT|SASSUOLO": {
+    "gol": 1,
+    "assist": 0,
+    "xg": 0.8,
+    "xa": 0.0,
+    "fm": 6.21,
+    "pv": 7
+  },
+  "KARLSTROM|UDINESE": {
+    "gol": 1,
+    "assist": 0,
+    "xg": 0.8,
+    "xa": 0.0,
+    "fm": 6.21,
+    "pv": 7
+  },
+  "CHALOBAH T.|COMO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.2,
+    "pv": 5
+  },
+  "DE ROON|ROMA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.17,
+    "pv": 3
+  },
+  "ZÈ PEDRO|CAGLIARI": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.17,
+    "pv": 6
+  },
+  "WINKS|CAGLIARI": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.17,
+    "pv": 6
+  },
+  "CALVANI|FROSINONE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.17,
+    "pv": 6
+  },
+  "ZERBIN|FROSINONE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.17,
+    "pv": 3
+  },
+  "ALAJBEGOVIC|JUVENTUS": {
+    "gol": 0,
+    "assist": 1,
+    "xg": 0.0,
+    "xa": 0.8,
+    "fm": 6.17,
+    "pv": 6
+  },
+  "JASHARI|MILAN": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.17,
+    "pv": 3
+  },
+  "EDERSON D.S.|ATALANTA": {
+    "gol": 1,
+    "assist": 0,
+    "xg": 0.8,
+    "xa": 0.0,
+    "fm": 6.14,
+    "pv": 7
+  },
+  "TAYLOR K.|LAZIO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.14,
+    "pv": 7
+  },
+  "VEIGA D.|LECCE": {
+    "gol": 0,
+    "assist": 3,
+    "xg": 0.0,
+    "xa": 2.4,
+    "fm": 6.14,
+    "pv": 7
+  },
+  "RRAHMANI|NAPOLI": {
+    "gol": 0,
+    "assist": 1,
+    "xg": 0.0,
+    "xa": 0.8,
+    "fm": 6.14,
+    "pv": 7
+  },
+  "SANTOS A.|NAPOLI": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.12,
+    "pv": 4
+  },
+  "COMERT|TORINO": {
+    "gol": 0,
+    "assist": 1,
+    "xg": 0.0,
+    "xa": 0.8,
+    "fm": 6.12,
+    "pv": 4
+  },
+  "SUTALO J.|LAZIO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.12,
+    "pv": 4
+  },
+  "EL SHAARAWY|GENOA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.12,
+    "pv": 4
+  },
+  "BELLANOVA|ATALANTA": {
+    "gol": 0,
+    "assist": 1,
+    "xg": 0.0,
+    "xa": 0.8,
+    "fm": 6.1,
+    "pv": 5
+  },
+  "FINI|FROSINONE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.1,
+    "pv": 5
+  },
+  "GASPAR K.|LECCE": {
+    "gol": 1,
+    "assist": 0,
+    "xg": 0.8,
+    "xa": 0.0,
+    "fm": 6.1,
+    "pv": 5
+  },
+  "AKINSANMIRO|MONZA": {
+    "gol": 0,
+    "assist": 1,
+    "xg": 0.0,
+    "xa": 0.8,
+    "fm": 6.1,
+    "pv": 5
+  },
+  "CINQUEGRANO|SASSUOLO": {
+    "gol": 0,
+    "assist": 1,
+    "xg": 0.0,
+    "xa": 0.8,
+    "fm": 6.1,
+    "pv": 5
+  },
+  "CAPRILE|CAGLIARI": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.08,
+    "pv": 6
+  },
+  "GALLO|LECCE": {
+    "gol": 0,
+    "assist": 1,
+    "xg": 0.0,
+    "xa": 0.8,
+    "fm": 6.08,
+    "pv": 6
+  },
+  "MUSAH|MILAN": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.08,
+    "pv": 6
+  },
+  "BIRINDELLI|MONZA": {
+    "gol": 0,
+    "assist": 2,
+    "xg": 0.0,
+    "xa": 1.6,
+    "fm": 6.08,
+    "pv": 6
+  },
+  "FERGUSON|BOLOGNA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.07,
+    "pv": 7
+  },
+  "PERRONE|COMO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.07,
+    "pv": 7
+  },
+  "KOLO MUANI|JUVENTUS": {
+    "gol": 1,
+    "assist": 1,
+    "xg": 0.8,
+    "xa": 0.8,
+    "fm": 6.07,
+    "pv": 7
+  },
+  "SIEBERT|LECCE": {
+    "gol": 1,
+    "assist": 0,
+    "xg": 0.8,
+    "xa": 0.0,
+    "fm": 6.07,
+    "pv": 7
+  },
+  "DI LORENZO|NAPOLI": {
+    "gol": 0,
+    "assist": 1,
+    "xg": 0.0,
+    "xa": 0.8,
+    "fm": 6.07,
+    "pv": 7
+  },
+  "SULEMANA I.|SASSUOLO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.0,
+    "pv": 1
+  },
+  "CASALE|BOLOGNA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.0,
+    "pv": 2
+  },
+  "HELLAND|BOLOGNA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.0,
+    "pv": 5
+  },
+  "HOLM|BOLOGNA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.0,
+    "pv": 4
+  },
+  "KOFLER|CAGLIARI": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.0,
+    "pv": 2
+  },
+  "RODRIGUEZ JU.|CAGLIARI": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.0,
+    "pv": 6
+  },
+  "ZAPPA|CAGLIARI": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.0,
+    "pv": 1
+  },
+  "FAZZINI|CAGLIARI": {
+    "gol": 0,
+    "assist": 1,
+    "xg": 0.0,
+    "xa": 0.8,
+    "fm": 6.0,
+    "pv": 4
+  },
+  "FELICI|CAGLIARI": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.0,
+    "pv": 1
+  },
+  "BORRELLI|CAGLIARI": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.0,
+    "pv": 1
+  },
+  "FADERA|CAGLIARI": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.0,
+    "pv": 4
+  },
+  "HASA|FROSINONE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.0,
+    "pv": 2
+  },
+  "AMORIM|GENOA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.0,
+    "pv": 2
+  },
+  "TRAORÈ HJ.|GENOA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.0,
+    "pv": 1
+  },
+  "STANKOVIC A.|INTER": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.0,
+    "pv": 1
+  },
+  "KALULU|JUVENTUS": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.0,
+    "pv": 7
+  },
+  "MARUSIC|LAZIO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.0,
+    "pv": 1
+  },
+  "KABA|LECCE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.0,
+    "pv": 2
+  },
+  "PAVLOVIC|MILAN": {
+    "gol": 0,
+    "assist": 1,
+    "xg": 0.0,
+    "xa": 0.8,
+    "fm": 6.0,
+    "pv": 7
+  },
+  "DE WINTER|MILAN": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.0,
+    "pv": 7
+  },
+  "BARTESAGHI|MILAN": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.0,
+    "pv": 2
+  },
+  "DELLI CARRI|MONZA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.0,
+    "pv": 1
+  },
+  "MILINKOVIC-SAVIC V.|NAPOLI": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.0,
+    "pv": 2
+  },
+  "BEUKEMA|NAPOLI": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.0,
+    "pv": 1
+  },
+  "MAZZOCCHI|VENEZIA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.0,
+    "pv": 1
+  },
+  "NDIAYE|PARMA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.0,
+    "pv": 1
+  },
+  "VALENTI|PARMA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.0,
+    "pv": 1
+  },
+  "VALERI|PARMA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.0,
+    "pv": 6
+  },
+  "BRITSCHGI|PARMA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.0,
+    "pv": 3
+  },
+  "DIALLO O.|PARMA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.0,
+    "pv": 1
+  },
+  "ELPHEGE|PARMA": {
+    "gol": 0,
+    "assist": 1,
+    "xg": 0.0,
+    "xa": 0.8,
+    "fm": 6.0,
+    "pv": 4
+  },
+  "GHILARDI|ROMA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.0,
+    "pv": 3
+  },
+  "KOULIERAKIS|ROMA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.0,
+    "pv": 2
+  },
+  "IDZES|SASSUOLO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.0,
+    "pv": 3
+  },
+  "COCO|TORINO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.0,
+    "pv": 6
+  },
+  "PEDERSEN|TORINO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.0,
+    "pv": 1
+  },
+  "FITZ-JIM|TORINO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.0,
+    "pv": 5
+  },
+  "ILIC|LECCE": {
+    "gol": 0,
+    "assist": 2,
+    "xg": 0.0,
+    "xa": 1.6,
+    "fm": 6.0,
+    "pv": 5
+  },
+  "PALMA|UDINESE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.0,
+    "pv": 2
+  },
+  "ZANOLI|UDINESE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.0,
+    "pv": 2
+  },
+  "CORREIA T.|VENEZIA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.0,
+    "pv": 4
+  },
+  "COUTO|COMO": {
+    "gol": 0,
+    "assist": 1,
+    "xg": 0.0,
+    "xa": 0.8,
+    "fm": 6.0,
+    "pv": 6
+  },
+  "PELLEGRINI LO.|ROMA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.0,
+    "pv": 2
+  },
+  "OBRADOR|SASSUOLO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.0,
+    "pv": 2
+  },
+  "SPENCE|INTER": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.0,
+    "pv": 1
+  },
+  "OMAR FAYED|FROSINONE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.0,
+    "pv": 1
+  },
+  "FORTINI|TORINO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.0,
+    "pv": 5
+  },
+  "JONES C.|INTER": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.0,
+    "pv": 4
+  },
+  "MAYE|MONZA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.0,
+    "pv": 1
+  },
+  "MASSOLIN|CAGLIARI": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.0,
+    "pv": 1
+  },
+  "BELGHALI|TORINO": {
+    "gol": 0,
+    "assist": 1,
+    "xg": 0.0,
+    "xa": 0.8,
+    "fm": 6.0,
+    "pv": 4
+  },
+  "SUGAWARA|CAGLIARI": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.0,
+    "pv": 3
+  },
+  "FERNANDEZ T.|VENEZIA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.0,
+    "pv": 1
+  },
+  "NZOLA|CAGLIARI": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.0,
+    "pv": 1
+  },
+  "RODRIGUEZ R.|TORINO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.0,
+    "pv": 2
+  },
+  "DARMIAN|BOLOGNA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 6.0,
+    "pv": 2
+  },
+  "FAGIOLI|FIORENTINA": {
+    "gol": 0,
+    "assist": 1,
+    "xg": 0.0,
+    "xa": 0.8,
+    "fm": 5.93,
+    "pv": 7
+  },
+  "YEBOAH J.|VENEZIA": {
+    "gol": 1,
+    "assist": 0,
+    "xg": 0.8,
+    "xa": 0.0,
+    "fm": 5.93,
+    "pv": 7
+  },
+  "OBERT|CAGLIARI": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.92,
+    "pv": 6
+  },
+  "BASTONI|INTER": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.92,
+    "pv": 6
+  },
+  "TOURÈ E.|PARMA": {
+    "gol": 0,
+    "assist": 1,
+    "xg": 0.0,
+    "xa": 0.8,
+    "fm": 5.92,
+    "pv": 6
+  },
+  "ZORTEA|BOLOGNA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.9,
+    "pv": 5
+  },
+  "DOMINGUEZ B.|SASSUOLO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.9,
+    "pv": 5
+  },
+  "MONTERISI|FROSINONE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.9,
+    "pv": 5
+  },
+  "ISMAJLI|TORINO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.9,
+    "pv": 5
+  },
+  "RODRIGUEZ JE.|COMO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.88,
+    "pv": 4
+  },
+  "BAKOUNE|MONZA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.88,
+    "pv": 4
+  },
+  "CUTRONE|MONZA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.88,
+    "pv": 4
+  },
+  "LIPANI|SASSUOLO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.88,
+    "pv": 4
+  },
+  "CELIK|JUVENTUS": {
+    "gol": 0,
+    "assist": 1,
+    "xg": 0.0,
+    "xa": 0.8,
+    "fm": 5.86,
+    "pv": 7
+  },
+  "FLORIANI MUSSOLINI|LAZIO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.86,
+    "pv": 7
+  },
+  "MALEH|LECCE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.86,
+    "pv": 7
+  },
+  "SCALVINI|ATALANTA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.83,
+    "pv": 6
+  },
+  "KOLASINAC|ATALANTA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.83,
+    "pv": 6
+  },
+  "DEIOLA|CAGLIARI": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.83,
+    "pv": 6
+  },
+  "AKANJI|INTER": {
+    "gol": 0,
+    "assist": 1,
+    "xg": 0.0,
+    "xa": 0.8,
+    "fm": 5.83,
+    "pv": 6
+  },
+  "STONES|INTER": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.83,
+    "pv": 3
+  },
+  "PAVARD|INTER": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.83,
+    "pv": 3
+  },
+  "BOGA|JUVENTUS": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.83,
+    "pv": 3
+  },
+  "SPINAZZOLA|NAPOLI": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.83,
+    "pv": 6
+  },
+  "NERES|NAPOLI": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.83,
+    "pv": 3
+  },
+  "ORDONEZ C.|PARMA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.83,
+    "pv": 3
+  },
+  "RENSCH|ROMA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.83,
+    "pv": 3
+  },
+  "NJIE|FIORENTINA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.83,
+    "pv": 6
+  },
+  "TERZIC|FROSINONE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.83,
+    "pv": 3
+  },
+  "FORSON O.|MONZA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.83,
+    "pv": 3
+  },
+  "BALDANZI|GENOA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.8,
+    "pv": 5
+  },
+  "LUIS HENRIQUE|INTER": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.8,
+    "pv": 5
+  },
+  "SVILAR|ROMA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.8,
+    "pv": 5
+  },
+  "N'DICKA|ROMA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.8,
+    "pv": 5
+  },
+  "HAPS|VENEZIA": {
+    "gol": 0,
+    "assist": 1,
+    "xg": 0.0,
+    "xa": 0.8,
+    "fm": 5.8,
+    "pv": 5
+  },
+  "SOW|GENOA": {
+    "gol": 0,
+    "assist": 1,
+    "xg": 0.0,
+    "xa": 0.8,
+    "fm": 5.8,
+    "pv": 5
+  },
+  "CITTADINI|FROSINONE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.79,
+    "pv": 7
+  },
+  "FRENDRUP|GENOA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.79,
+    "pv": 7
+  },
+  "ALHASSANE|BOLOGNA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.75,
+    "pv": 2
+  },
+  "MORO N.|BOLOGNA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.75,
+    "pv": 4
+  },
+  "SMOLCIC I.|COMO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.75,
+    "pv": 2
+  },
+  "BRESCIANINI|FIORENTINA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.75,
+    "pv": 4
+  },
+  "CICHELLA|FROSINONE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.75,
+    "pv": 2
+  },
+  "NORTON-CUFFY|GENOA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.75,
+    "pv": 2
+  },
+  "MCKENNIE|JUVENTUS": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.75,
+    "pv": 4
+  },
+  "GABBIA|MILAN": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.75,
+    "pv": 2
+  },
+  "MCTOMINAY|NAPOLI": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.75,
+    "pv": 4
+  },
+  "DELPRATO|PARMA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.75,
+    "pv": 6
+  },
+  "BERNABÈ|PARMA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.75,
+    "pv": 4
+  },
+  "GINEITIS|TORINO": {
+    "gol": 0,
+    "assist": 1,
+    "xg": 0.0,
+    "xa": 0.8,
+    "fm": 5.75,
+    "pv": 4
+  },
+  "ILKHAN|TORINO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.75,
+    "pv": 4
+  },
+  "ORISTANIO|TORINO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.75,
+    "pv": 2
+  },
+  "ZARRAGA|UDINESE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.75,
+    "pv": 4
+  },
+  "ZANIOLO|UDINESE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.75,
+    "pv": 2
+  },
+  "FRANJIC|VENEZIA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.75,
+    "pv": 2
+  },
+  "BASIC|VENEZIA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.75,
+    "pv": 4
+  },
+  "SOHM|VENEZIA": {
+    "gol": 0,
+    "assist": 1,
+    "xg": 0.0,
+    "xa": 0.8,
+    "fm": 5.75,
+    "pv": 6
+  },
+  "BOBCEK|FROSINONE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.75,
+    "pv": 2
+  },
+  "THEATE|BOLOGNA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.75,
+    "pv": 4
+  },
+  "PATTERSON|TORINO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.75,
+    "pv": 2
+  },
+  "ESTEBAN|LECCE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.75,
+    "pv": 4
+  },
+  "ALABA|UDINESE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.75,
+    "pv": 2
+  },
+  "NDOUR|FIORENTINA": {
+    "gol": 0,
+    "assist": 1,
+    "xg": 0.0,
+    "xa": 0.8,
+    "fm": 5.71,
+    "pv": 7
+  },
+  "PIEROTTI|LECCE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.71,
+    "pv": 7
+  },
+  "PEREZ K.|VENEZIA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.71,
+    "pv": 7
+  },
+  "ZAPPACOSTA|ATALANTA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.7,
+    "pv": 5
+  },
+  "COLOMBO|GENOA": {
+    "gol": 0,
+    "assist": 2,
+    "xg": 0.0,
+    "xa": 1.6,
+    "fm": 5.7,
+    "pv": 5
+  },
+  "SOLET|UDINESE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.7,
+    "pv": 5
+  },
+  "LUCUMÌ|JUVENTUS": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.67,
+    "pv": 6
+  },
+  "CAMBIASO|JUVENTUS": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.67,
+    "pv": 3
+  },
+  "LOFTUS-CHEEK|MILAN": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.67,
+    "pv": 6
+  },
+  "KEITA M.|PARMA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.67,
+    "pv": 6
+  },
+  "SIMEONE|TORINO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.67,
+    "pv": 6
+  },
+  "BERTOLA|UDINESE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.67,
+    "pv": 3
+  },
+  "UNAI GOMEZ|UDINESE": {
+    "gol": 0,
+    "assist": 1,
+    "xg": 0.0,
+    "xa": 0.8,
+    "fm": 5.67,
+    "pv": 6
+  },
+  "HELGASON|VENEZIA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.67,
+    "pv": 3
+  },
+  "RRAHMANI AL.|VENEZIA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.67,
+    "pv": 3
+  },
+  "FOE ONDOA|MONZA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.67,
+    "pv": 3
+  },
+  "DE KETELAERE|ATALANTA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.64,
+    "pv": 7
+  },
+  "CHAKVETADZE|UDINESE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.62,
+    "pv": 4
+  },
+  "SARR P.|JUVENTUS": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.62,
+    "pv": 4
+  },
+  "BETO|FIORENTINA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.62,
+    "pv": 4
+  },
+  "WOLTEMADE|JUVENTUS": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.62,
+    "pv": 4
+  },
+  "GNONTO|FIORENTINA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.62,
+    "pv": 4
+  },
+  "EHIZIBUE|GENOA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.62,
+    "pv": 4
+  },
+  "BERNASCONI|ATALANTA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.6,
+    "pv": 5
+  },
+  "MILLER L.|UDINESE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.6,
+    "pv": 5
+  },
+  "ESTUPINAN|MILAN": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.58,
+    "pv": 6
+  },
+  "CARBONI A.|MONZA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.58,
+    "pv": 6
+  },
+  "MARIN R.|NAPOLI": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.58,
+    "pv": 6
+  },
+  "LUCCA|NAPOLI": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.58,
+    "pv": 6
+  },
+  "CARNESECCHI|ATALANTA": {
+    "gol": 0,
+    "assist": 1,
+    "xg": 0.0,
+    "xa": 0.8,
+    "fm": 5.57,
+    "pv": 7
+  },
+  "ELLERTSSON|GENOA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.57,
+    "pv": 7
+  },
+  "NGOM|LECCE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.57,
+    "pv": 7
+  },
+  "EBOSSE|UDINESE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.57,
+    "pv": 7
+  },
+  "VOJVODA|UDINESE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.57,
+    "pv": 7
+  },
+  "KOSSOUNOU|ATALANTA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.5,
+    "pv": 4
+  },
+  "PASALIC|ATALANTA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.5,
+    "pv": 4
+  },
+  "HEGGEM|BOLOGNA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.5,
+    "pv": 6
+  },
+  "DE SILVESTRI|BOLOGNA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.5,
+    "pv": 1
+  },
+  "ROWE|ATALANTA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.5,
+    "pv": 5
+  },
+  "ODGAARD|BOLOGNA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.5,
+    "pv": 5
+  },
+  "DODÒ|FIORENTINA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.5,
+    "pv": 2
+  },
+  "OULAI|FIORENTINA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.5,
+    "pv": 4
+  },
+  "FABBIAN|PARMA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.5,
+    "pv": 3
+  },
+  "OSTIGARD|GENOA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.5,
+    "pv": 7
+  },
+  "PUCZKA|GENOA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.5,
+    "pv": 2
+  },
+  "MEICHTRY|GENOA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.5,
+    "pv": 2
+  },
+  "VITINHA O.|GENOA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.5,
+    "pv": 6
+  },
+  "KELLY L.|JUVENTUS": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.5,
+    "pv": 3
+  },
+  "DOUGLAS LUIZ|JUVENTUS": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.5,
+    "pv": 7
+  },
+  "YILDIZ|JUVENTUS": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.5,
+    "pv": 1
+  },
+  "NDABA|LECCE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.5,
+    "pv": 2
+  },
+  "STULIC|LECCE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.5,
+    "pv": 5
+  },
+  "RICCI S.|COMO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.5,
+    "pv": 1
+  },
+  "KOUADIO|MONZA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.5,
+    "pv": 6
+  },
+  "OLIVERA|NAPOLI": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.5,
+    "pv": 2
+  },
+  "CREMASCHI|PARMA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.5,
+    "pv": 1
+  },
+  "FRIGAN|PARMA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.5,
+    "pv": 2
+  },
+  "VLASIC|TORINO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.5,
+    "pv": 6
+  },
+  "ABOUKHLAL|TORINO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.5,
+    "pv": 2
+  },
+  "ZAPATA D.|TORINO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.5,
+    "pv": 1
+  },
+  "LAUBERBACH|VENEZIA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.5,
+    "pv": 1
+  },
+  "ELMAS|ATALANTA": {
+    "gol": 0,
+    "assist": 1,
+    "xg": 0.0,
+    "xa": 0.8,
+    "fm": 5.5,
+    "pv": 3
+  },
+  "NGONGE|MONZA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.5,
+    "pv": 1
+  },
+  "DROBNIC|PARMA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.5,
+    "pv": 2
+  },
+  "GAGLIARDINI|CAGLIARI": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.5,
+    "pv": 1
+  },
+  "HUTCHINSON|MILAN": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.5,
+    "pv": 1
+  },
+  "MONTEIRO J.|LECCE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.5,
+    "pv": 3
+  },
+  "JUAN JESUS|VENEZIA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.5,
+    "pv": 4
+  },
+  "JOVANOVIC|UDINESE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.5,
+    "pv": 1
+  },
+  "DIEGO CARLOS|PARMA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.5,
+    "pv": 4
+  },
+  "LEITE|LAZIO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.5,
+    "pv": 1
+  },
+  "WIAFE|GENOA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.5,
+    "pv": 2
+  },
+  "VASQUEZ|GENOA": {
+    "gol": 1,
+    "assist": 0,
+    "xg": 0.8,
+    "xa": 0.0,
+    "fm": 5.42,
+    "pv": 6
+  },
+  "TROILO|PARMA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.42,
+    "pv": 6
+  },
+  "VALDEPENAS|FIORENTINA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.4,
+    "pv": 5
+  },
+  "ATTA|FIORENTINA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.4,
+    "pv": 5
+  },
+  "PALMISANI|FROSINONE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.36,
+    "pv": 7
+  },
+  "MARCANDALLI|GENOA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.36,
+    "pv": 7
+  },
+  "VIERY|FIORENTINA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.33,
+    "pv": 6
+  },
+  "OTOA|GENOA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.33,
+    "pv": 3
+  },
+  "ZAMBO ANGUISSA|NAPOLI": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.33,
+    "pv": 3
+  },
+  "BAYO V.|UDINESE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.33,
+    "pv": 3
+  },
+  "BADIASHILE|NAPOLI": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.33,
+    "pv": 3
+  },
+  "CALETA-CAR|SASSUOLO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.33,
+    "pv": 3
+  },
+  "SIERRO|PARMA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.33,
+    "pv": 3
+  },
+  "FOLORUNSHO|MONZA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.3,
+    "pv": 5
+  },
+  "DRAGUSIN|FIORENTINA": {
+    "gol": 0,
+    "assist": 1,
+    "xg": 0.0,
+    "xa": 0.8,
+    "fm": 5.29,
+    "pv": 7
+  },
+  "AMONDARAIN|BOLOGNA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.25,
+    "pv": 2
+  },
+  "VAN DER BREMPT|SASSUOLO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.25,
+    "pv": 2
+  },
+  "RANIERI L.|FIORENTINA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.25,
+    "pv": 4
+  },
+  "JOAO MARIO|FIORENTINA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.25,
+    "pv": 2
+  },
+  "GEUBBELS|LECCE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.25,
+    "pv": 4
+  },
+  "SCHINGTIENNE|VENEZIA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.25,
+    "pv": 6
+  },
+  "KEVIN CARLOS|CAGLIARI": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.25,
+    "pv": 2
+  },
+  "GONCALVES P.|FIORENTINA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.25,
+    "pv": 2
+  },
+  "MAIGNAN|MILAN": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.21,
+    "pv": 7
+  },
+  "LUCCHESI|MONZA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.17,
+    "pv": 6
+  },
+  "KRISTENSEN T.|ATALANTA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.17,
+    "pv": 3
+  },
+  "EL AZZOUZI O.|BOLOGNA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.0,
+    "pv": 2
+  },
+  "BUTEZ|COMO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.0,
+    "pv": 6
+  },
+  "SABELLI|GENOA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.0,
+    "pv": 1
+  },
+  "DAVID|JUVENTUS": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.0,
+    "pv": 1
+  },
+  "COLOMBO L.|MONZA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.0,
+    "pv": 1
+  },
+  "MERET|NAPOLI": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.0,
+    "pv": 5
+  },
+  "CARBONI F.|PARMA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.0,
+    "pv": 1
+  },
+  "CASADEI|TORINO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.0,
+    "pv": 1
+  },
+  "KABASELE|UDINESE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.0,
+    "pv": 3
+  },
+  "ARIZALA|UDINESE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.0,
+    "pv": 1
+  },
+  "BELLA-KOTCHAP|VENEZIA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.0,
+    "pv": 2
+  },
+  "MORENO M.|VENEZIA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.0,
+    "pv": 5
+  },
+  "VICARIO|JUVENTUS": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.0,
+    "pv": 7
+  },
+  "MOUT|MONZA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.0,
+    "pv": 1
+  },
+  "SANCHEZ RO.|COMO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.0,
+    "pv": 1
+  },
+  "LIBRA|BOLOGNA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 5.0,
+    "pv": 1
+  },
+  "MARTINEZ JO.|INTER": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 4.71,
+    "pv": 7
+  },
+  "HALHAL|VENEZIA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 4.62,
+    "pv": 4
+  },
+  "PESSINA MAS.|BOLOGNA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 4.5,
+    "pv": 2
+  },
+  "STANKOVIC F.|VENEZIA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 4.5,
+    "pv": 7
+  },
+  "DAGASSO|VENEZIA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 4.5,
+    "pv": 1
+  },
+  "PERRI|TORINO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 4.5,
+    "pv": 4
+  },
+  "CORVI|PARMA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 4.33,
+    "pv": 6
+  },
+  "TORNQVIST|MONZA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 4.25,
+    "pv": 2
+  },
+  "FALCONE|LECCE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 4.21,
+    "pv": 7
+  },
+  "SKORUPSKI|BOLOGNA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 4.1,
+    "pv": 5
+  },
+  "BIJLOW|GENOA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 4.0,
+    "pv": 7
+  },
+  "OBRIC|ATALANTA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 4.0,
+    "pv": 1
+  },
+  "OKOYE|UDINESE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 3.79,
+    "pv": 7
+  },
+  "MASCARDI|TORINO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 3.75,
+    "pv": 2
+  },
+  "MURIC|SASSUOLO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 3.43,
+    "pv": 7
+  },
+  "DE GEA|FIORENTINA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 3.29,
+    "pv": 7
+  },
+  "THIAM|MONZA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 2.83,
+    "pv": 3
+  },
+  "PIZZIGNACCO|MONZA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 1.0,
+    "pv": 1
+  },
+  "ROSSI F.|ATALANTA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "SPORTIELLO|ATALANTA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "DJIMSITI|ATALANTA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "HIEN|ATALANTA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "AHANOR|ATALANTA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "SULEMANA K.|ATALANTA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "HAPPONEN|BOLOGNA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "VITIK|BOLOGNA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "DALLINGA|BOLOGNA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "CIOCCI|CAGLIARI": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "SHERRI|CAGLIARI": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "RATERINK|CAGLIARI": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "IDRISSI R.|CAGLIARI": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "LITETA|CAGLIARI": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "PRATI|CAGLIARI": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "ALBARRACIN|CAGLIARI": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "MUTANDWA|CAGLIARI": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "TREPY|CAGLIARI": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "VIGORITO|COMO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "GOLDANIGA|COMO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "CUENCA A.|COMO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "LAHDO|COMO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "ADDAI|COMO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "KUHN|COMO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "AZON|COMO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "MORATA|COMO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "CHRISTENSEN O.|FIORENTINA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "LEZZERINI|FIORENTINA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "PARISI|FIORENTINA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "DESPLANCHES|FROSINONE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "LOLIC|FROSINONE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "AKPOGUMA|FROSINONE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "AMEY|FROSINONE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "GELLI J.|FROSINONE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "OYONO J.|FROSINONE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "CORRADO|FROSINONE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "EL AZZOUZI A.|FROSINONE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "KONE B.|FROSINONE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "KOUTSOUPIAS|FROSINONE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "GELLI F.|FROSINONE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "SOMMARIVA|GENOA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "STOLZ|GENOA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "VOGLIACCO|GENOA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "MATTURRO|GENOA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "MARTIN|GENOA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "MITAJ|GENOA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "VENTURINO|GENOA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "HAVEL|GENOA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "DI GENNARO|INTER": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "PROVEDEL|INTER": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "DI GREGORIO|JUVENTUS": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "PERIN|JUVENTUS": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "PINSOGLIO|JUVENTUS": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "RUGANI|JUVENTUS": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "CABAL|JUVENTUS": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "THURAM K.|JUVENTUS": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "MIRETTI|JUVENTUS": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "EKHATOR|JUVENTUS": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "MOTTA|LAZIO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "RENZETTI|LAZIO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "ROMAGNOLI|LAZIO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "PATRIC|LAZIO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "LAZZARI|LAZIO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "PELLEGRINI LU.|LAZIO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "CATALDI|LAZIO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "PRZYBOREK|LAZIO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "RATKOV|LAZIO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "FRUCHTL|LECCE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "SAMOOJA|LECCE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "JEAN|LECCE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "PEREZ M.|LECCE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "FOFANA SA.|LECCE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "BERISHA M.|LECCE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "GANDELMAN|LECCE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "TERRACCIANO|MILAN": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "TORRIANI|MILAN": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "TOMORI|MILAN": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "DIAWARA S.|MILAN": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "ATHEKAME|MILAN": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "FOFANA Y.|MILAN": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "LEAO|MILAN": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "NKUNKU|MILAN": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "CAMARDA|MILAN": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "GIMENEZ|MILAN": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "STRAJNAR|MONZA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "ANTOV|MONZA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "CIURRIA|MONZA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "PESSINA|MONZA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "PETAGNA|MONZA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "CONTINI|NAPOLI": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "BUONGIORNO|NAPOLI": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "MARIANUCCI|NAPOLI": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "GUTIERREZ|NAPOLI": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "LUKAKU|NAPOLI": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "DAFFARA|PARMA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "SUZUKI|PARMA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "CIRCATI|PARMA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "NICOLUSSI CAVIGLIA|PARMA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "SORENSEN O.|PARMA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "ONDREJKA|PARMA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "DE MARZI|ROMA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "ZIOLKOWSKI|MONZA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "ANGELINO|ROMA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "EL AYNAOUI|ROMA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "VAZ|ROMA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "RUSSO A.|SASSUOLO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "TURATI|SASSUOLO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "WALUKIEWICZ|SASSUOLO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "CANDÈ|SASSUOLO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "MISSORI|SASSUOLO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "PIERAGNOLO|SASSUOLO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "BOLOCA|SASSUOLO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "IANNONI|SASSUOLO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "KONÈ I.|SASSUOLO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "MORO L.|SASSUOLO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "PALEARI|TORINO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "SIVIERO|TORINO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "BIRAGHI|TORINO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "ANJORIN|TORINO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "PADELLI|UDINESE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "PIANA|UDINESE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "MLACIC|UDINESE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "CAMARA A.|UDINESE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "BUKSA|UDINESE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "GRANDI|VENEZIA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "POZZI|VENEZIA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "SVERKO|VENEZIA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "GOMES|VENEZIA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "BJARKASON|VENEZIA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "DUNCAN|VENEZIA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "LISMAN|VENEZIA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "ADORANTE|VENEZIA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "VISMARA|ATALANTA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "SATALINO|SASSUOLO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "AURELIO|CAGLIARI": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "GRILLITSCH|FROSINONE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "PENEV|LECCE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "PISSERI|FROSINONE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "RADUNOVIC|CAGLIARI": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "MILIK|JUVENTUS": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "DE MARTIS|PARMA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "MONTIPÒ|VENEZIA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "BLEVE|LECCE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "TOURÈ I.|MONZA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "LAERKE|LECCE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "COMOTTO|MILAN": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "MACCHIONI|SASSUOLO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "TERRACCIANO F.|MILAN": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "CIERVO|CAGLIARI": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "GRABARA|JUVENTUS": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "TCHATO|FROSINONE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "KAMBWALA|COMO": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "BIRLIGEA|FROSINONE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "MROZEK|UDINESE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "DEMBELÈ A.|LECCE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "GHIDOTTI|PARMA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "ROBINHO JUNIOR|GENOA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "MBANGULA|BOLOGNA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "DRAMEH|GENOA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "POMPEI|ATALANTA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "LOVRIC|UDINESE": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "NETO|JUVENTUS": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  },
+  "VASQUEZ D.|ROMA": {
+    "gol": 0,
+    "assist": 0,
+    "xg": 0.0,
+    "xa": 0.0,
+    "fm": 0.0,
+    "pv": 0
+  }
+}
