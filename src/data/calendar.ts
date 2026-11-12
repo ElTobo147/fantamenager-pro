@@ -479,7 +479,7 @@ export function buildCalendarioForMatchday(md: Matchday): Calendario {
   return cal;
 }
 
-export const DEFAULT_MATCHDAY_NUM = 8;
+export const DEFAULT_MATCHDAY_NUM = 12;
 
 // Approximate ISO start date for each matchday (used for European fixture proximity)
 const MATCHDAY_DATES: Record<number, string> = {

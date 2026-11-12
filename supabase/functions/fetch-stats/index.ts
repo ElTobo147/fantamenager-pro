@@ -100,40 +100,31 @@ function parseProbabiliFormazioni(html: string): { matchday: number | null; team
   return { matchday, teams };
 }
 
-// The injuries page has one section per team; player links appear under their team
-// heading. We walk the links in document order and attribute them to the team of the
-// nearest preceding team-badge link (#team-<id> anchors carry the badge alt text).
+// The injuries page has one <section id="team-<id>"> per team with
+// <span class="team-name">Atalanta</span> and a list of
+// <strong class="item-name">Cognome</strong> + <div class="item-description"><p>nota</p></div>.
 function parseInjuries(html: string): Record<string, { nome: string; nota: string }[]> {
   const result: Record<string, { nome: string; nota: string }[]> = {};
-  const links = extractPlayerLinks(html);
-  // Determine section order from badge anchors: <a href="#team-<id>"> ... alt="Team"
-  const badgeRe = /#team-\d+[\s\S]{0,200}?alt="([^"]+)"/gi;
-  const sectionOrder: string[] = [];
-  const badgePositions: { team: string; pos: number }[] = [];
-  let bm: RegExpExecArray | null;
-  while ((bm = badgeRe.exec(html)) !== null) {
-    const team = bm[1];
-    if (TEAM_SLUG_TO_NAME[team.toLowerCase()] && !sectionOrder.includes(team)) {
-      sectionOrder.push(team);
-      badgePositions.push({ team, pos: bm.index });
+  const sectionRe = /<(?:div|section|article)[^>]*id="team-\d+"[^>]*>/gi;
+  const starts: number[] = [];
+  let sm: RegExpExecArray | null;
+  while ((sm = sectionRe.exec(html)) !== null) starts.push(sm.index);
+  for (let i = 0; i < starts.length; i++) {
+    const seg = html.slice(starts[i], i + 1 < starts.length ? starts[i + 1] : starts[i] + 20000);
+    const nameMatch = seg.match(/<span class="team-name">([^<]+)<\/span>/);
+    if (!nameMatch) continue;
+    const squadra = nameMatch[1].trim();
+    if (!TEAM_SLUG_TO_NAME[squadra.toLowerCase().replace(/\s+/g, "-")]) continue;
+    const players: { nome: string; nota: string }[] = [];
+    const itemRe = /<strong class="item-name">([^<]+)<\/strong>(?:[\s\S]*?<div class="item-description"><p>([\s\S]*?)<\/p><\/div>)?/g;
+    let im: RegExpExecArray | null;
+    while ((im = itemRe.exec(seg)) !== null) {
+      const nome = im[1].trim();
+      if (!nome) continue;
+      const nota = (im[2] ?? "").replace(/<[^>]*>/g, "").replace(/&nbsp;/g, " ").replace(/\s+/g, " ").trim();
+      players.push({ nome, nota });
     }
-  }
-  if (badgePositions.length === 0) return result;
-
-  for (const l of links) {
-    // find the last badge at or before this link's position
-    let current = badgePositions[0]?.team;
-    for (const b of badgePositions) {
-      if (b.pos <= l.pos) current = b.team;
-      else break;
-    }
-    if (!current) continue;
-    // Skip the badge anchor itself (player links only)
-    const arr = result[current] ?? [];
-    if (!arr.some((p) => p.nome.toLowerCase() === l.name.toLowerCase())) {
-      arr.push({ nome: l.name, nota: "" });
-    }
-    result[current] = arr;
+    if (players.length > 0) result[squadra] = players;
   }
   return result;
 }
@@ -236,6 +227,7 @@ Deno.serve(async (req: Request) => {
     }
 
     const shouldFetch = (s: string) => sources.includes("all") || sources.includes(s);
+    let currentMatchday = matchday;
 
     // 1. Probabili formazioni -> team_formations
     if (shouldFetch("formazioni")) {
@@ -243,6 +235,7 @@ Deno.serve(async (req: Request) => {
         const html = await fetchWithTimeout("https://www.fantacalcio.it/probabili-formazioni-serie-a");
         const { matchday: md, teams } = parseProbabiliFormazioni(html);
         const mdToUse = matchday ?? md;
+        if (mdToUse != null) currentMatchday = mdToUse;
         let count = 0;
         for (const [squadra, data] of Object.entries(teams)) {
           const { error } = await supabase.from("team_formations").upsert({
@@ -266,7 +259,7 @@ Deno.serve(async (req: Request) => {
         let count = 0;
         for (const [squadra, players] of Object.entries(parsed)) {
           const { error } = await supabase.from("team_injuries").upsert({
-            matchday: matchday ?? 0, squadra, players,
+            matchday: currentMatchday ?? 0, squadra, players,
           }, { onConflict: "matchday,squadra" });
           if (!error) count++;
         }

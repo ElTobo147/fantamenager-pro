@@ -7,6 +7,7 @@ import { getPlayerStats } from './data/stats';
 import { getTitolarita, hasTitolaritaData, TITOLARE_VALUE } from './data/titolarita';
 import { useMatchday } from './hooks/useMatchday';
 import { useRoster } from './hooks/useRoster';
+import { useLiveData } from './hooks/useLiveData';
 import { supabase } from './lib/supabase';
 import RosterManager from './components/RosterManager';
 import FormationView from './components/FormationView';
@@ -49,6 +50,7 @@ function App() {
   const [syncMessage, setSyncMessage] = useState<string | null>(null);
   const { players, loading, addPlayer, removePlayer, setPlayers } = useRoster();
   const { matchdayNum, calendario, changeMatchday } = useMatchday();
+  const live = useLiveData(matchdayNum);
 
   const playersWithTitolarita = useMemo(
     () => players.map((p) => ({
@@ -57,7 +59,7 @@ function App() {
         ? getTitolarita(matchdayNum, p.nome, p.squadra)
         : TITOLARE_VALUE,
     })),
-    [players, matchdayNum],
+    [players, matchdayNum, live.loaded],
   );
 
   function loadSample() {
@@ -101,6 +103,7 @@ function App() {
       } else {
         setSyncMessage(`Dati aggiornati: ${parts.join(', ')}`);
       }
+      live.refresh();
     } catch (e) {
       setSyncMessage(`Aggiornamento non riuscito: ${(e as Error).message}`);
     } finally {

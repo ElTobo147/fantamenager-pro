@@ -80,12 +80,48 @@ function estimateStats(nome: string, squadra: string, ruolo: Ruolo, qt: number):
   };
 }
 
+// Live stats fetched from Supabase (populated by the "Aggiorna dati" sync from
+// fantacalcio.it). Merged over the hardcoded snapshot: live wins.
+const LIVE_STATS: Record<string, PlayerStatsData> = {};
+
+export function registerLiveStats(rows: { nome: string; squadra: string; gol: number; assist: number; fm: number; pv: number }[]): void {
+  for (const r of rows) {
+    LIVE_STATS[`${normalize(r.nome)}|${normalize(r.squadra)}`] = {
+      gol: r.gol,
+      assist: r.assist,
+      xg: r.fm,
+      xa: 0,
+      fm: r.fm,
+      pv: r.pv,
+    };
+  }
+}
+
+function liveKey(normName: string, normSquadra: string): PlayerStatsData | null {
+  if (LIVE_STATS[`${normName}|${normSquadra}`]) return LIVE_STATS[`${normName}|${normSquadra}`];
+  // Fuzzy match by surname within the same team
+  const playerName = normName.split(' ').pop() ?? normName;
+  for (const k of Object.keys(LIVE_STATS)) {
+    const [statName, statTeam] = k.split('|');
+    if (statTeam !== normSquadra) continue;
+    const statSurname = statName.split(' ').pop() ?? statName;
+    if (statSurname.length > 3 && (statSurname === playerName || statSurname.startsWith(playerName) || playerName.startsWith(statSurname))) {
+      return LIVE_STATS[k];
+    }
+  }
+  return null;
+}
+
 export function getPlayerStats(nome: string, squadra: string, ruolo?: Ruolo, qt?: number): PlayerStatsData {
-  const key = `${normalize(nome)}|${normalize(squadra)}`;
+  const normName = normalize(nome);
+  const normSquadra = normalize(squadra);
+  const live = liveKey(normName, normSquadra);
+  if (live) return live;
+
+  const key = `${normName}|${normSquadra}`;
   if (PLAYER_STATS[key]) return PLAYER_STATS[key];
 
   // Fuzzy match by surname
-  const normName = normalize(nome);
   for (const k of Object.keys(PLAYER_STATS)) {
     const [statName, statTeam] = k.split('|');
     if (statTeam === normalize(squadra)) {

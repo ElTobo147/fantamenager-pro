@@ -27,6 +27,41 @@ const MATCHDAY_DATA: Record<number, MatchdayData> = {
   },
 };
 
+// Live data fetched from Supabase (populated by the "Aggiorna dati" sync from
+// fantacalcio.it). Registered at runtime and merged over the static JSON.
+const LIVE_LINEUPS: Record<number, MatchdayLineupData> = {};
+const LIVE_INJURIES: Record<number, MatchdayInjuryData> = {};
+
+export function registerLiveTitolarita(
+  matchday: number,
+  lineups: { squadra: string; titolari: string[]; panchina: string[] }[],
+  injuries: { squadra: string; players: { nome: string }[] }[],
+): void {
+  if (lineups.length > 0) {
+    const map: MatchdayLineupData = {};
+    for (const l of lineups) map[l.squadra] = { titolari: l.titolari, panchina: l.panchina };
+    LIVE_LINEUPS[matchday] = map;
+  }
+  if (injuries.length > 0) {
+    const map: MatchdayInjuryData = {};
+    for (const i of injuries) map[i.squadra] = i.players.map((p) => p.nome);
+    LIVE_INJURIES[matchday] = map;
+  }
+}
+
+function dataFor(matchdayNum: number): MatchdayData {
+  const liveLineups = LIVE_LINEUPS[matchdayNum];
+  const liveInjuries = LIVE_INJURIES[matchdayNum];
+  const fallback = MATCHDAY_DATA[matchdayNum];
+  if (!fallback) {
+    return { lineups: liveLineups ?? {}, injuries: liveInjuries ?? {} };
+  }
+  return {
+    lineups: { ...fallback.lineups, ...(liveLineups ?? {}) },
+    injuries: { ...fallback.injuries, ...(liveInjuries ?? {}) },
+  };
+};
+
 export const TITOLARE_VALUE = 1.0;
 export const PANCHINA_VALUE = 0.5;
 export const NOT_LISTED_VALUE = 0.3;
@@ -35,7 +70,7 @@ export const INJURED_VALUE = 0;
 export type TitolaritaStatus = 'titolare' | 'panchina' | 'assente' | 'infortunato' | 'nd';
 
 export function hasTitolaritaData(matchdayNum: number): boolean {
-  return matchdayNum in MATCHDAY_DATA;
+  return matchdayNum in MATCHDAY_DATA || matchdayNum in LIVE_LINEUPS || matchdayNum in LIVE_INJURIES;
 }
 
 function normalizeName(name: string): string {
@@ -65,8 +100,8 @@ function namesMatch(a: string, b: string): boolean {
 }
 
 export function getTitolarita(matchdayNum: number, playerName: string, team: string): number {
-  const data = MATCHDAY_DATA[matchdayNum];
-  if (!data) return TITOLARE_VALUE;
+  const data = dataFor(matchdayNum);
+  if (!data.lineups[team] && !data.injuries[team]) return TITOLARE_VALUE;
 
   // Check injuries first — injured players are always 0%
   const teamInjuries = data.injuries[team];
@@ -91,8 +126,8 @@ export function getTitolarita(matchdayNum: number, playerName: string, team: str
 }
 
 export function getTitolaritaStatus(matchdayNum: number, playerName: string, team: string): TitolaritaStatus {
-  const data = MATCHDAY_DATA[matchdayNum];
-  if (!data) return 'nd';
+  const data = dataFor(matchdayNum);
+  if (!data.lineups[team] && !data.injuries[team]) return 'nd';
 
   const teamInjuries = data.injuries[team];
   if (teamInjuries) {
@@ -116,8 +151,7 @@ export function getTitolaritaStatus(matchdayNum: number, playerName: string, tea
 }
 
 export function getMatchdayDataInfo(matchdayNum: number): { lineups: boolean; injuries: boolean } {
-  const data = MATCHDAY_DATA[matchdayNum];
-  if (!data) return { lineups: false, injuries: false };
+  const data = dataFor(matchdayNum);
   return {
     lineups: Object.keys(data.lineups).length > 0,
     injuries: Object.keys(data.injuries).length > 0,

@@ -13,6 +13,8 @@ export interface PlayerStatsData {
   assist: number;
   xg: number;
   xa: number;
+  fm?: number;
+  pv?: number;
 }
 
 export interface Player extends PlayerDB {
