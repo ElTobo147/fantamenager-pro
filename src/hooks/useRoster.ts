@@ -13,6 +13,30 @@ export function useRoster() {
     loadFromSupabase();
   }, []);
 
+  function rowToPlayer(row: {
+    id: string;
+    nome: string;
+    squadra: string;
+    ruolo: Player['ruolo'];
+    qt: number;
+    eta: number;
+    bonus: number;
+    percentuale_titolarita: number;
+  }): Player {
+    const stats: PlayerStatsData = getPlayerStats(row.nome, row.squadra, row.ruolo, row.qt);
+    return {
+      id: row.id,
+      nome: row.nome,
+      squadra: row.squadra,
+      ruolo: row.ruolo,
+      qt: row.qt,
+      eta: row.eta,
+      bonus: row.bonus,
+      percentualeTitolarita: row.percentuale_titolarita,
+      stats,
+    };
+  }
+
   async function loadFromSupabase() {
     try {
       const { data, error: dbError } = await supabase
@@ -21,87 +45,63 @@ export function useRoster() {
         .order('created_at', { ascending: true });
 
       if (dbError) throw dbError;
-
-      if (data && data.length > 0) {
-        const loaded: Player[] = data.map((row) => {
-          const stats = getPlayerStats(row.nome, row.squadra, row.ruolo, row.qt);
-          return {
-            id: row.id,
-            nome: row.nome,
-            squadra: row.squadra,
-            ruolo: row.ruolo,
-            qt: row.qt,
-            eta: row.eta,
-            bonus: row.bonus,
-            percentualeTitolarita: row.percentuale_titolarita,
-            stats,
-          };
-        });
-        setPlayers(loaded);
-      }
+      setPlayers((data ?? []).map(rowToPlayer));
+      setError('');
     } catch (e) {
-      // Fallback to localStorage if Supabase fails
-      try {
-        const raw = localStorage.getItem('fantaRosa2027');
-        if (raw) {
-          const loaded = JSON.parse(raw) as Player[];
-          setPlayers(loaded.map((p) => ({ ...p, stats: getPlayerStats(p.nome, p.squadra, p.ruolo, p.qt) })));
-        }
-      } catch {
-        // ignore
-      }
+      setError((e as Error).message);
     } finally {
       setLoading(false);
     }
   }
 
-  async function persistToSupabase(updated: Player[]) {
-    try {
-      // Delete all and re-insert (simple sync for single-tenant)
-      await supabase.from('roster_entries').delete().neq('id', '00000000-0000-0000-0000-000000000000');
-      if (updated.length > 0) {
-        const rows = updated.map((p) => ({
-          id: p.id,
-          nome: p.nome,
-          squadra: p.squadra,
-          ruolo: p.ruolo,
-          qt: p.qt,
-          eta: p.eta,
-          bonus: p.bonus,
-          percentuale_titolarita: p.percentualeTitolarita,
-        }));
-        await supabase.from('roster_entries').insert(rows);
+  const addPlayer = useCallback((p: Omit<Player, 'id' | 'bonus' | 'percentualeTitolarita'> & Partial<Player>) => {
+    const full: Omit<Player, 'id'> = {
+      bonus: randomBonus(),
+      percentualeTitolarita: 1,
+      ...p,
+    } as Omit<Player, 'id'>;
+    // Insert into Supabase first; the select below is the source of truth.
+    (async () => {
+      const { data, error: insertError } = await supabase
+        .from('roster_entries')
+        .insert({
+          nome: full.nome,
+          squadra: full.squadra,
+          ruolo: full.ruolo,
+          qt: full.qt,
+          eta: full.eta,
+          bonus: full.bonus,
+          percentuale_titolarita: full.percentualeTitolarita,
+        })
+        .select('*')
+        .single();
+      if (insertError || !data) {
+        setError(insertError?.message ?? 'Inserimento non riuscito');
+        return;
       }
-    } catch {
-      // Fallback to localStorage
-      try {
-        localStorage.setItem('fantaRosa2027', JSON.stringify(updated));
-      } catch {
-        // ignore
-      }
-    }
-  }
-
-  const addPlayer = useCallback((p: Player) => {
-    setPlayers((prev) => {
-      const updated = [...prev, p];
-      persistToSupabase(updated);
-      return updated;
-    });
+      setPlayers((prev) => [...prev, rowToPlayer(data)]);
+    })();
   }, []);
 
   const removePlayer = useCallback((id: string) => {
-    setPlayers((prev) => {
-      const updated = prev.filter((p) => p.id !== id);
-      persistToSupabase(updated);
-      return updated;
-    });
+    setPlayers((prev) => prev.filter((p) => p.id !== id));
+    (async () => {
+      const { error: deleteError } = await supabase
+        .from('roster_entries')
+        .delete()
+        .eq('id', id);
+      if (deleteError) {
+        setError(deleteError.message);
+        loadFromSupabase();
+      }
+    })();
   }, []);
 
   const setPlayersDirect = useCallback((newPlayers: Player[]) => {
     setPlayers(newPlayers);
-    persistToSupabase(newPlayers);
   }, []);
 
-  return { players, loading, error, addPlayer, removePlayer, setPlayers: setPlayersDirect, reload: loadFromSupabase };
+  const reload = useCallback(() => loadFromSupabase(), []);
+
+  return { players, loading, error, addPlayer, removePlayer, setPlayers: setPlayersDirect, reload };
 }

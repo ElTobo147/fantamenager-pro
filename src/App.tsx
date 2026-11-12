@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { Users, Layout, RotateCcw, RefreshCw, BarChart3, Save, Check, DownloadCloud } from 'lucide-react';
+import { Users, Layout, RotateCcw, RefreshCw, BarChart3, Check, DownloadCloud, Database } from 'lucide-react';
 import type { Player, PlayerDB } from './types';
 import { PLAYER_DB } from './constants';
 import { randomBonus } from './lib/players';
@@ -10,6 +10,7 @@ import { useRoster } from './hooks/useRoster';
 import { useLiveData } from './hooks/useLiveData';
 import { supabase } from './lib/supabase';
 import RosterManager from './components/RosterManager';
+import RosaList from './components/RosaList';
 import FormationView from './components/FormationView';
 import MatchdaySelector from './components/MatchdaySelector';
 import MatchInsights from './components/MatchInsights';
@@ -48,9 +49,10 @@ function App() {
   const [savedFlash, setSavedFlash] = useState(false);
   const [syncing, setSyncing] = useState(false);
   const [syncMessage, setSyncMessage] = useState<string | null>(null);
-  const { players, loading, addPlayer, removePlayer, setPlayers } = useRoster();
+  const { players, loading, error, addPlayer, removePlayer, setPlayers, reload } = useRoster();
   const { matchdayNum, calendario, changeMatchday } = useMatchday();
   const live = useLiveData(matchdayNum);
+  const [showRosaList, setShowRosaList] = useState(false);
 
   const playersWithTitolarita = useMemo(
     () => players.map((p) => ({
@@ -75,7 +77,8 @@ function App() {
 
   function resetData() {
     if (confirm('Vuoi cancellare tutta la rosa?')) {
-      setPlayers([]);
+      Promise.all(players.map((p) => supabase.from('roster_entries').delete().eq('id', p.id)))
+        .then(() => setPlayers([]));
     }
   }
 
@@ -112,16 +115,6 @@ function App() {
     }
   }
 
-  function saveRosa() {
-    try {
-      localStorage.setItem('fantaRosa2027', JSON.stringify(players));
-      setSavedFlash(true);
-      setTimeout(() => setSavedFlash(false), 2000);
-    } catch {
-      // ignore
-    }
-  }
-
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-900 text-gray-100 flex items-center justify-center">
@@ -136,6 +129,19 @@ function App() {
   // Auto-load sample if roster is empty and user hasn't interacted
   if (players.length === 0 && tab === 'rosa') {
     // Show empty state with option to load sample
+  }
+
+  if (showRosaList) {
+    return (
+      <RosaList
+        players={playersWithTitolarita}
+        onRemove={removePlayer}
+        onClose={() => setShowRosaList(false)}
+        onReload={reload}
+        calendario={calendario}
+        matchdayNum={matchdayNum}
+      />
+    );
   }
 
   return (
@@ -163,13 +169,25 @@ function App() {
             </button>
             <div className="flex gap-2">
               <button
-                onClick={() => setTab('rosa')}
-                className={`px-3 md:px-4 py-2 rounded-lg font-semibold text-sm transition flex items-center gap-2 ${
-                  tab === 'rosa' ? 'bg-gray-700 text-white' : 'bg-transparent text-gray-400 hover:bg-gray-800'
+                onClick={() => { setShowRosaList(true); setTab('rosa'); reload(); }}
+                className={`px-3 md:px-4 py-2 rounded-lg font-semibold text-sm transition flex items-center gap-2 border ${
+                  showRosaList && tab === 'rosa'
+                    ? 'bg-emerald-700 border-emerald-500 text-white'
+                    : 'bg-gray-800 border-gray-600 text-gray-200 hover:bg-gray-700'
                 }`}
               >
                 <Users className="w-4 h-4" />
-                <span className="hidden sm:inline">Rosa</span>
+                <span className="hidden sm:inline">Mia rosa</span>
+                <span className="px-1.5 py-0.5 rounded-md bg-emerald-600 text-[10px] font-bold">{players.length}</span>
+              </button>
+              <button
+                onClick={() => { setTab('rosa'); setShowRosaList(false); }}
+                className={`px-3 md:px-4 py-2 rounded-lg font-semibold text-sm transition flex items-center gap-2 ${
+                  tab === 'rosa' && !showRosaList ? 'bg-gray-700 text-white' : 'bg-transparent text-gray-400 hover:bg-gray-800'
+                }`}
+              >
+                <Database className="w-4 h-4" />
+                <span className="hidden sm:inline">Listone</span>
               </button>
               <button
                 onClick={() => setTab('formazione')}
@@ -224,10 +242,10 @@ function App() {
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <p className="text-sm text-gray-400">
-                {players.length} giocatori in rosa · Salvataggio automatico su database
+                {players.length} giocatori in rosa · Letti direttamente dal database
               </p>
               <button
-                onClick={saveRosa}
+                onClick={() => { reload(); setSavedFlash(true); setTimeout(() => setSavedFlash(false), 2000); }}
                 className={`px-4 py-2 rounded-lg font-bold text-sm transition flex items-center gap-2 shadow-lg ${
                   savedFlash
                     ? 'bg-green-600 text-white'
@@ -237,12 +255,12 @@ function App() {
                 {savedFlash ? (
                   <>
                     <Check className="w-4 h-4" />
-                    Rosa Salvata!
+                    Database aggiornato!
                   </>
                 ) : (
                   <>
-                    <Save className="w-4 h-4" />
-                    Salva Rosa
+                    <RefreshCw className="w-4 h-4" />
+                    Ricarica dal database
                   </>
                 )}
               </button>
