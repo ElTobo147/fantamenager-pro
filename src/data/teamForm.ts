@@ -52,36 +52,38 @@ const TIER_DEFENSE: Record<TeamTier, number> = {
   D: 0.25,
 };
 
-// Key players per team (realistic star players for 2026-27 season)
+// Key players per team — top fantamedia performers, real stats from fantacalcio.it
+// (matchday 10, 2026-27 season)
 const KEY_PLAYERS: Record<string, { name: string; rating: number }> = {
-  Inter: { name: 'L. Martinez', rating: 8.3 },
-  Napoli: { name: 'K. De Bruyne', rating: 8.1 },
-  Roma: { name: 'P. Dybala', rating: 7.9 },
-  Juventus: { name: 'D. Vlahovic', rating: 7.8 },
-  Milan: { name: 'C. Pulisic', rating: 7.7 },
-  Lazio: { name: 'M. Zaccagni', rating: 7.3 },
-  Atalanta: { name: 'A. Lookman', rating: 7.4 },
-  Fiorentina: { name: 'M. Kean', rating: 7.2 },
-  Bologna: { name: 'R. Orsolini', rating: 7.0 },
-  Como: { name: 'A. Belotti', rating: 7.1 },
-  Udinese: { name: 'F. Thauvin', rating: 6.9 },
-  Sassuolo: { name: 'D. Frattesi', rating: 7.0 },
-  Genoa: { name: 'A. Pinamonti', rating: 6.8 },
-  Monza: { name: 'D. Mota', rating: 6.7 },
-  Cagliari: { name: 'R. Piccoli', rating: 6.5 },
-  Torino: { name: 'D. Zapata', rating: 6.8 },
-  Frosinone: { name: 'C. Raimondo', rating: 6.3 },
-  Parma: { name: 'A. Bonny', rating: 6.4 },
-  Lecce: { name: 'N. Krstovic', rating: 6.3 },
-  Venezia: { name: 'J. Oristanio', rating: 6.2 },
+  Inter: { name: 'M. Thuram', rating: 9.0 },
+  Napoli: { name: 'K. De Bruyne', rating: 7.4 },
+  Roma: { name: 'D. Malen', rating: 9.4 },
+  Juventus: { name: 'E. Zhegrova', rating: 7.7 },
+  Milan: { name: 'A. Rabiot', rating: 8.7 },
+  Lazio: { name: 'T. Noslin', rating: 8.2 },
+  Atalanta: { name: 'V. Krstovic', rating: 7.9 },
+  Fiorentina: { name: 'F. Mastantuono', rating: 7.2 },
+  Bologna: { name: 'C. Enem', rating: 7.8 },
+  Como: { name: 'A. Douvikas', rating: 7.5 },
+  Udinese: { name: 'S. Ekkelenkamp', rating: 7.6 },
+  Sassuolo: { name: 'A. Adzic', rating: 8.2 },
+  Genoa: { name: 'M. Osmajic', rating: 7.8 },
+  Monza: { name: 'G. Varela', rating: 9.0 },
+  Cagliari: { name: 'D. Maldini', rating: 8.6 },
+  Torino: { name: 'D. Kulenovic', rating: 8.3 },
+  Frosinone: { name: 'C. Raimondo', rating: 9.6 },
+  Parma: { name: 'D. Romero', rating: 7.6 },
+  Lecce: { name: 'L. Coulibaly', rating: 7.1 },
+  Venezia: { name: 'F. Sagrado', rating: 7.5 },
 };
 
+// Tiers mirror lib/players.ts TEAM_TIERS (matchday-10 standings, whoscored.com)
 const TEAM_TIERS_RECORD: Record<string, TeamTier> = {
-  Inter: 'S', Roma: 'S', Napoli: 'S',
-  Juventus: 'A', Milan: 'A', Lazio: 'A', Atalanta: 'A',
-  Fiorentina: 'B', Bologna: 'B', Como: 'B', Udinese: 'B',
-  Sassuolo: 'C', Genoa: 'C', Monza: 'C', Cagliari: 'C', Torino: 'C',
-  Frosinone: 'D', Parma: 'D', Lecce: 'D', Venezia: 'D',
+  Lazio: 'S', Inter: 'S', Roma: 'S', Como: 'S',
+  Milan: 'A', Frosinone: 'A', Juventus: 'A',
+  Napoli: 'B', Bologna: 'B', Torino: 'B', Genoa: 'B', Cagliari: 'B',
+  Atalanta: 'C', Lecce: 'C', Sassuolo: 'C', Monza: 'C',
+  Fiorentina: 'D', Parma: 'D', Udinese: 'D', Venezia: 'D',
 };
 
 // Seeded pseudo-random for deterministic form per team

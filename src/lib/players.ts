@@ -5,12 +5,16 @@ import { getTurnoverRisk, isEuroTeam, getTeamCompetition } from '../data/europea
 import { getTeamPrediction } from '../data/predictions';
 import { getMatchdayDate } from '../data/calendar';
 
+// Tiers based on the real matchday-10 standings (whoscored.com):
+// Lazio 28pt, Inter 25pt, Roma 24pt, Como 23pt | Milan 21pt, Frosinone 20pt,
+// Juventus 17pt | Napoli/Bologna 14pt, Torino/Genoa/Cagliari 13pt |
+// Atalanta 11pt, Lecce 9pt, Sassuolo 8pt | Monza 7pt, Fiorentina/Parma/Udinese 5pt, Venezia 3pt.
 export const TEAM_TIERS: Record<string, TeamTier> = {
-  Inter: 'S', Roma: 'S', Napoli: 'S',
-  Juventus: 'A', Milan: 'A', Lazio: 'A', Atalanta: 'A',
-  Fiorentina: 'B', Bologna: 'B', Como: 'B', Udinese: 'B',
-  Sassuolo: 'C', Genoa: 'C', Monza: 'C', Cagliari: 'C', Torino: 'C',
-  Frosinone: 'D', Parma: 'D', Lecce: 'D', Venezia: 'D',
+  Lazio: 'S', Inter: 'S', Roma: 'S', Como: 'S',
+  Milan: 'A', Frosinone: 'A', Juventus: 'A',
+  Napoli: 'B', Bologna: 'B', Torino: 'B', Genoa: 'B', Cagliari: 'B',
+  Atalanta: 'C', Lecce: 'C', Sassuolo: 'C', Monza: 'C',
+  Fiorentina: 'D', Parma: 'D', Udinese: 'D', Venezia: 'D',
 };
 
 export const COACHES: Record<string, CoachInfo> = {
@@ -23,14 +27,14 @@ export const COACHES: Record<string, CoachInfo> = {
   Roma: { squadra: 'Roma', allenatore: 'Gian Piero Gasperini', stile: 'offensivo' },
   Sassuolo: { squadra: 'Sassuolo', allenatore: 'Alberto Aquilani', stile: 'offensivo' },
   // Equilibrati
-  Bologna: { squadra: 'Bologna', allenatore: 'Raffaele Palladino', stile: 'bilanciato' },
+  Bologna: { squadra: 'Bologna', allenatore: 'Domenico Tedesco', stile: 'bilanciato' },
   Cagliari: { squadra: 'Cagliari', allenatore: 'Fabio Pisacane', stile: 'bilanciato' },
-  Fiorentina: { squadra: 'Fiorentina', allenatore: 'Paolo Vanoli', stile: 'bilanciato' },
+  Fiorentina: { squadra: 'Fiorentina', allenatore: 'Fabio Grosso', stile: 'bilanciato' },
   Genoa: { squadra: 'Genoa', allenatore: 'Daniele De Rossi', stile: 'bilanciato' },
   Inter: { squadra: 'Inter', allenatore: 'Cristian Chivu', stile: 'bilanciato' },
-  Parma: { squadra: 'Parma', allenatore: 'Alberto Gilardino', stile: 'bilanciato' },
+  Parma: { squadra: 'Parma', allenatore: 'Carlos Cuesta', stile: 'bilanciato' },
   Torino: { squadra: 'Torino', allenatore: 'Ignazio Abate', stile: 'bilanciato' },
-  Venezia: { squadra: 'Venezia', allenatore: 'Davide Nicola', stile: 'bilanciato' },
+  Venezia: { squadra: 'Venezia', allenatore: 'Giovanni Stroppa', stile: 'bilanciato' },
   // Difensivi
   Frosinone: { squadra: 'Frosinone', allenatore: 'Massimiliano Alvini', stile: 'difensivo' },
   Lazio: { squadra: 'Lazio', allenatore: 'Gennaro Gattuso', stile: 'difensivo' },

@@ -193,6 +193,40 @@ function parseCoaches(html: string): { squadra: string; allenatore: string; stat
   return out;
 }
 
+// WhoScored standings table rows: | pos [Team](url) | P | W | D | L | GF | GA | GD | Pts | form |.
+// Team names come as "AC Milan", "Parma Calcio 1913" etc. — normalize to the app's names.
+function normalizeWsTeam(name: string): string | null {
+  const t = name.trim();
+  if (t === 'AC Milan' || t === 'Milan') return 'Milan';
+  if (t === 'Parma Calcio 1913' || t === 'Parma') return 'Parma';
+  return TEAM_SLUG_TO_NAME[t.toLowerCase()] ?? null;
+}
+
+function parseStandings(html: string): {
+  posizione: number; squadra: string; gare: number; vittorie: number; pareggi: number;
+  sconfitte: number; gol_fatti: number; gol_subiti: number; punti: number;
+}[] {
+  const out: typeof out = [];
+  const rowRe = /\|\s*(\d+)\[([^\]]+)\]\(https:\/\/www\.whoscored\.com\/teams\/\d+[^)]*\)\s*\|\s*(\d+)\s*\|\s*(\d+)\s*\|\s*(\d+)\s*\|\s*(\d+)\s*\|\s*(\d+)\s*\|\s*(\d+)\s*\|\s*[+-]?\d+\s*\|\s*(\d+)/g;
+  let m: RegExpExecArray | null;
+  while ((m = rowRe.exec(html)) !== null) {
+    const squadra = normalizeWsTeam(m[2]);
+    if (!squadra) continue;
+    out.push({
+      posizione: parseInt(m[1]),
+      squadra,
+      gare: parseInt(m[3]),
+      vittorie: parseInt(m[4]),
+      pareggi: parseInt(m[5]),
+      sconfitte: parseInt(m[6]),
+      gol_fatti: parseInt(m[7]),
+      gol_subiti: parseInt(m[8]),
+      punti: parseInt(m[9]),
+    });
+  }
+  return out;
+}
+
 function logSync(source: string, status: string) {
   return supabase.from("data_sync_log").insert({ source, status });
 }
@@ -335,6 +369,28 @@ Deno.serve(async (req: Request) => {
       } catch (e) {
         results.allenatori = { status: "error", error: (e as Error).message };
         await logSync("sky_allenatori", `error:${(e as Error).message}`);
+      }
+    }
+
+    // 5. Classifica (WhoScored) -> standings
+    if (shouldFetch("classifica")) {
+      try {
+        const html = await fetchWithTimeout(
+          "https://www.whoscored.com/regions/108/tournaments/5/seasons/11126/stages/25518/show/italy-serie-a-2026-2027",
+          25000,
+        );
+        const parsed = parseStandings(html);
+        if (parsed.length === 0) throw new Error("Nessuna riga di classifica riconosciuta: la pagina potrebbe essere cambiata");
+        let count = 0;
+        for (const s of parsed) {
+          const { error } = await supabase.from("standings").upsert(s, { onConflict: "squadra" });
+          if (!error) count++;
+        }
+        results.classifica = { status: "ok", count };
+        await logSync("whoscored_classifica", `ok:${count}`);
+      } catch (e) {
+        results.classifica = { status: "error", error: (e as Error).message };
+        await logSync("whoscored_classifica", `error:${(e as Error).message}`);
       }
     }
 

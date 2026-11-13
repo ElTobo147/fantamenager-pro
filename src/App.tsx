@@ -14,6 +14,7 @@ import RosaList from './components/RosaList';
 import FormationView from './components/FormationView';
 import MatchdaySelector from './components/MatchdaySelector';
 import MatchInsights from './components/MatchInsights';
+import SyncReport from './components/SyncReport';
 
 type Tab = 'rosa' | 'formazione' | 'pronostici';
 
@@ -54,6 +55,7 @@ function App() {
   const { matchdayNum, calendario, changeMatchday } = useMatchday();
   const live = useLiveData(matchdayNum);
   const [showRosaList, setShowRosaList] = useState(false);
+  const [showSyncReport, setShowSyncReport] = useState(false);
 
   const playersWithTitolarita = useMemo(
     () => players.map((p) => ({
@@ -101,6 +103,8 @@ function App() {
       if (r.formazioni?.count != null) parts.push(`${r.formazioni.count} formazioni`);
       if (r.infortunati?.count != null) parts.push(`${r.infortunati.count} squadre infortunati`);
       if (r.stats?.count != null) parts.push(`${r.stats.count} statistiche`);
+      if (r.allenatori?.count != null) parts.push(`${r.allenatori.count} allenatori`);
+      if (r.classifica?.count != null) parts.push(`${r.classifica.count} squadre in classifica`);
       const failed = Object.entries(r).filter(([, v]) => (v as { status?: string }).status === 'error');
       if (failed.length > 0) {
         setSyncMessage(`Aggiornamento parziale: ${parts.join(', ') || 'nessun dato'}. Riprova più tardi.`);
@@ -108,11 +112,12 @@ function App() {
         setSyncMessage(`Dati aggiornati: ${parts.join(', ')}`);
       }
       live.refresh();
+      if (!body.message?.includes('recently')) setShowSyncReport(true);
     } catch (e) {
       setSyncMessage(`Aggiornamento non riuscito: ${(e as Error).message}`);
     } finally {
       setSyncing(false);
-      setTimeout(() => setSyncMessage(null), 6000);
+      setTimeout(() => setSyncMessage(null), 10000);
     }
   }
 
@@ -218,10 +223,16 @@ function App() {
       </header>
 
       {syncMessage ? (
-        <div className="fixed top-20 left-1/2 -translate-x-1/2 z-50 bg-gray-800 border border-gray-600 text-gray-100 text-sm px-4 py-2.5 rounded-lg shadow-xl max-w-md text-center">
+        <button
+          onClick={() => setShowSyncReport(true)}
+          className="fixed top-20 left-1/2 -translate-x-1/2 z-50 bg-gray-800 border border-green-600/50 text-gray-100 text-sm px-4 py-2.5 rounded-lg shadow-xl max-w-md text-center hover:bg-gray-700 transition"
+        >
           {syncMessage}
-        </div>
+          <span className="block text-xs text-green-400 mt-0.5">Clicca qui per vedere i dati scaricati</span>
+        </button>
       ) : null}
+
+      <SyncReport open={showSyncReport} onClose={() => setShowSyncReport(false)} />
 
       <main className="max-w-6xl mx-auto p-4 mt-4 mb-8">
         {players.length === 0 && tab === 'rosa' ? (

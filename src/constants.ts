@@ -60,26 +60,37 @@ export interface TeamMetrics {
   goals: number;
 }
 
+// Goals scored/conceded after matchday 10 — real standings data from whoscored.com.
+// xG is approximated from goals for/against averages used by the prediction model.
 export const TEAM_METRICS: Record<string, TeamMetrics> = {
-  Inter: { xG: 16.9, goals: 18 },
-  Roma: { xG: 13.9, goals: 14 },
-  Sassuolo: { xG: 11.9, goals: 12 },
-  Genoa: { xG: 11.1, goals: 13 },
-  Como: { xG: 10.8, goals: 9 },
-  Monza: { xG: 10.4, goals: 9 },
-  Napoli: { xG: 10.3, goals: 10 },
-  Venezia: { xG: 9.9, goals: 5 },
-  Juventus: { xG: 9.7, goals: 9 },
-  Lazio: { xG: 9.6, goals: 11 },
-  Fiorentina: { xG: 9.4, goals: 7 },
-  Milan: { xG: 9.1, goals: 11 },
-  Frosinone: { xG: 8.5, goals: 9 },
-  Bologna: { xG: 7.9, goals: 5 },
-  Udinese: { xG: 7.8, goals: 9 },
-  Torino: { xG: 7.7, goals: 7 },
-  Lecce: { xG: 6.8, goals: 6 },
-  Atalanta: { xG: 6.3, goals: 8 },
-  Parma: { xG: 3.9, goals: 4 },
+  Lazio: { xG: 24, goals: 24 },        // 1ª — 28 pt
+  Inter: { xG: 26, goals: 26 },        // 2ª — 25 pt
+  Roma: { xG: 28, goals: 28 },         // 3ª — 24 pt
+  Como: { xG: 18, goals: 18 },         // 4ª — 23 pt
+  Milan: { xG: 21, goals: 21 },        // 5ª — 21 pt
+  Frosinone: { xG: 24, goals: 24 },    // 6ª — 20 pt
+  Juventus: { xG: 13, goals: 13 },     // 7ª — 17 pt
+  Napoli: { xG: 17, goals: 17 },       // 8ª — 14 pt
+  Bologna: { xG: 14, goals: 14 },      // 9ª — 14 pt
+  Torino: { xG: 14, goals: 14 },       // 10ª — 13 pt
+  Genoa: { xG: 10, goals: 10 },        // 11ª — 13 pt
+  Cagliari: { xG: 9, goals: 9 },       // 12ª — 13 pt
+  Atalanta: { xG: 16, goals: 16 },     // 13ª — 11 pt (9 gare)
+  Lecce: { xG: 11, goals: 11 },        // 14ª — 9 pt
+  Sassuolo: { xG: 14, goals: 14 },     // 15ª — 8 pt (9 gare)
+  Monza: { xG: 17, goals: 17 },        // 16ª — 7 pt
+  Fiorentina: { xG: 11, goals: 11 },   // 17ª — 5 pt (9 gare)
+  Parma: { xG: 5, goals: 5 },          // 18ª — 5 pt (9 gare)
+  Udinese: { xG: 11, goals: 11 },      // 19ª — 5 pt
+  Venezia: { xG: 6, goals: 6 },        // 20ª — 3 pt
+};
+
+// Goals conceded after matchday 10 (whoscored.com) — used for defensive ratings.
+export const TEAM_GOALS_AGAINST: Record<string, number> = {
+  Lazio: 8, Inter: 13, Roma: 10, Como: 8, Milan: 12,
+  Frosinone: 14, Juventus: 10, Napoli: 13, Bologna: 13, Torino: 16,
+  Genoa: 14, Cagliari: 15, Atalanta: 17, Lecce: 21, Sassuolo: 22,
+  Monza: 24, Fiorentina: 21, Parma: 15, Udinese: 23, Venezia: 20,
 };
 
 export const PLAYER_DB: PlayerDB[] = PLAYERS_JSON as PlayerDB[];

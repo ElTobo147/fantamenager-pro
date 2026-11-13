@@ -1,27 +1,11 @@
 import type { PlayerStatsData, Ruolo } from '../types';
 import { TEAM_METRICS } from '../constants';
+import STATS_JSON from './playerStatsData.json';
 
-export const PLAYER_STATS: Record<string, PlayerStatsData> = {
-  'RAIMONDO|FROSINONE': { gol: 7, assist: 0, xg: 5.2, xa: 1.1 },
-  'MALEN|ROMA': { gol: 6, assist: 1, xg: 4.8, xa: 2.3 },
-  'VARELA|MONZA': { gol: 6, assist: 2, xg: 4.5, xa: 3.1 },
-  'MALDINI|CAGLIARI': { gol: 4, assist: 1, xg: 3.2, xa: 1.8 },
-  'MARTINEZ|INTER': { gol: 4, assist: 2, xg: 4.1, xa: 2.5 },
-  'THURAM|INTER': { gol: 4, assist: 3, xg: 3.8, xa: 3.2 },
-  'RABIOT|MILAN': { gol: 4, assist: 1, xg: 3.0, xa: 2.0 },
-  'KRSTOVIC|ATALANTA': { gol: 4, assist: 0, xg: 3.5, xa: 0.8 },
-  'ADZIC|SASSUOLO': { gol: 3, assist: 1, xg: 2.1, xa: 1.5 },
-  'DE BRUYNE|NAPOLI': { gol: 3, assist: 4, xg: 2.5, xa: 5.2 },
-  'KVERNADZE|FROSINONE': { gol: 3, assist: 1, xg: 2.0, xa: 1.2 },
-  'OSMAJIC|GENOA': { gol: 3, assist: 0, xg: 2.8, xa: 0.5 },
-  'CALHANOGLU|INTER': { gol: 3, assist: 2, xg: 2.3, xa: 3.5 },
-  'FRATTESI|LAZIO': { gol: 3, assist: 1, xg: 2.2, xa: 1.8 },
-  'MASTANTUONO|FIORENTINA': { gol: 3, assist: 2, xg: 2.5, xa: 2.8 },
-  'MOREIRA|MILAN': { gol: 3, assist: 3, xg: 2.0, xa: 4.0 },
-  'EKKELENKAMP|UDINESE': { gol: 3, assist: 1, xg: 2.1, xa: 2.2 },
-  'DOUVIKAS|COMO': { gol: 3, assist: 1, xg: 2.4, xa: 1.5 },
-  'ADAMS|TORINO': { gol: 3, assist: 1, xg: 2.0, xa: 1.0 },
-};
+// Real season stats scraped from fantacalcio.it/statistiche-serie-a:
+// gol, assist, fantamedia (fm) and partite a voto (pv) for every Serie A player.
+// xg/xa are derived estimates from goals/assists + fantamedia quality.
+export const PLAYER_STATS: Record<string, PlayerStatsData> = STATS_JSON as Record<string, PlayerStatsData>;
 
 function normalize(s: string): string {
   return s.toUpperCase().trim()
