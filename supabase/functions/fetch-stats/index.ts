@@ -170,6 +170,29 @@ function parseStats(html: string): { nome: string; squadra: string; pv: number; 
   return out;
 }
 
+// The Sky Sport page is a photo gallery: each slide caption is
+// <p class="c-gallery-item__caption"><b>ATALANTA - MAURIZIO SARRI (nuovo)</b>...
+function parseCoaches(html: string): { squadra: string; allenatore: string; statuso: string }[] {
+  const out: { squadra: string; allenatore: string; statuso: string }[] = [];
+  const capRe = /<p class="c-gallery-item__caption"><b>([^<]+)<\/b>/g;
+  let m: RegExpExecArray | null;
+  while ((m = capRe.exec(html)) !== null) {
+    const caption = m[1];
+    const sep = caption.indexOf(" - ");
+    if (sep === -1) continue;
+    const teamName = caption.slice(0, sep).trim();
+    const squadra = TEAM_SLUG_TO_NAME[teamName.toLowerCase()];
+    if (!squadra) continue;
+    const rest = caption.slice(sep + 3).trim();
+    const statusMatch = rest.match(/\(([^)]+)\)\s*$/);
+    const statuso = statusMatch ? statusMatch[1].trim().toLowerCase() : "confermato";
+    const allenatore = (statusMatch ? rest.slice(0, statusMatch.index) : rest).trim();
+    if (!allenatore) continue;
+    out.push({ squadra, allenatore, statuso });
+  }
+  return out;
+}
+
 function logSync(source: string, status: string) {
   return supabase.from("data_sync_log").insert({ source, status });
 }
@@ -289,6 +312,29 @@ Deno.serve(async (req: Request) => {
       } catch (e) {
         results.stats = { status: "error", error: (e as Error).message };
         await logSync("fantacalcio_stats", `error:${(e as Error).message}`);
+      }
+    }
+
+    // 4. Allenatori (Sky Sport) -> coaches
+    if (shouldFetch("allenatori")) {
+      try {
+        const html = await fetchWithTimeout(
+          "https://sport.sky.it/calciomercato/allenatori-serie-a-2026-2027-situazione-panchine-squadre",
+          25000,
+        );
+        const parsed = parseCoaches(html);
+        let count = 0;
+        for (const c of parsed) {
+          const { error } = await supabase.from("coaches").upsert({
+            squadra: c.squadra, allenatore: c.allenatore, statuso: c.statuso,
+          }, { onConflict: "squadra" });
+          if (!error) count++;
+        }
+        results.allenatori = { status: "ok", count };
+        await logSync("sky_allenatori", `ok:${count}`);
+      } catch (e) {
+        results.allenatori = { status: "error", error: (e as Error).message };
+        await logSync("sky_allenatori", `error:${(e as Error).message}`);
       }
     }
 

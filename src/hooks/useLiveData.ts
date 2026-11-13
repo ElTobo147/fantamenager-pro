@@ -2,6 +2,7 @@ import { useEffect, useState, useCallback } from 'react';
 import { supabase } from '@/lib/supabase';
 import { registerLiveTitolarita } from '@/data/titolarita';
 import { registerLiveStats } from '@/data/stats';
+import { registerLiveCoaches } from '@/lib/players';
 
 export interface SyncInfo {
   loaded: boolean;
@@ -23,10 +24,11 @@ export function useLiveData(matchdayNum: number): SyncInfo {
 
     async function load() {
       try {
-        const [formationsRes, injuriesRes, statsRes, logRes] = await Promise.all([
+        const [formationsRes, injuriesRes, statsRes, coachesRes, logRes] = await Promise.all([
           supabase.from('team_formations').select('squadra, titolari, panchina, matchday'),
           supabase.from('team_injuries').select('squadra, players, matchday'),
           supabase.from('player_stats').select('nome, squadra, gol, assist, fm, pv'),
+          supabase.from('coaches').select('squadra, allenatore, statuso'),
           supabase.from('data_sync_log').select('fetched_at').order('fetched_at', { ascending: false }).limit(1).maybeSingle(),
         ]);
 
@@ -34,6 +36,7 @@ export function useLiveData(matchdayNum: number): SyncInfo {
         if (formationsRes.error) throw formationsRes.error;
         if (injuriesRes.error) throw injuriesRes.error;
         if (statsRes.error) throw statsRes.error;
+        if (coachesRes.error) throw coachesRes.error;
 
         const formations = (formationsRes.data ?? []).map((r) => ({
           squadra: r.squadra as string,
@@ -58,6 +61,13 @@ export function useLiveData(matchdayNum: number): SyncInfo {
           pv: r.pv ?? 0,
         }));
         if (stats.length > 0) registerLiveStats(stats);
+
+        const coaches = (coachesRes.data ?? []).map((r) => ({
+          squadra: r.squadra as string,
+          allenatore: r.allenatore as string,
+          statuso: (r.statuso as string) ?? undefined,
+        }));
+        if (coaches.length > 0) registerLiveCoaches(coaches);
 
         setLastSync(logRes.data?.fetched_at ?? null);
         setError(null);

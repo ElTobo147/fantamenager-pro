@@ -216,7 +216,11 @@ export default function RosterManager({ players, onAdd, onRemove, calendario, ma
                 })()}
                 <div className="flex justify-between items-center mt-1.5 pt-1.5 border-t border-gray-800 text-gray-400">
                   <span>Avversario: <span className="text-white">{opponentTierLabel(g.squadra, calendario) || 'Riposo'}</span></span>
-                  {COACHES[g.squadra] && <span>Allenatore: <span className="text-white">{COACHES[g.squadra].stile}</span></span>}
+                  {(() => {
+                    const coach = getCoach(g.squadra);
+                    if (!coach) return null;
+                    return <span>Allenatore: <span className="text-white">{coach.allenatore}{coach.statuso && coach.statuso !== 'confermato' ? ` (${coach.statuso})` : ''}</span></span>;
+                  })()}
                 </div>
                 {TEAM_METRICS[g.squadra] && (
                   <div className="flex justify-between items-center mt-1.5 pt-1.5 border-t border-gray-800 text-gray-400">

@@ -60,4 +60,5 @@ export interface CoachInfo {
   squadra: string;
   allenatore: string;
   stile: 'offensivo' | 'difensivo' | 'bilanciato';
+  statuso?: string;
 }

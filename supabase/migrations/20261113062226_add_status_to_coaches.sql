@@ -1,0 +1,1 @@
+ALTER TABLE coaches ADD COLUMN IF NOT EXISTS statuso text NOT NULL DEFAULT 'confermato';

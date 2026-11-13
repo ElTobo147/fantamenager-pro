@@ -62,8 +62,27 @@ function opponentModifier(playerTeam: string, opponent: string, isHome: boolean)
   return mod;
 }
 
+// Live coaches fetched from Supabase (populated by the "Aggiorna dati" sync from
+// Sky Sport). Merged over the static list: live wins.
+const LIVE_COACHES: Record<string, CoachInfo> = {};
+
+export function registerLiveCoaches(rows: { squadra: string; allenatore: string; statuso?: string }[]): void {
+  for (const r of rows) {
+    LIVE_COACHES[r.squadra] = {
+      squadra: r.squadra,
+      allenatore: r.allenatore,
+      stile: COACHES[r.squadra]?.stile ?? 'bilanciato',
+      statuso: r.statuso,
+    };
+  }
+}
+
+export function getCoach(squadra: string): CoachInfo | undefined {
+  return LIVE_COACHES[squadra] ?? COACHES[squadra];
+}
+
 function coachModifier(playerTeam: string, ruolo: Player['ruolo']): number {
-  const coach = COACHES[playerTeam];
+  const coach = getCoach(playerTeam);
   if (!coach) return 0;
   if (coach.stile === 'offensivo') {
     if (ruolo === 'A') return 0.8;
