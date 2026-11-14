@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { Users, Layout, RotateCcw, RefreshCw, BarChart3, Save, Check, DownloadCloud, Database } from 'lucide-react';
+import { Users, Layout, RotateCcw, RefreshCw, BarChart3, Save, Check, DownloadCloud, Database, LogOut } from 'lucide-react';
 import type { Player, PlayerDB } from './types';
 import { PLAYER_DB } from './constants';
 import { randomBonus } from './lib/players';
@@ -8,6 +8,7 @@ import { getTitolarita, hasTitolaritaData, TITOLARE_VALUE } from './data/titolar
 import { useMatchday } from './hooks/useMatchday';
 import { useRoster } from './hooks/useRoster';
 import { useLiveData } from './hooks/useLiveData';
+import { useAuth } from './hooks/useAuth';
 import { supabase } from './lib/supabase';
 import RosterManager from './components/RosterManager';
 import RosaList from './components/RosaList';
@@ -15,6 +16,7 @@ import FormationView from './components/FormationView';
 import MatchdaySelector from './components/MatchdaySelector';
 import MatchInsights from './components/MatchInsights';
 import SyncReport, { SyncReportContent } from './components/SyncReport';
+import Login from './components/Login';
 
  type Tab = 'rosa' | 'formazione' | 'pronostici' | 'dati';
 
@@ -46,6 +48,7 @@ function makePlayer(db: PlayerDB): Player {
 }
 
 function App() {
+  const { session, loading: authLoading, signOut } = useAuth();
   const [tab, setTab] = useState<Tab>('rosa');
   const [savedFlash, setSavedFlash] = useState(false);
   const [syncing, setSyncing] = useState(false);
@@ -128,6 +131,18 @@ function App() {
     setSavedFlash(ok);
     if (!ok) setSyncMessage(`Salvataggio non riuscito: ${error || 'riprova'}`);
     setTimeout(() => { setSavedFlash(false); setSyncMessage(null); }, 2500);
+  }
+
+  if (authLoading) {
+    return (
+      <div className="min-h-screen bg-gray-950 flex items-center justify-center">
+        <div className="w-8 h-8 border-2 border-green-600/30 border-t-green-400 rounded-full animate-spin" />
+      </div>
+    );
+  }
+
+  if (!session) {
+    return <Login />;
   }
 
   if (loading) {
@@ -225,6 +240,14 @@ function App() {
               >
                 <RotateCcw className="w-4 h-4" />
                 <span className="hidden md:inline">Svuota</span>
+              </button>
+              <button
+                onClick={() => signOut()}
+                className="px-3 py-2 bg-gray-700/60 text-gray-300 border border-gray-600/50 rounded-lg text-sm hover:bg-gray-600 hover:text-white transition flex items-center gap-2"
+                title="Esci"
+              >
+                <LogOut className="w-4 h-4" />
+                <span className="hidden md:inline">Esci</span>
               </button>
             </div>
           </div>
