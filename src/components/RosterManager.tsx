@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Trash2, Plus, Info } from 'lucide-react';
 import type { Player, PlayerDB, Ruolo, Calendario } from '../types';
 import { SERIE_A_TEAMS, RUOLI, RUOLO_STYLES, ROSA_LIMITS, TEAM_METRICS } from '../constants';
-import { formatXfp, matchLabel, opponentTierLabel, COACHES } from '../lib/players';
+import { formatXfp, matchLabel, opponentTierLabel, getCoach } from '../lib/players';
 import { hasTitolaritaData, getTitolaritaStatus, INJURED_VALUE, PANCHINA_VALUE, NOT_LISTED_VALUE, TITOLARE_VALUE } from '../data/titolarita';
 import { getPlayerStats, hasHardcodedStats } from '../data/stats';
 import PlayerPicker from './PlayerPicker';
