@@ -14,9 +14,9 @@ import RosaList from './components/RosaList';
 import FormationView from './components/FormationView';
 import MatchdaySelector from './components/MatchdaySelector';
 import MatchInsights from './components/MatchInsights';
-import SyncReport from './components/SyncReport';
+import SyncReport, { SyncReportContent } from './components/SyncReport';
 
-type Tab = 'rosa' | 'formazione' | 'pronostici';
+ type Tab = 'rosa' | 'formazione' | 'pronostici' | 'dati';
 
 const SAMPLE: { nome: string; squadra: string; ruolo: PlayerDB['ruolo'] }[] = [
   { nome: 'SVILAR', squadra: 'Roma', ruolo: 'P' },
@@ -211,6 +211,15 @@ function App() {
                 <span className="hidden sm:inline">Pronostici</span>
               </button>
               <button
+                onClick={() => setTab('dati')}
+                className={`px-3 md:px-4 py-2 rounded-lg font-semibold text-sm transition flex items-center gap-2 ${
+                  tab === 'dati' ? 'bg-gray-700 text-white' : 'bg-transparent text-gray-400 hover:bg-gray-800'
+                }`}
+              >
+                <DownloadCloud className="w-4 h-4" />
+                <span className="hidden sm:inline">Dati</span>
+              </button>
+              <button
                 onClick={resetData}
                 className="px-3 py-2 bg-red-900/40 text-red-400 border border-red-800/50 rounded-lg text-sm hover:bg-red-800/60 hover:text-white transition flex items-center gap-2"
               >
@@ -288,8 +297,21 @@ function App() {
           </div>
         ) : tab === 'formazione' ? (
           <FormationView players={playersWithTitolarita} calendario={calendario} matchdayNum={matchdayNum} />
-        ) : (
+        ) : tab === 'pronostici' ? (
           <MatchInsights players={playersWithTitolarita} calendario={calendario} matchdayNum={matchdayNum} />
+        ) : (
+          <div className="bg-gray-800/70 backdrop-blur rounded-2xl border border-gray-700/60 shadow-xl flex flex-col max-h-[calc(100vh-12rem)]">
+            <div className="px-5 py-4 border-b border-gray-800">
+              <h2 className="text-lg font-bold text-white flex items-center gap-2">
+                <DownloadCloud className="w-5 h-5 text-green-400" />
+                Dati scaricati dai siti
+              </h2>
+              <p className="text-xs text-gray-400 mt-0.5">
+                Aggiorna i dati dal pulsante in alto, poi torna qui per consultarli
+              </p>
+            </div>
+            <SyncReportContent />
+          </div>
         )}
       </main>
     </div>
