@@ -175,82 +175,85 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-900 text-gray-100 font-sans">
-      <header className="bg-gray-800/80 backdrop-blur border-b border-gray-700/60 px-4 py-3.5 shadow-md sticky top-0 z-50">
-        <div className="max-w-6xl mx-auto flex flex-wrap justify-between items-center gap-3">
+    <div className="min-h-screen bg-gray-900 text-gray-100 font-sans overflow-x-hidden">
+      <header className="bg-gray-800/80 backdrop-blur border-b border-gray-700/60 shadow-md sticky top-0 z-50">
+        <div className="max-w-6xl mx-auto px-4 py-3.5">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-green-400 to-green-600 rounded-xl flex items-center justify-center font-bold text-xl text-white shadow-lg shadow-green-600/30">
-              FM
+            <div className="flex items-center gap-3 shrink-0">
+              <div className="w-10 h-10 bg-gradient-to-br from-green-400 to-green-600 rounded-xl flex items-center justify-center font-bold text-xl text-white shadow-lg shadow-green-600/30">
+                FM
+              </div>
+              <div>
+                <h1 className="text-lg md:text-xl font-bold text-white leading-tight">FantaManager Pro</h1>
+                <p className="text-xs text-gray-400">Serie A 2026/2027 — Valutazione Dinamica xFP</p>
+              </div>
             </div>
-            <div>
-              <h1 className="text-lg md:text-xl font-bold text-white leading-tight">FantaManager Pro</h1>
-              <p className="text-xs text-gray-400">Serie A 2026/2027 — Valutazione Dinamica xFP</p>
+            <div className="flex-1" />
+            <div className="flex gap-2 md:gap-3 items-center shrink-0">
+              <MatchdaySelector value={matchdayNum} onChange={changeMatchday} />
+              <button
+                onClick={aggiornaDati}
+                disabled={syncing}
+                className="px-3 md:px-4 py-2 rounded-lg font-semibold text-sm transition flex items-center gap-2 bg-green-600/90 hover:bg-green-500 text-white disabled:opacity-60 disabled:cursor-not-allowed shadow-lg shadow-green-600/20"
+              >
+                <DownloadCloud className={`w-4 h-4 ${syncing ? 'animate-bounce' : ''}`} />
+                <span className="hidden sm:inline">{syncing ? 'Aggiornamento…' : 'Aggiorna dati'}</span>
+              </button>
             </div>
           </div>
-          <div className="flex gap-2 md:gap-3 items-center">
-            <MatchdaySelector value={matchdayNum} onChange={changeMatchday} />
+          <nav className="flex gap-2 mt-3 overflow-x-auto fm-nav-scroll shrink-0">
             <button
-              onClick={aggiornaDati}
-              disabled={syncing}
-              className="px-3 md:px-4 py-2 rounded-lg font-semibold text-sm transition flex items-center gap-2 bg-green-600/90 hover:bg-green-500 text-white disabled:opacity-60 disabled:cursor-not-allowed shadow-lg shadow-green-600/20"
+              onClick={() => { setTab('rosa'); setShowRosaList(false); }}
+              className={`px-3 md:px-4 py-2 rounded-lg font-semibold text-sm transition flex items-center gap-2 whitespace-nowrap ${
+                tab === 'rosa' && !showRosaList ? 'bg-gray-700 text-white' : 'bg-transparent text-gray-400 hover:bg-gray-800'
+              }`}
             >
-              <DownloadCloud className={`w-4 h-4 ${syncing ? 'animate-bounce' : ''}`} />
-              <span className="hidden sm:inline">{syncing ? 'Aggiornamento…' : 'Aggiorna dati'}</span>
+              <Database className="w-4 h-4" />
+              <span className="hidden sm:inline">Listone</span>
             </button>
-            <div className="flex gap-2">
-              <button
-                onClick={() => { setTab('rosa'); setShowRosaList(false); }}
-                className={`px-3 md:px-4 py-2 rounded-lg font-semibold text-sm transition flex items-center gap-2 ${
-                  tab === 'rosa' && !showRosaList ? 'bg-gray-700 text-white' : 'bg-transparent text-gray-400 hover:bg-gray-800'
-                }`}
-              >
-                <Database className="w-4 h-4" />
-                <span className="hidden sm:inline">Listone</span>
-              </button>
-              <button
-                onClick={() => setTab('formazione')}
-                className={`px-3 md:px-4 py-2 rounded-lg font-semibold text-sm transition flex items-center gap-2 ${
-                  tab === 'formazione' ? 'bg-gray-700 text-white' : 'bg-transparent text-gray-400 hover:bg-gray-800'
-                }`}
-              >
-                <Layout className="w-4 h-4" />
-                <span className="hidden sm:inline">Formazione</span>
-              </button>
-              <button
-                onClick={() => setTab('pronostici')}
-                className={`px-3 md:px-4 py-2 rounded-lg font-semibold text-sm transition flex items-center gap-2 ${
-                  tab === 'pronostici' ? 'bg-gray-700 text-white' : 'bg-transparent text-gray-400 hover:bg-gray-800'
-                }`}
-              >
-                <BarChart3 className="w-4 h-4" />
-                <span className="hidden sm:inline">Pronostici</span>
-              </button>
-              <button
-                onClick={() => setTab('dati')}
-                className={`px-3 md:px-4 py-2 rounded-lg font-semibold text-sm transition flex items-center gap-2 ${
-                  tab === 'dati' ? 'bg-gray-700 text-white' : 'bg-transparent text-gray-400 hover:bg-gray-800'
-                }`}
-              >
-                <DownloadCloud className="w-4 h-4" />
-                <span className="hidden sm:inline">Dati</span>
-              </button>
-              <button
-                onClick={resetData}
-                className="px-3 py-2 bg-red-900/40 text-red-400 border border-red-800/50 rounded-lg text-sm hover:bg-red-800/60 hover:text-white transition flex items-center gap-2"
-              >
-                <RotateCcw className="w-4 h-4" />
-                <span className="hidden md:inline">Svuota</span>
-              </button>
-              <button
-                onClick={() => signOut()}
-                className="px-3 py-2 bg-gray-700/60 text-gray-300 border border-gray-600/50 rounded-lg text-sm hover:bg-gray-600 hover:text-white transition flex items-center gap-2"
-                title="Esci"
-              >
-                <LogOut className="w-4 h-4" />
-                <span className="hidden md:inline">Esci</span>
-              </button>
-            </div>
-          </div>
+            <button
+              onClick={() => setTab('formazione')}
+              className={`px-3 md:px-4 py-2 rounded-lg font-semibold text-sm transition flex items-center gap-2 whitespace-nowrap ${
+                tab === 'formazione' ? 'bg-gray-700 text-white' : 'bg-transparent text-gray-400 hover:bg-gray-800'
+              }`}
+            >
+              <Layout className="w-4 h-4" />
+              <span className="hidden sm:inline">Formazione</span>
+            </button>
+            <button
+              onClick={() => setTab('pronostici')}
+              className={`px-3 md:px-4 py-2 rounded-lg font-semibold text-sm transition flex items-center gap-2 whitespace-nowrap ${
+                tab === 'pronostici' ? 'bg-gray-700 text-white' : 'bg-transparent text-gray-400 hover:bg-gray-800'
+              }`}
+            >
+              <BarChart3 className="w-4 h-4" />
+              <span className="hidden sm:inline">Pronostici</span>
+            </button>
+            <button
+              onClick={() => setTab('dati')}
+              className={`px-3 md:px-4 py-2 rounded-lg font-semibold text-sm transition flex items-center gap-2 whitespace-nowrap ${
+                tab === 'dati' ? 'bg-gray-700 text-white' : 'bg-transparent text-gray-400 hover:bg-gray-800'
+              }`}
+            >
+              <DownloadCloud className="w-4 h-4" />
+              <span className="hidden sm:inline">Dati</span>
+            </button>
+            <button
+              onClick={resetData}
+              className="px-3 py-2 bg-red-900/40 text-red-400 border border-red-800/50 rounded-lg text-sm hover:bg-red-800/60 hover:text-white transition flex items-center gap-2 whitespace-nowrap"
+            >
+              <RotateCcw className="w-4 h-4" />
+              <span className="hidden md:inline">Svuota</span>
+            </button>
+            <button
+              onClick={() => signOut()}
+              className="px-3 py-2 bg-gray-700/60 text-gray-300 border border-gray-600/50 rounded-lg text-sm hover:bg-gray-600 hover:text-white transition flex items-center gap-2 whitespace-nowrap"
+              title="Esci"
+            >
+              <LogOut className="w-4 h-4" />
+              <span className="hidden md:inline">Esci</span>
+            </button>
+          </nav>
         </div>
       </header>
 
