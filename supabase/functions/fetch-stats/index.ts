@@ -193,6 +193,71 @@ function parseCoaches(html: string): { squadra: string; allenatore: string; stat
   return out;
 }
 
+// The Sky Sport "esonerati" page is also a photo gallery. Captions describe
+// coaching changes: "SASSUOLO, UFFICIALE D'AVERSA PER IL POST AQUILANI",
+// "PAOLO ZANETTI NUOVO ALLENATORE DELL'UDINESE", etc.
+// We extract team + new coach pairs and update the coaches table with status "esonerato" or "nuovo".
+function parseEsonerati(html: string): { squadra: string; allenatore: string; statuso: string }[] {
+  const out: { squadra: string; allenatore: string; statuso: string }[] = [];
+  const capRe = /<p class="c-gallery-item__caption"><b>([^<]+)<\/b>/g;
+  const seenTeams = new Set<string>();
+  let m: RegExpExecArray | null;
+
+  // First pass: collect team names mentioned so we can attribute captions.
+  const allTeams = new Set<string>();
+  const teamWordRe = new RegExp(
+    Object.keys(TEAM_SLUG_TO_NAME).map((k) => k.replace(/-/g, '[\\s-]?')).join('|'),
+    'gi',
+  );
+  const tnames = new Set(Object.values(TEAM_SLUG_TO_NAME));
+  void allTeams;
+  void teamWordRe;
+  void tnames;
+
+  while ((m = capRe.exec(html)) !== null) {
+    const caption = m[1].trim().toUpperCase();
+
+    // Skip generic non-team captions
+    if (caption.includes('ANNO SCORSO') || caption.includes('CAMBI DI ALLENATORE')) continue;
+
+    // Pattern 1: "TEAM, UFFICIALE X PER IL POST Y" — new coach X replaces Y at TEAM
+    const matchOfficial = caption.match(/^([A-Z]+),?\s+.*UFFICIALE\s+([A-Z'\s]+?)\s+PER\s+IL\s+POST\s+([A-Z'\s]+)/);
+    if (matchOfficial) {
+      const squadra = TEAM_SLUG_TO_NAME[matchOfficial[1].toLowerCase()];
+      if (squadra && !seenTeams.has(squadra)) {
+        seenTeams.add(squadra);
+        out.push({ squadra, allenatore: matchOfficial[2].trim(), statuso: 'nuovo' });
+        continue;
+      }
+    }
+
+    // Pattern 2: "X NUOVO ALLENATORE DI/LDELL' TEAM" — new coach X for TEAM
+    const matchNuovo = caption.match(/([A-Z'\s]+?)\s+NUOVO\s+ALLENATORE\s+DEL?L?['\s]*([A-Z]+)/);
+    if (matchNuovo) {
+      const squadra = TEAM_SLUG_TO_NAME[matchNuovo[2].toLowerCase()];
+      if (squadra && !seenTeams.has(squadra)) {
+        seenTeams.add(squadra);
+        out.push({ squadra, allenatore: matchNuovo[1].trim(), statuso: 'nuovo' });
+        continue;
+      }
+    }
+
+    // Pattern 3: "COACH - TEAM" — informational, skip unless it confirms a team
+    // "ALBERTO AQUILANI - SASSUOLO" (the old coach)
+    const matchDash = caption.match(/^([A-Z'\s]+)\s+-\s+([A-Z]+)$/);
+    if (matchDash) {
+      const squadra = TEAM_SLUG_TO_NAME[matchDash[2].toLowerCase()];
+      if (squadra && !seenTeams.has(squadra)) {
+        // This is likely the old/fired coach — mark as esonerato
+        seenTeams.add(squadra);
+        out.push({ squadra, allenatore: matchDash[1].trim(), statuso: 'esonerato' });
+        continue;
+      }
+    }
+  }
+  return out;
+}
+
 // WhoScored standings table rows: | pos [Team](url) | P | W | D | L | GF | GA | GD | Pts | form |.
 // Team names come as "AC Milan", "Parma Calcio 1913" etc. — normalize to the app's names.
 function normalizeWsTeam(name: string): string | null {
@@ -286,10 +351,29 @@ Deno.serve(async (req: Request) => {
     const shouldFetch = (s: string) => sources.includes("all") || sources.includes(s);
     let currentMatchday = matchday;
 
+    // Load data source URLs from the database (user-manageable)
+    const { data: sourceRows, error: sourceError } = await supabase
+      .from("data_sources")
+      .select("source_key, label, url, parser_type, enabled")
+      .order("created_at", { ascending: true });
+    const sourceMap = new Map<string, { url: string; parser_type: string }>();
+    for (const r of sourceRows ?? []) {
+      if (!r.enabled) continue;
+      sourceMap.set(r.source_key, { url: r.url, parser_type: r.parser_type });
+    }
+
+    // Helper: fetch the URL for a source key from the DB (falls back to nothing if missing)
+    const getSourceUrl = (key: string): string | null => {
+      const entry = sourceMap.get(key);
+      return entry ? entry.url : null;
+    };
+
     // 1. Probabili formazioni -> team_formations
     if (shouldFetch("formazioni")) {
       try {
-        const html = await fetchWithTimeout("https://www.fantacalcio.it/probabili-formazioni-serie-a");
+        const srcUrl = getSourceUrl("formazioni");
+        if (!srcUrl) throw new Error("Nessun URL configurato per 'formazioni'");
+        const html = await fetchWithTimeout(srcUrl);
         const { matchday: md, teams } = parseProbabiliFormazioni(html);
         const mdToUse = matchday ?? md;
         if (mdToUse != null) currentMatchday = mdToUse;
@@ -311,7 +395,9 @@ Deno.serve(async (req: Request) => {
     // 2. Infortunati -> team_injuries
     if (shouldFetch("infortunati")) {
       try {
-        const html = await fetchWithTimeout("https://www.fantacalcio.it/infortunati-serie-a");
+        const srcUrl = getSourceUrl("infortunati");
+        if (!srcUrl) throw new Error("Nessun URL configurato per 'infortunati'");
+        const html = await fetchWithTimeout(srcUrl);
         const parsed = parseInjuries(html);
         let count = 0;
         for (const [squadra, players] of Object.entries(parsed)) {
@@ -331,7 +417,9 @@ Deno.serve(async (req: Request) => {
     // 3. Statistiche -> player_stats
     if (shouldFetch("stats")) {
       try {
-        const html = await fetchWithTimeout("https://www.fantacalcio.it/statistiche-serie-a");
+        const srcUrl = getSourceUrl("stats");
+        if (!srcUrl) throw new Error("Nessun URL configurato per 'stats'");
+        const html = await fetchWithTimeout(srcUrl);
         const parsed = parseStats(html);
         let count = 0;
         for (const p of parsed) {
@@ -352,10 +440,9 @@ Deno.serve(async (req: Request) => {
     // 4. Allenatori (Sky Sport) -> coaches
     if (shouldFetch("allenatori")) {
       try {
-        const html = await fetchWithTimeout(
-          "https://sport.sky.it/calciomercato/allenatori-serie-a-2026-2027-situazione-panchine-squadre",
-          25000,
-        );
+        const srcUrl = getSourceUrl("allenatori");
+        if (!srcUrl) throw new Error("Nessun URL configurato per 'allenatori'");
+        const html = await fetchWithTimeout(srcUrl, 25000);
         const parsed = parseCoaches(html);
         let count = 0;
         for (const c of parsed) {
@@ -372,13 +459,37 @@ Deno.serve(async (req: Request) => {
       }
     }
 
-    // 5. Classifica (WhoScored) -> standings
+    // 5. Allenatori esonerati (Sky Sport) -> coaches (updates status)
+    if (shouldFetch("esonerati")) {
+      try {
+        const srcUrl = getSourceUrl("esonerati");
+        if (!srcUrl) throw new Error("Nessun URL configurato per 'esonerati'");
+        const html = await fetchWithTimeout(srcUrl, 25000);
+        const parsed = parseEsonerati(html);
+        let count = 0;
+        for (const c of parsed) {
+          if (c.statuso === "nuovo") {
+            // New coach takes over — update the coaches table
+            const { error } = await supabase.from("coaches").upsert({
+              squadra: c.squadra, allenatore: c.allenatore, statuso: c.statuso,
+            }, { onConflict: "squadra" });
+            if (!error) count++;
+          }
+        }
+        results.esonerati = { status: "ok", count };
+        await logSync("sky_esonerati", `ok:${count}`);
+      } catch (e) {
+        results.esonerati = { status: "error", error: (e as Error).message };
+        await logSync("sky_esonerati", `error:${(e as Error).message}`);
+      }
+    }
+
+    // 6. Classifica (WhoScored) -> standings
     if (shouldFetch("classifica")) {
       try {
-        const html = await fetchWithTimeout(
-          "https://www.whoscored.com/regions/108/tournaments/5/seasons/11126/stages/25518/show/italy-serie-a-2026-2027",
-          25000,
-        );
+        const srcUrl = getSourceUrl("classifica");
+        if (!srcUrl) throw new Error("Nessun URL configurato per 'classifica'");
+        const html = await fetchWithTimeout(srcUrl, 25000);
         const parsed = parseStandings(html);
         if (parsed.length === 0) throw new Error("Nessuna riga di classifica riconosciuta: la pagina potrebbe essere cambiata");
         let count = 0;

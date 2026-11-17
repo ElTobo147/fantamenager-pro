@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback } from 'react';
-import { X, RefreshCw, Database, ListOrdered, User, Activity, Users } from 'lucide-react';
+import { X, RefreshCw, Database, ListOrdered, User, Activity, Users, Link as LinkIcon, Plus, Trash2, Save } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 
 interface StatRow { nome: string; squadra: string; gol: number; assist: number; fm: number; pv: number }
@@ -10,6 +10,10 @@ interface StandingRow {
 interface CoachRow { squadra: string; allenatore: string; statuso: string | null }
 interface FormationRow { squadra: string; titolari: string[] }
 interface InjuryRow { squadra: string; players: { nome: string; nota?: string }[] }
+interface DataSourceRow {
+  id: string; source_key: string; label: string; url: string;
+  parser_type: string; enabled: boolean;
+}
 
 interface Props {
   open: boolean;
@@ -31,7 +35,7 @@ function fmColor(fm: number): string {
   return 'text-gray-400';
 }
 
-type Section = 'stats' | 'formazioni' | 'infortunati' | 'allenatori' | 'classifica';
+type Section = 'stats' | 'formazioni' | 'infortunati' | 'allenatori' | 'classifica' | 'sorgenti';
 
 /**
  * Contenuto del pannello dati: carica dal database tutto ciò che è stato
@@ -47,18 +51,23 @@ export function SyncReportContent() {
   const [coaches, setCoaches] = useState<CoachRow[]>([]);
   const [formations, setFormations] = useState<FormationRow[]>([]);
   const [injuries, setInjuries] = useState<InjuryRow[]>([]);
+  const [dataSources, setDataSources] = useState<DataSourceRow[]>([]);
+  const [editingSource, setEditingSource] = useState<Record<string, string>>({});
+  const [savingSource, setSavingSource] = useState<string | null>(null);
+  const [newSource, setNewSource] = useState({ source_key: '', label: '', url: '' });
   const [error, setError] = useState<string | null>(null);
 
   const load = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
-      const [statsRes, standingsRes, coachesRes, formationsRes, injuriesRes] = await Promise.all([
+      const [statsRes, standingsRes, coachesRes, formationsRes, injuriesRes, sourcesRes] = await Promise.all([
         supabase.from('player_stats').select('nome, squadra, gol, assist, fm, pv').order('fm', { ascending: false }).limit(100),
         supabase.from('standings').select('*').order('posizione'),
         supabase.from('coaches').select('squadra, allenatore, statuso').order('squadra'),
         supabase.from('team_formations').select('squadra, titolari').order('squadra'),
         supabase.from('team_injuries').select('squadra, players').order('squadra'),
+        supabase.from('data_sources').select('id, source_key, label, url, parser_type, enabled').order('created_at'),
       ]);
       if (statsRes.error) throw statsRes.error;
       if (standingsRes.error) throw standingsRes.error;
@@ -74,6 +83,7 @@ export function SyncReportContent() {
         squadra: r.squadra,
         players: (r.players as InjuryRow['players']) ?? [],
       })));
+      setDataSources((sourcesRes.data ?? []) as DataSourceRow[]);
     } catch (e) {
       setError((e as Error).message);
     } finally {
@@ -89,7 +99,44 @@ export function SyncReportContent() {
     { id: 'allenatori', label: 'Allenatori', count: coaches.length, icon: User },
     { id: 'formazioni', label: 'Formazioni', count: formations.length, icon: Users },
     { id: 'infortunati', label: 'Infortunati', count: injuries.reduce((n, i) => n + i.players.length, 0), icon: Database },
+    { id: 'sorgenti', label: 'Sorgenti', count: dataSources.length, icon: LinkIcon },
   ];
+
+  async function saveSourceUrl(id: string) {
+    const newUrl = editingSource[id];
+    if (!newUrl) return;
+    setSavingSource(id);
+    const { error } = await supabase.from('data_sources').update({ url: newUrl }).eq('id', id);
+    setSavingSource(null);
+    if (error) { setError(error.message); return; }
+    setDataSources((prev) => prev.map((s) => s.id === id ? { ...s, url: newUrl } : s));
+    setEditingSource((prev) => { const cp = { ...prev }; delete cp[id]; return cp; });
+  }
+
+  async function toggleSource(ds: DataSourceRow) {
+    const { error } = await supabase.from('data_sources').update({ enabled: !ds.enabled }).eq('id', ds.id);
+    if (error) { setError(error.message); return; }
+    setDataSources((prev) => prev.map((s) => s.id === ds.id ? { ...s, enabled: !s.enabled } : s));
+  }
+
+  async function deleteSource(id: string) {
+    const { error } = await supabase.from('data_sources').delete().eq('id', id);
+    if (error) { setError(error.message); return; }
+    setDataSources((prev) => prev.filter((s) => s.id !== id));
+  }
+
+  async function addSource() {
+    if (!newSource.source_key || !newSource.url || !newSource.label) return;
+    const { data, error } = await supabase.from('data_sources').insert({
+      source_key: newSource.source_key,
+      label: newSource.label,
+      url: newSource.url,
+      parser_type: 'stats',
+    }).select('id, source_key, label, url, parser_type, enabled').single();
+    if (error) { setError(error.message); return; }
+    setDataSources((prev) => [...prev, data as DataSourceRow]);
+    setNewSource({ source_key: '', label: '', url: '' });
+  }
 
   return (
     <>
@@ -261,12 +308,104 @@ export function SyncReportContent() {
                 </div>
               )
             )}
+
+            {section === 'sorgenti' && (
+              <div className="space-y-3">
+                <p className="text-sm text-gray-400">
+                  Qui puoi modificare i link da cui l'app scarica i dati. Premi "Aggiorna dati" in alto per usare questi link.
+                </p>
+                {error && <p className="text-red-400 text-sm">{error}</p>}
+                {dataSources.map((ds) => (
+                  <div key={ds.id} className="bg-gray-800/60 rounded-lg p-3 space-y-2">
+                    <div className="flex items-center justify-between gap-2">
+                      <div className="flex items-center gap-2 min-w-0">
+                        <span className={`w-2 h-2 rounded-full shrink-0 ${ds.enabled ? 'bg-green-500' : 'bg-gray-600'}`} />
+                        <span className="text-sm font-semibold text-gray-200 truncate">{ds.label}</span>
+                        <code className="text-[10px] text-gray-500 bg-gray-900 px-1.5 py-0.5 rounded">{ds.source_key}</code>
+                      </div>
+                      <div className="flex gap-1.5 shrink-0">
+                        <button
+                          onClick={() => toggleSource(ds)}
+                          className={`text-[10px] px-2 py-1 rounded font-semibold transition ${ds.enabled ? 'bg-gray-700 text-gray-300 hover:bg-gray-600' : 'bg-green-700 text-green-200 hover:bg-green-600'}`}
+                        >
+                          {ds.enabled ? 'Disattiva' : 'Attiva'}
+                        </button>
+                        <button
+                          onClick={() => deleteSource(ds.id)}
+                          className="p-1 rounded text-red-400 hover:bg-red-900/40 transition"
+                          aria-label="Elimina"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                    </div>
+                    <div className="flex gap-2">
+                      <input
+                        type="url"
+                        value={editingSource[ds.id] ?? ds.url}
+                        onChange={(e) => setEditingSource((prev) => ({ ...prev, [ds.id]: e.target.value }))}
+                        className="flex-1 bg-gray-900 border border-gray-700 rounded-lg px-3 py-1.5 text-xs text-gray-200 focus:outline-none focus:border-green-500 transition"
+                        placeholder="https://..."
+                      />
+                      {editingSource[ds.id] && editingSource[ds.id] !== ds.url ? (
+                        <button
+                          onClick={() => saveSourceUrl(ds.id)}
+                          disabled={savingSource === ds.id}
+                          className="px-3 py-1.5 rounded-lg bg-green-600 hover:bg-green-500 text-white text-xs font-semibold flex items-center gap-1.5 transition disabled:opacity-50"
+                        >
+                          <Save className="w-3.5 h-3.5" />
+                          Salva
+                        </button>
+                      ) : null}
+                    </div>
+                  </div>
+                ))}
+
+                <div className="border-t border-gray-800 pt-3">
+                  <p className="text-xs text-gray-500 mb-2 flex items-center gap-1.5">
+                    <Plus className="w-3.5 h-3.5" />
+                    Aggiungi una nuova sorgente
+                  </p>
+                  <div className="flex flex-col sm:flex-row gap-2">
+                    <input
+                      type="text"
+                      value={newSource.label}
+                      onChange={(e) => setNewSource((p) => ({ ...p, label: e.target.value }))}
+                      placeholder="Nome (es. Risultati)"
+                      className="bg-gray-900 border border-gray-700 rounded-lg px-3 py-1.5 text-xs text-gray-200 focus:outline-none focus:border-green-500 transition w-full sm:w-40"
+                    />
+                    <input
+                      type="text"
+                      value={newSource.source_key}
+                      onChange={(e) => setNewSource((p) => ({ ...p, source_key: e.target.value.toLowerCase().replace(/\s+/g, '_') }))}
+                      placeholder="chiave (es. risultati)"
+                      className="bg-gray-900 border border-gray-700 rounded-lg px-3 py-1.5 text-xs text-gray-200 focus:outline-none focus:border-green-500 transition w-full sm:w-32"
+                    />
+                    <input
+                      type="url"
+                      value={newSource.url}
+                      onChange={(e) => setNewSource((p) => ({ ...p, url: e.target.value }))}
+                      placeholder="https://..."
+                      className="flex-1 bg-gray-900 border border-gray-700 rounded-lg px-3 py-1.5 text-xs text-gray-200 focus:outline-none focus:border-green-500 transition"
+                    />
+                    <button
+                      onClick={addSource}
+                      disabled={!newSource.source_key || !newSource.url || !newSource.label}
+                      className="px-3 py-1.5 rounded-lg bg-green-600 hover:bg-green-500 text-white text-xs font-semibold flex items-center gap-1.5 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      <Plus className="w-3.5 h-3.5" />
+                      Aggiungi
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
           </>
         )}
       </div>
 
       <div className="px-5 py-3 border-t border-gray-800 text-[11px] text-gray-500">
-        Fonti: fantacalcio.it (statistiche, formazioni, infortunati) · sport.sky.it (allenatori) · whoscored.com (classifica)
+        Fonti configurabili dalla scheda "Sorgenti" · Premi "Aggiorna dati" in alto per scaricare
       </div>
     </>
   );
