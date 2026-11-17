@@ -175,10 +175,10 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-900 text-gray-100 font-sans overflow-x-hidden">
+    <div className="min-h-screen bg-gray-900 text-gray-100 font-sans">
       <header className="bg-gray-800/80 backdrop-blur border-b border-gray-700/60 shadow-md sticky top-0 z-50">
         <div className="max-w-6xl mx-auto px-4 py-3.5">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 overflow-x-auto fm-nav-scroll whitespace-nowrap">
             <div className="flex items-center gap-3 shrink-0">
               <div className="w-10 h-10 bg-gradient-to-br from-green-400 to-green-600 rounded-xl flex items-center justify-center font-bold text-xl text-white shadow-lg shadow-green-600/30">
                 FM
@@ -188,13 +188,13 @@ function App() {
                 <p className="text-xs text-gray-400">Serie A 2026/2027 — Valutazione Dinamica xFP</p>
               </div>
             </div>
-            <div className="flex-1" />
+            <div className="flex-1 min-w-4" />
             <div className="flex gap-2 md:gap-3 items-center shrink-0">
               <MatchdaySelector value={matchdayNum} onChange={changeMatchday} />
               <button
                 onClick={aggiornaDati}
                 disabled={syncing}
-                className="px-3 md:px-4 py-2 rounded-lg font-semibold text-sm transition flex items-center gap-2 bg-green-600/90 hover:bg-green-500 text-white disabled:opacity-60 disabled:cursor-not-allowed shadow-lg shadow-green-600/20"
+                className="px-3 md:px-4 py-2 rounded-lg font-semibold text-sm transition flex items-center gap-2 bg-green-600/90 hover:bg-green-500 text-white disabled:opacity-60 disabled:cursor-not-allowed shadow-lg shadow-green-600/20 shrink-0"
               >
                 <DownloadCloud className={`w-4 h-4 ${syncing ? 'animate-bounce' : ''}`} />
                 <span className="hidden sm:inline">{syncing ? 'Aggiornamento…' : 'Aggiorna dati'}</span>
@@ -284,15 +284,15 @@ function App() {
         ) : null}
         {tab === 'rosa' ? (
           <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <p className="text-sm text-gray-400">
+            <div className="flex items-center justify-between gap-3 overflow-x-auto fm-nav-scroll">
+              <p className="text-sm text-gray-400 whitespace-nowrap shrink-0">
                 {players.length} giocatori in rosa · Le modifiche vengono salvate con "Salva Rosa"
               </p>
-              <div className="flex gap-2">
+              <div className="flex gap-2 shrink-0">
                 <button
                   onClick={saveRosa}
                   disabled={saving}
-                  className={`px-4 py-2 rounded-lg font-bold text-sm transition flex items-center gap-2 shadow-lg disabled:opacity-60 disabled:cursor-not-allowed ${
+                  className={`px-4 py-2 rounded-lg font-bold text-sm transition flex items-center gap-2 shadow-lg disabled:opacity-60 disabled:cursor-not-allowed whitespace-nowrap ${
                     savedFlash
                       ? 'bg-green-600 text-white'
                       : 'bg-green-600/80 hover:bg-green-500 text-white'
