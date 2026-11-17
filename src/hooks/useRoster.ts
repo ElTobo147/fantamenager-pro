@@ -4,14 +4,19 @@ import { supabase } from '../lib/supabase';
 import { randomBonus } from '../lib/players';
 import { getPlayerStats } from '../data/stats';
 
-export function useRoster() {
+export function useRoster(userId?: string) {
   const [players, setPlayers] = useState<Player[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
   useEffect(() => {
+    if (!userId) {
+      setPlayers([]);
+      setLoading(false);
+      return;
+    }
     loadFromSupabase();
-  }, []);
+  }, [userId]);
 
   function rowToPlayer(row: {
     id: string;

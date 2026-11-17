@@ -54,7 +54,7 @@ function App() {
   const [syncing, setSyncing] = useState(false);
   const [syncMessage, setSyncMessage] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
-  const { players, loading, error, addPlayer, removePlayer, setPlayers, reload, saveAll } = useRoster();
+  const { players, loading, error, addPlayer, removePlayer, setPlayers, reload, saveAll } = useRoster(session?.user?.id);
   const { matchdayNum, calendario, changeMatchday } = useMatchday();
   const live = useLiveData(matchdayNum);
   const [showRosaList, setShowRosaList] = useState(false);

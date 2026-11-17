@@ -90,7 +90,7 @@ export default function Login() {
           </div>
           <h1 className="text-2xl font-bold text-white">FantaManager Pro</h1>
           <p className="text-sm text-gray-400 mt-1">
-            Serie A 2026/2027 — {isSignup ? 'Crea il tuo account' : 'Accedi al tuo account'}
+            Serie A 2026/2027 — {isSignup ? 'Crea il tuo account per iniziare' : 'Accedi alla tua rosa personale'}
           </p>
         </div>
 
@@ -200,6 +200,10 @@ export default function Login() {
             </button>
           </div>
         </form>
+
+        <p className="text-center text-xs text-gray-500 mt-4 leading-relaxed">
+          Ogni account ha la propria rosa personale. Registrati per creare e salvare la tua squadra.
+        </p>
       </div>
     </div>
   );
