@@ -1,6 +1,7 @@
 import type { PlayerStatsData, Ruolo } from '../types';
 import { TEAM_METRICS } from '../constants';
 import STATS_JSON from './playerStatsData.json';
+import { getStats as getDbStats } from '@/lib/localDb';
 
 // Real season stats scraped from fantacalcio.it/statistiche-serie-a:
 // gol, assist, fantamedia (fm) and partite a voto (pv) for every Serie A player.
@@ -64,13 +65,14 @@ function estimateStats(nome: string, squadra: string, ruolo: Ruolo, qt: number):
   };
 }
 
-// Live stats fetched from Supabase (populated by the "Aggiorna dati" sync from
-// fantacalcio.it). Merged over the hardcoded snapshot: live wins.
-const LIVE_STATS: Record<string, PlayerStatsData> = {};
-
-export function registerLiveStats(rows: { nome: string; squadra: string; gol: number; assist: number; fm: number; pv: number }[]): void {
+// Live stats read from the internal localStorage database (populated by
+// "Aggiorna dati" which fetches from fantacalcio.it). Merged over the
+// hardcoded snapshot: live wins.
+function getLiveStatsMap(): Record<string, PlayerStatsData> {
+  const map: Record<string, PlayerStatsData> = {};
+  const rows = getDbStats();
   for (const r of rows) {
-    LIVE_STATS[`${normalize(r.nome)}|${normalize(r.squadra)}`] = {
+    map[`${normalize(r.nome)}|${normalize(r.squadra)}`] = {
       gol: r.gol,
       assist: r.assist,
       xg: r.fm,
@@ -79,18 +81,19 @@ export function registerLiveStats(rows: { nome: string; squadra: string; gol: nu
       pv: r.pv,
     };
   }
+  return map;
 }
 
 function liveKey(normName: string, normSquadra: string): PlayerStatsData | null {
-  if (LIVE_STATS[`${normName}|${normSquadra}`]) return LIVE_STATS[`${normName}|${normSquadra}`];
-  // Fuzzy match by surname within the same team
+  const liveStats = getLiveStatsMap();
+  if (liveStats[`${normName}|${normSquadra}`]) return liveStats[`${normName}|${normSquadra}`];
   const playerName = normName.split(' ').pop() ?? normName;
-  for (const k of Object.keys(LIVE_STATS)) {
+  for (const k of Object.keys(liveStats)) {
     const [statName, statTeam] = k.split('|');
     if (statTeam !== normSquadra) continue;
     const statSurname = statName.split(' ').pop() ?? statName;
     if (statSurname.length > 3 && (statSurname === playerName || statSurname.startsWith(playerName) || playerName.startsWith(statSurname))) {
-      return LIVE_STATS[k];
+      return liveStats[k];
     }
   }
   return null;

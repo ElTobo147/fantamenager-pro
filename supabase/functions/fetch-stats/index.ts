@@ -11,8 +11,7 @@ const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 // fantacalcio.it player links look like
-// /serie-a/squadre/<team-slug>/<player-slug>/<id> — the team slug lets us attribute
-// a player to the right squad even when the page structure changes around it.
+// /serie-a/squadre/<team-slug>/<player-slug>/<id>
 const PLAYER_LINK_RE = /href="(https:\/\/www\.fantacalcio\.it)?\/serie-a\/squadre\/([a-z0-9-]+)\/([a-z0-9-]+)\/(\d+)"[^>]*>([\s\S]*?)<\/a>/gi;
 
 const TEAM_SLUG_TO_NAME: Record<string, string> = {
@@ -24,25 +23,6 @@ const TEAM_SLUG_TO_NAME: Record<string, string> = {
   "udinese": "Udinese", "venezia": "Venezia",
 };
 
-function titleizeSlug(slug: string): string {
-  return slug
-    .split("-")
-    .map((p) => p.charAt(0).toUpperCase() + p.slice(1))
-    .join(" ")
-    .replace(/\bSe\b$/, "Se.")
-    .replace(/\bFp\b$/, "F.P.")
-    .replace(/\bA\b$/, "A.")
-    .replace(/\bJ\b$/, "J.")
-    .replace(/\bK\b$/, "K.")
-    .replace(/\bHj\b$/, "Hj.")
-    .replace(/\bJu\b$/, "Ju.")
-    .replace(/\bAl\b$/, "Al.")
-    .replace(/\bM\b$/, "M.")
-    .replace(/\bLu\b$/, "Lu.")
-    .replace(/\bLo\b$/, "Lo.")
-    .replace(/\bD\b$/, "D.");
-}
-
 interface PlayerLink { team: string; name: string; id: string; pos: number; }
 
 function extractPlayerLinks(html: string): PlayerLink[] {
@@ -53,7 +33,6 @@ function extractPlayerLinks(html: string): PlayerLink[] {
     const teamSlug = m[2];
     const team = TEAM_SLUG_TO_NAME[teamSlug];
     if (!team) continue;
-    // Skip image-only links; keep the inner text as the display name
     const name = m[5].replace(/<[^>]*>/g, "").trim();
     if (!name) continue;
     out.push({ team, name, id: m[4], pos: m.index });
@@ -61,9 +40,6 @@ function extractPlayerLinks(html: string): PlayerLink[] {
   return out;
 }
 
-// The formations page is a sequence of match blocks; each block lists 22 starting
-// players (11 per side) then the bench options. We split the HTML at the per-match
-// "### <Team>" headings so names land under the right team.
 function parseProbabiliFormazioni(html: string): { matchday: number | null; teams: Record<string, { titolari: string[]; panchina: string[] }> } {
   let matchday: number | null = null;
   const mdMatch = html.match(/Giornata\s+(\d+)/i);
@@ -73,13 +49,7 @@ function parseProbabiliFormazioni(html: string): { matchday: number | null; team
   const links = extractPlayerLinks(html);
   if (links.length === 0) return { matchday, teams };
 
-  // Heuristic: the page renders every team's XI first (11 links, in team pairs),
-  // followed by bench names. Group links by team and split by positional order:
-  // within one match block the first 11 names belong to the two XIs. Since we cannot
-  // reliably see block boundaries, use the alternating-pair structure: names come in
-  // per-match runs where each team contributes 11 titolari. Track per team until we
-  // have 11, then the rest are panchina.
-  const seen = new Map<string, string[]>(); // team -> ordered unique names
+  const seen = new Map<string, string[]>();
   const key = (t: string, n: string) => `${t}|${n.toLowerCase()}`;
   const dupes = new Set<string>();
   for (const l of links) {
@@ -100,9 +70,6 @@ function parseProbabiliFormazioni(html: string): { matchday: number | null; team
   return { matchday, teams };
 }
 
-// The injuries page has one <section id="team-<id>"> per team with
-// <span class="team-name">Atalanta</span> and a list of
-// <strong class="item-name">Cognome</strong> + <div class="item-description"><p>nota</p></div>.
 function parseInjuries(html: string): Record<string, { nome: string; nota: string }[]> {
   const result: Record<string, { nome: string; nota: string }[]> = {};
   const sectionRe = /<(?:div|section|article)[^>]*id="team-\d+"[^>]*>/gi;
@@ -129,8 +96,6 @@ function parseInjuries(html: string): Record<string, { nome: string; nota: strin
   return result;
 }
 
-// The stats page table rows carry player link + team abbrev + PV/MV/FM/gol/gs/rigori/
-// rp/assist/amm/esp cells in a fixed order. Parse each row's cells.
 function parseStats(html: string): { nome: string; squadra: string; pv: number; fm: number; gol: number; golSubiti: number; assist: number }[] {
   const out: { nome: string; squadra: string; pv: number; fm: number; gol: number; golSubiti: number; assist: number }[] = [];
   const rowRe = /<tr[^>]*>([\s\S]*?)<\/tr>/gi;
@@ -145,33 +110,25 @@ function parseStats(html: string): { nome: string; squadra: string; pv: number; 
     while ((cm = cellRe.exec(rowHtml)) !== null) {
       cells.push(cm[1].replace(/<[^>]*>/g, "").replace(/&nbsp;/g, " ").trim());
     }
-    // find player link + team slug inside this row
     const linkMatch = rowHtml.match(/\/serie-a\/squadre\/([a-z0-9-]+)\/([a-z0-9-]+)\/\d+/i);
     if (!linkMatch) continue;
     const squadra = TEAM_SLUG_TO_NAME[linkMatch[1].toLowerCase()];
     if (!squadra) continue;
-    const nameText = linkMatch[0]; // not used for name; use cell text below
-    // The first cell containing the player link has the display name; re-derive from row html
     const nameMatch = rowHtml.match(/\/serie-a\/squadre\/[a-z0-9-]+\/[a-z0-9-]+\/\d+"[^>]*>([\s\S]*?)<\/a>/i);
     const nome = nameMatch ? nameMatch[1].replace(/<[^>]*>/g, "").trim() : "";
     if (!nome) continue;
-    // Numeric cells after the name: PV, MV, FM, Gol, GS, Rig(t/f), RP, Ass, Amm, Esp
     const nums = cells.filter((c) => /^-?\d+([.,]\d+)?$/.test(c));
     const toNum = (s: string) => parseFloat(s.replace(",", ".")) || 0;
-    // PV=nums[0], MV=nums[1], FM=nums[2], Gol=nums[3], GS=nums[4], rigori "x / y" is one cell (skipped by filter), RP, Ass, Amm, Esp
     const pv = toNum(nums[0] ?? "0");
     const fm = toNum(nums[2] ?? "0");
     const gol = Math.round(toNum(nums[3] ?? "0"));
     const golSubiti = Math.round(toNum(nums[4] ?? "0"));
     const assist = Math.round(toNum(nums[6] ?? "0"));
-    void nameText;
     out.push({ nome, squadra, pv, fm, gol, golSubiti, assist });
   }
   return out;
 }
 
-// The Sky Sport page is a photo gallery: each slide caption is
-// <p class="c-gallery-item__caption"><b>ATALANTA - MAURIZIO SARRI (nuovo)</b>...
 function parseCoaches(html: string): { squadra: string; allenatore: string; statuso: string }[] {
   const out: { squadra: string; allenatore: string; statuso: string }[] = [];
   const capRe = /<p class="c-gallery-item__caption"><b>([^<]+)<\/b>/g;
@@ -193,34 +150,14 @@ function parseCoaches(html: string): { squadra: string; allenatore: string; stat
   return out;
 }
 
-// The Sky Sport "esonerati" page is also a photo gallery. Captions describe
-// coaching changes: "SASSUOLO, UFFICIALE D'AVERSA PER IL POST AQUILANI",
-// "PAOLO ZANETTI NUOVO ALLENATORE DELL'UDINESE", etc.
-// We extract team + new coach pairs and update the coaches table with status "esonerato" or "nuovo".
 function parseEsonerati(html: string): { squadra: string; allenatore: string; statuso: string }[] {
   const out: { squadra: string; allenatore: string; statuso: string }[] = [];
   const capRe = /<p class="c-gallery-item__caption"><b>([^<]+)<\/b>/g;
   const seenTeams = new Set<string>();
   let m: RegExpExecArray | null;
-
-  // First pass: collect team names mentioned so we can attribute captions.
-  const allTeams = new Set<string>();
-  const teamWordRe = new RegExp(
-    Object.keys(TEAM_SLUG_TO_NAME).map((k) => k.replace(/-/g, '[\\s-]?')).join('|'),
-    'gi',
-  );
-  const tnames = new Set(Object.values(TEAM_SLUG_TO_NAME));
-  void allTeams;
-  void teamWordRe;
-  void tnames;
-
   while ((m = capRe.exec(html)) !== null) {
     const caption = m[1].trim().toUpperCase();
-
-    // Skip generic non-team captions
     if (caption.includes('ANNO SCORSO') || caption.includes('CAMBI DI ALLENATORE')) continue;
-
-    // Pattern 1: "TEAM, UFFICIALE X PER IL POST Y" — new coach X replaces Y at TEAM
     const matchOfficial = caption.match(/^([A-Z]+),?\s+.*UFFICIALE\s+([A-Z'\s]+?)\s+PER\s+IL\s+POST\s+([A-Z'\s]+)/);
     if (matchOfficial) {
       const squadra = TEAM_SLUG_TO_NAME[matchOfficial[1].toLowerCase()];
@@ -230,8 +167,6 @@ function parseEsonerati(html: string): { squadra: string; allenatore: string; st
         continue;
       }
     }
-
-    // Pattern 2: "X NUOVO ALLENATORE DI/LDELL' TEAM" — new coach X for TEAM
     const matchNuovo = caption.match(/([A-Z'\s]+?)\s+NUOVO\s+ALLENATORE\s+DEL?L?['\s]*([A-Z]+)/);
     if (matchNuovo) {
       const squadra = TEAM_SLUG_TO_NAME[matchNuovo[2].toLowerCase()];
@@ -241,25 +176,10 @@ function parseEsonerati(html: string): { squadra: string; allenatore: string; st
         continue;
       }
     }
-
-    // Pattern 3: "COACH - TEAM" — informational, skip unless it confirms a team
-    // "ALBERTO AQUILANI - SASSUOLO" (the old coach)
-    const matchDash = caption.match(/^([A-Z'\s]+)\s+-\s+([A-Z]+)$/);
-    if (matchDash) {
-      const squadra = TEAM_SLUG_TO_NAME[matchDash[2].toLowerCase()];
-      if (squadra && !seenTeams.has(squadra)) {
-        // This is likely the old/fired coach — mark as esonerato
-        seenTeams.add(squadra);
-        out.push({ squadra, allenatore: matchDash[1].trim(), statuso: 'esonerato' });
-        continue;
-      }
-    }
   }
   return out;
 }
 
-// WhoScored standings table rows: | pos [Team](url) | P | W | D | L | GF | GA | GD | Pts | form |.
-// Team names come as "AC Milan", "Parma Calcio 1913" etc. — normalize to the app's names.
 function normalizeWsTeam(name: string): string | null {
   const t = name.trim();
   if (t === 'AC Milan' || t === 'Milan') return 'Milan';
@@ -271,29 +191,21 @@ function parseStandings(html: string): {
   posizione: number; squadra: string; gare: number; vittorie: number; pareggi: number;
   sconfitte: number; gol_fatti: number; gol_subiti: number; punti: number;
 }[] {
-  const out: typeof out = [];
+  const out: { posizione: number; squadra: string; gare: number; vittorie: number; pareggi: number; sconfitte: number; gol_fatti: number; gol_subiti: number; punti: number; }[] = [];
   const rowRe = /\|\s*(\d+)\[([^\]]+)\]\(https:\/\/www\.whoscored\.com\/teams\/\d+[^)]*\)\s*\|\s*(\d+)\s*\|\s*(\d+)\s*\|\s*(\d+)\s*\|\s*(\d+)\s*\|\s*(\d+)\s*\|\s*(\d+)\s*\|\s*[+-]?\d+\s*\|\s*(\d+)/g;
   let m: RegExpExecArray | null;
   while ((m = rowRe.exec(html)) !== null) {
     const squadra = normalizeWsTeam(m[2]);
     if (!squadra) continue;
     out.push({
-      posizione: parseInt(m[1]),
-      squadra,
-      gare: parseInt(m[3]),
-      vittorie: parseInt(m[4]),
-      pareggi: parseInt(m[5]),
-      sconfitte: parseInt(m[6]),
-      gol_fatti: parseInt(m[7]),
-      gol_subiti: parseInt(m[8]),
+      posizione: parseInt(m[1]), squadra,
+      gare: parseInt(m[3]), vittorie: parseInt(m[4]),
+      pareggi: parseInt(m[5]), sconfitte: parseInt(m[6]),
+      gol_fatti: parseInt(m[7]), gol_subiti: parseInt(m[8]),
       punti: parseInt(m[9]),
     });
   }
   return out;
-}
-
-function logSync(source: string, status: string) {
-  return supabase.from("data_sync_log").insert({ source, status });
 }
 
 async function fetchWithTimeout(url: string, timeoutMs = 20000): Promise<string> {
@@ -328,8 +240,15 @@ Deno.serve(async (req: Request) => {
     const matchday = matchdayParam ? parseInt(matchdayParam) : null;
 
     const results: Record<string, { status: string; count?: number; error?: string }> = {};
+    const data: {
+      formations?: { matchday: number; squadra: string; titolari: string[]; panchina: string[] }[];
+      injuries?: { matchday: number; squadra: string; players: { nome: string; nota?: string }[] }[];
+      stats?: { nome: string; squadra: string; gol: number; assist: number; fm: number; pv: number }[];
+      coaches?: { squadra: string; allenatore: string; statuso: string }[];
+      standings?: { posizione: number; squadra: string; gare: number; vittorie: number; pareggi: number; sconfitte: number; gol_fatti: number; gol_subiti: number; punti: number }[];
+    } = {};
 
-    // Check last sync time (unless forced)
+    // Check last sync time from the database (unless forced)
     if (!force) {
       const { data: lastSync } = await supabase
         .from("data_sync_log")
@@ -351,8 +270,8 @@ Deno.serve(async (req: Request) => {
     const shouldFetch = (s: string) => sources.includes("all") || sources.includes(s);
     let currentMatchday = matchday;
 
-    // Load data source URLs from the database (user-manageable)
-    const { data: sourceRows, error: sourceError } = await supabase
+    // Load data source URLs from the database
+    const { data: sourceRows } = await supabase
       .from("data_sources")
       .select("source_key, label, url, parser_type, enabled")
       .order("created_at", { ascending: true });
@@ -361,152 +280,134 @@ Deno.serve(async (req: Request) => {
       if (!r.enabled) continue;
       sourceMap.set(r.source_key, { url: r.url, parser_type: r.parser_type });
     }
-
-    // Helper: fetch the URL for a source key from the DB (falls back to nothing if missing)
     const getSourceUrl = (key: string): string | null => {
       const entry = sourceMap.get(key);
       return entry ? entry.url : null;
     };
 
-    // 1. Probabili formazioni -> team_formations
+    // 1. Probabili formazioni
     if (shouldFetch("formazioni")) {
       try {
         const srcUrl = getSourceUrl("formazioni");
         if (!srcUrl) throw new Error("Nessun URL configurato per 'formazioni'");
         const html = await fetchWithTimeout(srcUrl);
         const { matchday: md, teams } = parseProbabiliFormazioni(html);
-        const mdToUse = matchday ?? md;
+        const mdToUse = matchday ?? md ?? 0;
         if (mdToUse != null) currentMatchday = mdToUse;
+        const formations: typeof data.formations = [];
         let count = 0;
-        for (const [squadra, data] of Object.entries(teams)) {
-          const { error } = await supabase.from("team_formations").upsert({
-            matchday: mdToUse, squadra, titolari: data.titolari, panchina: data.panchina,
-          }, { onConflict: "matchday,squadra" });
-          if (!error) count++;
+        for (const [squadra, fdata] of Object.entries(teams)) {
+          formations.push({ matchday: mdToUse, squadra, titolari: fdata.titolari, panchina: fdata.panchina });
+          count++;
         }
+        data.formations = formations;
         results.formazioni = { status: "ok", count };
-        await logSync("fantacalcio_formazioni", `ok:${count}`);
+        await supabase.from("data_sync_log").insert({ source: "fantacalcio_formazioni", status: `ok:${count}` });
       } catch (e) {
         results.formazioni = { status: "error", error: (e as Error).message };
-        await logSync("fantacalcio_formazioni", `error:${(e as Error).message}`);
+        await supabase.from("data_sync_log").insert({ source: "fantacalcio_formazioni", status: `error:${(e as Error).message}` });
       }
     }
 
-    // 2. Infortunati -> team_injuries
+    // 2. Infortunati
     if (shouldFetch("infortunati")) {
       try {
         const srcUrl = getSourceUrl("infortunati");
         if (!srcUrl) throw new Error("Nessun URL configurato per 'infortunati'");
         const html = await fetchWithTimeout(srcUrl);
         const parsed = parseInjuries(html);
+        const injuries: typeof data.injuries = [];
         let count = 0;
         for (const [squadra, players] of Object.entries(parsed)) {
-          const { error } = await supabase.from("team_injuries").upsert({
-            matchday: currentMatchday ?? 0, squadra, players,
-          }, { onConflict: "matchday,squadra" });
-          if (!error) count++;
+          injuries.push({ matchday: currentMatchday ?? 0, squadra, players });
+          count++;
         }
+        data.injuries = injuries;
         results.infortunati = { status: "ok", count };
-        await logSync("fantacalcio_infortunati", `ok:${count}`);
+        await supabase.from("data_sync_log").insert({ source: "fantacalcio_infortunati", status: `ok:${count}` });
       } catch (e) {
         results.infortunati = { status: "error", error: (e as Error).message };
-        await logSync("fantacalcio_infortunati", `error:${(e as Error).message}`);
+        await supabase.from("data_sync_log").insert({ source: "fantacalcio_infortunati", status: `error:${(e as Error).message}` });
       }
     }
 
-    // 3. Statistiche -> player_stats
+    // 3. Statistiche
     if (shouldFetch("stats")) {
       try {
         const srcUrl = getSourceUrl("stats");
         if (!srcUrl) throw new Error("Nessun URL configurato per 'stats'");
         const html = await fetchWithTimeout(srcUrl);
         const parsed = parseStats(html);
-        let count = 0;
-        for (const p of parsed) {
-          const { error } = await supabase.from("player_stats").upsert({
-            nome: p.nome, squadra: p.squadra, gol: p.gol, assist: p.assist,
-            fm: p.fm, pv: p.pv,
-          }, { onConflict: "nome,squadra" });
-          if (!error) count++;
-        }
-        results.stats = { status: "ok", count };
-        await logSync("fantacalcio_stats", `ok:${count}`);
+        const stats = parsed.map((p) => ({ nome: p.nome, squadra: p.squadra, gol: p.gol, assist: p.assist, fm: p.fm, pv: p.pv }));
+        data.stats = stats;
+        results.stats = { status: "ok", count: stats.length };
+        await supabase.from("data_sync_log").insert({ source: "fantacalcio_stats", status: `ok:${stats.length}` });
       } catch (e) {
         results.stats = { status: "error", error: (e as Error).message };
-        await logSync("fantacalcio_stats", `error:${(e as Error).message}`);
+        await supabase.from("data_sync_log").insert({ source: "fantacalcio_stats", status: `error:${(e as Error).message}` });
       }
     }
 
-    // 4. Allenatori (Sky Sport) -> coaches
+    // 4. Allenatori
     if (shouldFetch("allenatori")) {
       try {
         const srcUrl = getSourceUrl("allenatori");
         if (!srcUrl) throw new Error("Nessun URL configurato per 'allenatori'");
         const html = await fetchWithTimeout(srcUrl, 25000);
         const parsed = parseCoaches(html);
-        let count = 0;
-        for (const c of parsed) {
-          const { error } = await supabase.from("coaches").upsert({
-            squadra: c.squadra, allenatore: c.allenatore, statuso: c.statuso,
-          }, { onConflict: "squadra" });
-          if (!error) count++;
-        }
-        results.allenatori = { status: "ok", count };
-        await logSync("sky_allenatori", `ok:${count}`);
+        data.coaches = parsed;
+        results.allenatori = { status: "ok", count: parsed.length };
+        await supabase.from("data_sync_log").insert({ source: "sky_allenatori", status: `ok:${parsed.length}` });
       } catch (e) {
         results.allenatori = { status: "error", error: (e as Error).message };
-        await logSync("sky_allenatori", `error:${(e as Error).message}`);
+        await supabase.from("data_sync_log").insert({ source: "sky_allenatori", status: `error:${(e as Error).message}` });
       }
     }
 
-    // 5. Allenatori esonerati (Sky Sport) -> coaches (updates status)
+    // 5. Allenatori esonerati
     if (shouldFetch("esonerati")) {
       try {
         const srcUrl = getSourceUrl("esonerati");
         if (!srcUrl) throw new Error("Nessun URL configurato per 'esonerati'");
         const html = await fetchWithTimeout(srcUrl, 25000);
         const parsed = parseEsonerati(html);
-        let count = 0;
-        for (const c of parsed) {
-          if (c.statuso === "nuovo") {
-            // New coach takes over — update the coaches table
-            const { error } = await supabase.from("coaches").upsert({
-              squadra: c.squadra, allenatore: c.allenatore, statuso: c.statuso,
-            }, { onConflict: "squadra" });
-            if (!error) count++;
+        // Merge: override coaches with "nuovo" status
+        if (data.coaches) {
+          for (const c of parsed) {
+            if (c.statuso === "nuovo") {
+              const idx = data.coaches.findIndex((x) => x.squadra === c.squadra);
+              if (idx >= 0) data.coaches[idx] = c;
+              else data.coaches.push(c);
+            }
           }
         }
-        results.esonerati = { status: "ok", count };
-        await logSync("sky_esonerati", `ok:${count}`);
+        results.esonerati = { status: "ok", count: parsed.length };
+        await supabase.from("data_sync_log").insert({ source: "sky_esonerati", status: `ok:${parsed.length}` });
       } catch (e) {
         results.esonerati = { status: "error", error: (e as Error).message };
-        await logSync("sky_esonerati", `error:${(e as Error).message}`);
+        await supabase.from("data_sync_log").insert({ source: "sky_esonerati", status: `error:${(e as Error).message}` });
       }
     }
 
-    // 6. Classifica (WhoScored) -> standings
+    // 6. Classifica
     if (shouldFetch("classifica")) {
       try {
         const srcUrl = getSourceUrl("classifica");
         if (!srcUrl) throw new Error("Nessun URL configurato per 'classifica'");
         const html = await fetchWithTimeout(srcUrl, 25000);
         const parsed = parseStandings(html);
-        if (parsed.length === 0) throw new Error("Nessuna riga di classifica riconosciuta: la pagina potrebbe essere cambiata");
-        let count = 0;
-        for (const s of parsed) {
-          const { error } = await supabase.from("standings").upsert(s, { onConflict: "squadra" });
-          if (!error) count++;
-        }
-        results.classifica = { status: "ok", count };
-        await logSync("whoscored_classifica", `ok:${count}`);
+        if (parsed.length === 0) throw new Error("Nessuna riga di classifica riconosciuta");
+        data.standings = parsed;
+        results.classifica = { status: "ok", count: parsed.length };
+        await supabase.from("data_sync_log").insert({ source: "whoscored_classifica", status: `ok:${parsed.length}` });
       } catch (e) {
         results.classifica = { status: "error", error: (e as Error).message };
-        await logSync("whoscored_classifica", `error:${(e as Error).message}`);
+        await supabase.from("data_sync_log").insert({ source: "whoscored_classifica", status: `error:${(e as Error).message}` });
       }
     }
 
     return new Response(
-      JSON.stringify({ message: "Sync completed", results }),
+      JSON.stringify({ message: "Sync completed", results, data }),
       { headers: { ...corsHeaders, "Content-Type": "application/json" } },
     );
   } catch (err) {

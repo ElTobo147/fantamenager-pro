@@ -2,6 +2,7 @@ import G8 from './probabili_formazioni_g8.json';
 import INJURIES_G8 from './infortunati_g8.json';
 import G7 from './probabili_formazioni_g7.json';
 import INJURIES_G7 from './infortunati_g7.json';
+import { getFormations as getDbFormations, getInjuries as getDbInjuries } from '@/lib/localDb';
 
 interface TeamLineup {
   titolari: string[];
@@ -27,31 +28,32 @@ const MATCHDAY_DATA: Record<number, MatchdayData> = {
   },
 };
 
-// Live data fetched from Supabase (populated by the "Aggiorna dati" sync from
-// fantacalcio.it). Registered at runtime and merged over the static JSON.
-const LIVE_LINEUPS: Record<number, MatchdayLineupData> = {};
-const LIVE_INJURIES: Record<number, MatchdayInjuryData> = {};
+// Live data read from the internal localStorage database (populated by
+// "Aggiorna dati" which fetches from fantacalcio.it). Merged over the
+// static JSON at read time.
+function getLiveLineups(): Record<number, MatchdayLineupData> {
+  const map: Record<number, MatchdayLineupData> = {};
+  for (const f of getDbFormations()) {
+    if (!map[f.matchday]) map[f.matchday] = {};
+    map[f.matchday][f.squadra] = { titolari: f.titolari, panchina: f.panchina };
+  }
+  return map;
+}
 
-export function registerLiveTitolarita(
-  matchday: number,
-  lineups: { squadra: string; titolari: string[]; panchina: string[] }[],
-  injuries: { squadra: string; players: { nome: string }[] }[],
-): void {
-  if (lineups.length > 0) {
-    const map: MatchdayLineupData = {};
-    for (const l of lineups) map[l.squadra] = { titolari: l.titolari, panchina: l.panchina };
-    LIVE_LINEUPS[matchday] = map;
+function getLiveInjuries(): Record<number, MatchdayInjuryData> {
+  const map: Record<number, MatchdayInjuryData> = {};
+  for (const i of getDbInjuries()) {
+    if (!map[i.matchday]) map[i.matchday] = {};
+    map[i.matchday][i.squadra] = i.players.map((p) => p.nome);
   }
-  if (injuries.length > 0) {
-    const map: MatchdayInjuryData = {};
-    for (const i of injuries) map[i.squadra] = i.players.map((p) => p.nome);
-    LIVE_INJURIES[matchday] = map;
-  }
+  return map;
 }
 
 function dataFor(matchdayNum: number): MatchdayData {
-  const liveLineups = LIVE_LINEUPS[matchdayNum];
-  const liveInjuries = LIVE_INJURIES[matchdayNum];
+  const liveLineupsAll = getLiveLineups();
+  const liveInjuriesAll = getLiveInjuries();
+  const liveLineups = liveLineupsAll[matchdayNum];
+  const liveInjuries = liveInjuriesAll[matchdayNum];
   const fallback = MATCHDAY_DATA[matchdayNum];
   if (!fallback) {
     return { lineups: liveLineups ?? {}, injuries: liveInjuries ?? {} };
@@ -60,7 +62,7 @@ function dataFor(matchdayNum: number): MatchdayData {
     lineups: { ...fallback.lineups, ...(liveLineups ?? {}) },
     injuries: { ...fallback.injuries, ...(liveInjuries ?? {}) },
   };
-};
+}
 
 export const TITOLARE_VALUE = 1.0;
 export const PANCHINA_VALUE = 0.5;
@@ -70,7 +72,9 @@ export const INJURED_VALUE = 0;
 export type TitolaritaStatus = 'titolare' | 'panchina' | 'assente' | 'infortunato' | 'nd';
 
 export function hasTitolaritaData(matchdayNum: number): boolean {
-  return matchdayNum in MATCHDAY_DATA || matchdayNum in LIVE_LINEUPS || matchdayNum in LIVE_INJURIES;
+  const liveLineupsAll = getLiveLineups();
+  const liveInjuriesAll = getLiveInjuries();
+  return matchdayNum in MATCHDAY_DATA || matchdayNum in liveLineupsAll || matchdayNum in liveInjuriesAll;
 }
 
 function normalizeName(name: string): string {
