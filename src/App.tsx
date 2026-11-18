@@ -2,14 +2,20 @@ import { useMemo, useState } from 'react';
 import { Users, Layout, RotateCcw, RefreshCw, BarChart3, Save, Check, DownloadCloud, Database, LogOut } from 'lucide-react';
 import type { Player, PlayerDB } from './types';
 import { PLAYER_DB } from './constants';
-import { randomBonus } from './lib/players';
+import { defaultBonus } from './lib/players';
 import { getPlayerStats } from './data/stats';
 import { getTitolarita, hasTitolaritaData, TITOLARE_VALUE } from './data/titolarita';
 import { useMatchday } from './hooks/useMatchday';
 import { useRoster } from './hooks/useRoster';
 import { useLiveData } from './hooks/useLiveData';
 import { useAuth } from './hooks/useAuth';
-import { supabase } from './lib/supabase';
+import {
+  saveRoster as dbSaveRoster,
+  applySyncResult,
+  addSyncLog,
+  ensureDefaultSources,
+  type SyncResultData,
+} from './lib/localDb';
 import RosterManager from './components/RosterManager';
 import RosaList from './components/RosaList';
 import FormationView from './components/FormationView';
@@ -41,7 +47,7 @@ function makePlayer(db: PlayerDB): Player {
   return {
     ...db,
     id: crypto.randomUUID(),
-    bonus: randomBonus(),
+    bonus: defaultBonus(),
     percentualeTitolarita: 1,
     stats: getPlayerStats(db.nome, db.squadra, db.ruolo, db.qt),
   };
@@ -54,11 +60,13 @@ function App() {
   const [syncing, setSyncing] = useState(false);
   const [syncMessage, setSyncMessage] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
-  const { players, loading, error, addPlayer, removePlayer, setPlayers, reload, saveAll } = useRoster(session?.user?.id);
+  const { players, loading, error, addPlayer, removePlayer, setPlayers, reload, saveAll } = useRoster();
   const { matchdayNum, calendario, changeMatchday } = useMatchday();
   const live = useLiveData(matchdayNum);
   const [showRosaList, setShowRosaList] = useState(false);
   const [showSyncReport, setShowSyncReport] = useState(false);
+
+  ensureDefaultSources();
 
   const playersWithTitolarita = useMemo(
     () => players.map((p) => ({
@@ -83,8 +91,8 @@ function App() {
 
   function resetData() {
     if (confirm('Vuoi cancellare tutta la rosa?')) {
-      Promise.all(players.map((p) => supabase.from('roster_entries').delete().eq('id', p.id)))
-        .then(() => setPlayers([]));
+      dbSaveRoster([]);
+      setPlayers([]);
     }
   }
 
@@ -92,27 +100,44 @@ function App() {
     setSyncing(true);
     setSyncMessage(null);
     try {
-      const { data: sessionData } = await supabase.auth.getSession();
-      const token = sessionData.session?.access_token ?? import.meta.env.VITE_SUPABASE_ANON_KEY;
       const fnUrl = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/fetch-stats?force=true`;
       const resp = await fetch(fnUrl, {
-        headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+        headers: { Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`, 'Content-Type': 'application/json' },
       });
       if (!resp.ok) throw new Error(`Errore ${resp.status}`);
       const body = await resp.json();
       if (body.error) throw new Error(body.error);
+
+      // Save the fetched data into the internal local database
+      const syncData: SyncResultData = {};
+      if (body.data) {
+        if (body.data.formations) syncData.formations = body.data.formations;
+        if (body.data.injuries) syncData.injuries = body.data.injuries;
+        if (body.data.stats) syncData.stats = body.data.stats;
+        if (body.data.coaches) syncData.coaches = body.data.coaches;
+        if (body.data.standings) syncData.standings = body.data.standings;
+      }
+      applySyncResult(syncData);
+
+      // Log the sync
+      for (const [source, info] of Object.entries(body.results ?? {})) {
+        const s = info as { status?: string };
+        addSyncLog(source, s.status ?? 'unknown');
+      }
+
       const r = body.results ?? {};
       const parts: string[] = [];
       if (r.formazioni?.count != null) parts.push(`${r.formazioni.count} formazioni`);
       if (r.infortunati?.count != null) parts.push(`${r.infortunati.count} squadre infortunati`);
       if (r.stats?.count != null) parts.push(`${r.stats.count} statistiche`);
       if (r.allenatori?.count != null) parts.push(`${r.allenatori.count} allenatori`);
+      if (r.esonerati?.count != null) parts.push(`${r.esonerati.count} cambi allenatore`);
       if (r.classifica?.count != null) parts.push(`${r.classifica.count} squadre in classifica`);
       const failed = Object.entries(r).filter(([, v]) => (v as { status?: string }).status === 'error');
       if (failed.length > 0) {
         setSyncMessage(`Aggiornamento parziale: ${parts.join(', ') || 'nessun dato'}. Riprova più tardi.`);
       } else {
-        setSyncMessage(`Dati aggiornati: ${parts.join(', ')}`);
+        setSyncMessage(`Dati aggiornati e salvati: ${parts.join(', ')}`);
       }
       live.refresh();
       if (!body.message?.includes('recently')) setShowSyncReport(true);

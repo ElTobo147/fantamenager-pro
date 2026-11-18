@@ -1,6 +1,10 @@
 import { useEffect, useState, useCallback } from 'react';
 import { X, RefreshCw, Database, ListOrdered, User, Activity, Users, Link as LinkIcon, Plus, Trash2, Save } from 'lucide-react';
-import { supabase } from '@/lib/supabase';
+import {
+  getStats, getStandings, getCoaches, getFormations, getInjuries,
+  getDataSources, upsertDataSource, deleteDataSource, ensureDefaultSources,
+  type DataSourceRow as LocalDataSourceRow,
+} from '@/lib/localDb';
 
 interface StatRow { nome: string; squadra: string; gol: number; assist: number; fm: number; pv: number }
 interface StandingRow {
@@ -61,29 +65,20 @@ export function SyncReportContent() {
     setLoading(true);
     setError(null);
     try {
-      const [statsRes, standingsRes, coachesRes, formationsRes, injuriesRes, sourcesRes] = await Promise.all([
-        supabase.from('player_stats').select('nome, squadra, gol, assist, fm, pv').order('fm', { ascending: false }).limit(100),
-        supabase.from('standings').select('*').order('posizione'),
-        supabase.from('coaches').select('squadra, allenatore, statuso').order('squadra'),
-        supabase.from('team_formations').select('squadra, titolari').order('squadra'),
-        supabase.from('team_injuries').select('squadra, players').order('squadra'),
-        supabase.from('data_sources').select('id, source_key, label, url, parser_type, enabled').order('created_at'),
-      ]);
-      if (statsRes.error) throw statsRes.error;
-      if (standingsRes.error) throw standingsRes.error;
-      if (coachesRes.error) throw coachesRes.error;
-      if (formationsRes.error) throw formationsRes.error;
-      if (injuriesRes.error) throw injuriesRes.error;
+      ensureDefaultSources();
+      const allStats = getStats().sort((a, b) => b.fm - a.fm).slice(0, 100);
+      const allStandings = getStandings().sort((a, b) => a.posizione - b.posizione);
+      const allCoaches = getCoaches().sort((a, b) => a.squadra.localeCompare(b.squadra));
+      const allFormations = getFormations().sort((a, b) => a.squadra.localeCompare(b.squadra));
+      const allInjuries = getInjuries().sort((a, b) => a.squadra.localeCompare(b.squadra));
+      const allSources = getDataSources();
 
-      setStats((statsRes.data ?? []) as StatRow[]);
-      setStandings((standingsRes.data ?? []) as StandingRow[]);
-      setCoaches((coachesRes.data ?? []) as CoachRow[]);
-      setFormations((formationsRes.data ?? []) as FormationRow[]);
-      setInjuries(((injuriesRes.data ?? []) as { squadra: string; players: unknown }[]).map((r) => ({
-        squadra: r.squadra,
-        players: (r.players as InjuryRow['players']) ?? [],
-      })));
-      setDataSources((sourcesRes.data ?? []) as DataSourceRow[]);
+      setStats(allStats);
+      setStandings(allStandings);
+      setCoaches(allCoaches);
+      setFormations(allFormations.map((f) => ({ squadra: f.squadra, titolari: f.titolari })));
+      setInjuries(allInjuries.map((r) => ({ squadra: r.squadra, players: r.players })));
+      setDataSources(allSources);
     } catch (e) {
       setError((e as Error).message);
     } finally {
@@ -102,39 +97,42 @@ export function SyncReportContent() {
     { id: 'sorgenti', label: 'Sorgenti', count: dataSources.length, icon: LinkIcon },
   ];
 
-  async function saveSourceUrl(id: string) {
+  function saveSourceUrl(id: string) {
     const newUrl = editingSource[id];
     if (!newUrl) return;
     setSavingSource(id);
-    const { error } = await supabase.from('data_sources').update({ url: newUrl }).eq('id', id);
+    const ds = dataSources.find((s) => s.id === id);
+    if (ds) {
+      upsertDataSource({ ...ds, url: newUrl });
+      setDataSources((prev) => prev.map((s) => s.id === id ? { ...s, url: newUrl } : s));
+    }
     setSavingSource(null);
-    if (error) { setError(error.message); return; }
-    setDataSources((prev) => prev.map((s) => s.id === id ? { ...s, url: newUrl } : s));
     setEditingSource((prev) => { const cp = { ...prev }; delete cp[id]; return cp; });
   }
 
-  async function toggleSource(ds: DataSourceRow) {
-    const { error } = await supabase.from('data_sources').update({ enabled: !ds.enabled }).eq('id', ds.id);
-    if (error) { setError(error.message); return; }
-    setDataSources((prev) => prev.map((s) => s.id === ds.id ? { ...s, enabled: !s.enabled } : s));
+  function toggleSource(ds: DataSourceRow) {
+    const updated = { ...ds, enabled: !ds.enabled };
+    upsertDataSource(updated as LocalDataSourceRow);
+    setDataSources((prev) => prev.map((s) => s.id === ds.id ? updated : s));
   }
 
-  async function deleteSource(id: string) {
-    const { error } = await supabase.from('data_sources').delete().eq('id', id);
-    if (error) { setError(error.message); return; }
+  function deleteSourceLocal(id: string) {
+    deleteDataSource(id);
     setDataSources((prev) => prev.filter((s) => s.id !== id));
   }
 
-  async function addSource() {
+  function addSource() {
     if (!newSource.source_key || !newSource.url || !newSource.label) return;
-    const { data, error } = await supabase.from('data_sources').insert({
+    const row: LocalDataSourceRow = {
+      id: crypto.randomUUID(),
       source_key: newSource.source_key,
       label: newSource.label,
       url: newSource.url,
       parser_type: 'stats',
-    }).select('id, source_key, label, url, parser_type, enabled').single();
-    if (error) { setError(error.message); return; }
-    setDataSources((prev) => [...prev, data as DataSourceRow]);
+      enabled: true,
+    };
+    upsertDataSource(row);
+    setDataSources((prev) => [...prev, row]);
     setNewSource({ source_key: '', label: '', url: '' });
   }
 
