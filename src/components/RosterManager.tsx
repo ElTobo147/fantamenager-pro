@@ -39,8 +39,8 @@ export default function RosterManager({ players, onAdd, onRemove, calendario, ma
     }
     onAdd({
       ...db,
-      id: crypto.randomUUID(),
-      bonus: 0,
+      id: Date.now().toString() + Math.random().toString(36).slice(2, 6),
+      bonus: parseFloat((Math.random() * 2 - 0.5).toFixed(1)),
       percentualeTitolarita: 1,
     });
   }

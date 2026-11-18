@@ -238,8 +238,8 @@ export function opponentTierLabel(squadra: string, calendario: Calendario): stri
   return labels[tier];
 }
 
-export function defaultBonus(): number {
-  return 0;
+export function randomBonus(): number {
+  return parseFloat((Math.random() * 2 - 0.5).toFixed(1));
 }
 
 // --- Funzioni esportate per UI: Rischio Turnover e Pronostici ---

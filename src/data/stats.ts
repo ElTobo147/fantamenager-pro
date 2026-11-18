@@ -140,3 +140,11 @@ export function hasHardcodedStats(nome: string, squadra: string): boolean {
   }
   return false;
 }
+
+// No-op: stats are now read directly from the local database at query time,
+// so there is nothing to register. Kept for backward compatibility with useLiveData.
+export function registerLiveStats(
+  _stats: { nome: string; squadra: string; gol: number; assist: number; fm: number; pv: number }[],
+): void {
+  void _stats;
+}

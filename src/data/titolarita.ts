@@ -161,3 +161,15 @@ export function getMatchdayDataInfo(matchdayNum: number): { lineups: boolean; in
     injuries: Object.keys(data.injuries).length > 0,
   };
 }
+
+// No-op: data is now read directly from the local database at query time,
+// so there is nothing to register. Kept for backward compatibility with useLiveData.
+export function registerLiveTitolarita(
+  _matchday: number,
+  _formations: { squadra: string; titolari: string[]; panchina?: string[] }[],
+  _injuries: { squadra: string; players: { nome: string }[] }[],
+): void {
+  void _matchday;
+  void _formations;
+  void _injuries;
+}
