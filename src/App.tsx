@@ -67,7 +67,7 @@ function App() {
         ? getTitolarita(matchdayNum, p.nome, p.squadra)
         : TITOLARE_VALUE,
     })),
-    [players, matchdayNum, live.loaded],
+    [players, matchdayNum, live.loaded, live.syncVersion],
   );
 
   function loadSample() {
@@ -112,9 +112,10 @@ function App() {
       if (failed.length > 0) {
         setSyncMessage(`Aggiornamento parziale: ${parts.join(', ') || 'nessun dato'}. Riprova più tardi.`);
       } else {
-        setSyncMessage(`Dati aggiornati: ${parts.join(', ')}`);
+        setSyncMessage(`Dati aggiornati e formazione calcolata: ${parts.join(', ')}`);
       }
       live.refresh();
+      setTab('formazione');
       if (!body.message?.includes('recently')) setShowSyncReport(true);
     } catch (e) {
       setSyncMessage(`Aggiornamento non riuscito: ${(e as Error).message}`);

@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { Zap, ClipboardCopy, Check, Info, TrendingUp, Shield, Crown, Star } from 'lucide-react';
 import type { Player, Formazione, Calendario } from '../types';
 import { RUOLO_STYLES, TEAM_METRICS } from '../constants';
@@ -22,6 +22,11 @@ export default function FormationView({ players, calendario, matchdayNum }: Prop
   const autoCalc = useMemo(() => {
     return calcolaFormazioneOttimale(players, calendario, matchdayNum);
   }, [players, calendario, matchdayNum]);
+
+  // Auto-calculate whenever the optimal formation changes (e.g. after "Aggiorna dati")
+  useEffect(() => {
+    setFormazione(autoCalc);
+  }, [autoCalc]);
 
   function calculate() {
     setFormazione(autoCalc);
