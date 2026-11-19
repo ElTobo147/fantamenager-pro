@@ -88,6 +88,17 @@ export default function RosaList({ players, onRemove, onClose, onReload, calenda
                   <p className="text-xs text-gray-400">
                     {g.squadra} · Qt {g.qt} · {matchLabel(g.squadra, calendario) || 'Riposo'}
                   </p>
+                  {(() => {
+                    const stats = g.stats;
+                    if (!stats) return null;
+                    return (
+                      <p className="text-[10px] text-gray-500 mt-0.5">
+                        G {stats.gol} · A {stats.assist}
+                        {stats.fm != null && <> · FM {stats.fm.toFixed(2)}</>}
+                        {stats.pv != null && <> · PV {stats.pv}</>}
+                      </p>
+                    );
+                  })()}
                 </div>
                 <div className="text-right hidden sm:block">
                   <span className={`text-xs font-semibold ${STATUS_COLORS[status]}`}>

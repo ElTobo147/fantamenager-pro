@@ -208,9 +208,15 @@ export default function RosterManager({ players, onAdd, onRemove, calendario, ma
                   const stats = g.stats ?? getPlayerStats(g.nome, g.squadra, g.ruolo, g.qt);
                   const isReal = hasHardcodedStats(g.nome, g.squadra);
                   return (
-                    <div className="flex justify-between items-center mt-1.5 pt-1.5 border-t border-gray-800 text-gray-400">
-                      <span>Gol: <span className="text-white font-semibold">{stats.gol}</span> · Assist: <span className="text-white font-semibold">{stats.assist}</span></span>
-                      <span>xG: <span className="text-white">{stats.xg}</span> · xA: <span className="text-white">{stats.xa}</span>{!isReal && <span className="ml-1 text-[9px] text-gray-500 italic">(stim.)</span>}</span>
+                    <div className="space-y-1.5 mt-1.5 pt-1.5 border-t border-gray-800 text-gray-400">
+                      <div className="flex justify-between items-center">
+                        <span>Gol: <span className="text-white font-semibold">{stats.gol}</span> · Assist: <span className="text-white font-semibold">{stats.assist}</span></span>
+                        <span>xG: <span className="text-white">{stats.xg}</span> · xA: <span className="text-white">{stats.xa}</span>{!isReal && <span className="ml-1 text-[9px] text-gray-500 italic">(stim.)</span>}</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span>FM: <span className="text-white font-semibold">{stats.fm != null ? stats.fm.toFixed(2) : '—'}</span></span>
+                        <span>PV: <span className="text-white font-semibold">{stats.pv != null ? stats.pv : '—'}</span></span>
+                      </div>
                     </div>
                   );
                 })()}

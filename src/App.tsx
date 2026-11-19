@@ -61,12 +61,16 @@ function App() {
   const [showSyncReport, setShowSyncReport] = useState(false);
 
   const playersWithTitolarita = useMemo(
-    () => players.map((p) => ({
-      ...p,
-      percentualeTitolarita: hasTitolaritaData(matchdayNum)
-        ? getTitolarita(matchdayNum, p.nome, p.squadra)
-        : TITOLARE_VALUE,
-    })),
+    () => players.map((p) => {
+      const stats = getPlayerStats(p.nome, p.squadra, p.ruolo, p.qt);
+      return {
+        ...p,
+        stats,
+        percentualeTitolarita: hasTitolaritaData(matchdayNum)
+          ? getTitolarita(matchdayNum, p.nome, p.squadra)
+          : TITOLARE_VALUE,
+      };
+    }),
     [players, matchdayNum, live.loaded, live.syncVersion],
   );
 
