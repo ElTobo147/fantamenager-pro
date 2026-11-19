@@ -1,11 +1,12 @@
 import { Trash2, ArrowLeft, RefreshCw, Users } from 'lucide-react';
 import type { Player, Calendario } from '../types';
+import type { EnrichedPlayer } from '../hooks/useEnrichedTeam';
 import { RUOLO_STYLES, RUOLI } from '../constants';
 import { formatXfp, matchLabel } from '../lib/players';
-import { hasTitolaritaData, getTitolaritaStatus, PANCHINA_VALUE, TITOLARE_VALUE } from '../data/titolarita';
+import { getTitolaritaStatus } from '../data/titolarita';
 
 interface Props {
-  players: Player[];
+  players: EnrichedPlayer[];
   onRemove: (id: string) => void;
   onClose: () => void;
   onReload: () => void;
@@ -77,7 +78,7 @@ export default function RosaList({ players, onRemove, onClose, onReload, calenda
 
         <ul className="divide-y divide-gray-800 bg-gray-800/60 rounded-2xl border border-gray-700/60 shadow-lg overflow-hidden">
           {players.map((g) => {
-            const status = hasTitolaritaData(matchdayNum) ? getTitolaritaStatus(matchdayNum, g.nome, g.squadra) : 'nd';
+            const status = g.liveTitolaritaFound ? getTitolaritaStatus(matchdayNum, g.nome, g.squadra) : 'nd';
             return (
               <li key={g.id} className="group flex items-center gap-3 px-4 py-3 hover:bg-gray-800/90 transition">
                 <div className={`w-9 h-9 ${RUOLO_STYLES[g.ruolo].bg} rounded-lg flex items-center justify-center font-bold text-white text-sm shrink-0`}>

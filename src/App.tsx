@@ -1,14 +1,14 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { Users, Layout, RotateCcw, RefreshCw, BarChart3, Save, Check, DownloadCloud, Database, LogOut } from 'lucide-react';
 import type { Player, PlayerDB } from './types';
 import { PLAYER_DB } from './constants';
 import { randomBonus } from './lib/players';
 import { getPlayerStats } from './data/stats';
-import { getTitolarita, hasTitolaritaData, TITOLARE_VALUE } from './data/titolarita';
 import { applySyncResult } from './lib/localDb';
 import { useMatchday } from './hooks/useMatchday';
 import { useRoster } from './hooks/useRoster';
 import { useLiveData } from './hooks/useLiveData';
+import { useEnrichedTeam } from './hooks/useEnrichedTeam';
 import { useAuth } from './hooks/useAuth';
 import { supabase } from './lib/supabase';
 import RosterManager from './components/RosterManager';
@@ -61,18 +61,12 @@ function App() {
   const [showRosaList, setShowRosaList] = useState(false);
   const [showSyncReport, setShowSyncReport] = useState(false);
 
-  const playersWithTitolarita = useMemo(
-    () => players.map((p) => {
-      const stats = getPlayerStats(p.nome, p.squadra, p.ruolo, p.qt);
-      return {
-        ...p,
-        stats,
-        percentualeTitolarita: hasTitolaritaData(matchdayNum)
-          ? getTitolarita(matchdayNum, p.nome, p.squadra)
-          : TITOLARE_VALUE,
-      };
-    }),
-    [players, matchdayNum, live.loaded, live.syncVersion],
+  const playersWithTitolarita = useEnrichedTeam(
+    players,
+    matchdayNum,
+    live.stats,
+    live.formations,
+    live.injuries,
   );
 
   function loadSample() {

@@ -1,14 +1,15 @@
 import { useState } from 'react';
 import { Trash2, Plus, Info } from 'lucide-react';
 import type { Player, PlayerDB, Ruolo, Calendario } from '../types';
+import type { EnrichedPlayer } from '../hooks/useEnrichedTeam';
 import { SERIE_A_TEAMS, RUOLI, RUOLO_STYLES, ROSA_LIMITS, TEAM_METRICS } from '../constants';
 import { formatXfp, matchLabel, opponentTierLabel, getCoach } from '../lib/players';
-import { hasTitolaritaData, getTitolaritaStatus, INJURED_VALUE, PANCHINA_VALUE, NOT_LISTED_VALUE, TITOLARE_VALUE } from '../data/titolarita';
-import { getPlayerStats, hasHardcodedStats } from '../data/stats';
+import { getTitolaritaStatus, INJURED_VALUE, PANCHINA_VALUE, TITOLARE_VALUE } from '../data/titolarita';
+import { hasHardcodedStats } from '../data/stats';
 import PlayerPicker from './PlayerPicker';
 
 interface Props {
-  players: Player[];
+  players: EnrichedPlayer[];
   onAdd: (p: Player) => void;
   onRemove: (id: string) => void;
   calendario: Calendario;
@@ -168,7 +169,7 @@ export default function RosterManager({ players, onAdd, onRemove, calendario, ma
                 <div className="mt-1.5 pt-1.5 border-t border-gray-800">
                   <div className="flex justify-between items-center text-gray-400">
                     <span>
-                      Titolarità: {hasTitolaritaData(matchdayNum) ? (
+                      Titolarità: {g.liveTitolaritaFound ? (
                         <span className={`font-semibold ${
                           g.percentualeTitolarita === TITOLARE_VALUE ? 'text-green-400'
                             : g.percentualeTitolarita === PANCHINA_VALUE ? 'text-yellow-400'
@@ -183,7 +184,7 @@ export default function RosterManager({ players, onAdd, onRemove, calendario, ma
                     </span>
                     <span>xFP: <span className="text-white">{formatXfp(g, calendario, matchdayNum)}</span></span>
                   </div>
-                  {hasTitolaritaData(matchdayNum) && (() => {
+                  {g.liveTitolaritaFound && (() => {
                     const status = getTitolaritaStatus(matchdayNum, g.nome, g.squadra);
                     const statusMap = {
                       titolare: { label: 'Titolare nelle probabili formazioni', color: 'text-green-500' },
@@ -205,13 +206,15 @@ export default function RosterManager({ players, onAdd, onRemove, calendario, ma
                   })()}
                 </div>
                 {(() => {
-                  const stats = g.stats ?? getPlayerStats(g.nome, g.squadra, g.ruolo, g.qt);
-                  const isReal = hasHardcodedStats(g.nome, g.squadra);
+                  const stats = g.stats;
+                  if (!stats) return null;
+                  const isLive = g.liveStatsFound;
+                  const isReal = !isLive && hasHardcodedStats(g.nome, g.squadra);
                   return (
                     <div className="space-y-1.5 mt-1.5 pt-1.5 border-t border-gray-800 text-gray-400">
                       <div className="flex justify-between items-center">
                         <span>Gol: <span className="text-white font-semibold">{stats.gol}</span> · Assist: <span className="text-white font-semibold">{stats.assist}</span></span>
-                        <span>xG: <span className="text-white">{stats.xg}</span> · xA: <span className="text-white">{stats.xa}</span>{!isReal && <span className="ml-1 text-[9px] text-gray-500 italic">(stim.)</span>}</span>
+                        <span>xG: <span className="text-white">{stats.xg}</span> · xA: <span className="text-white">{stats.xa}</span>{isLive ? <span className="ml-1 text-[9px] text-green-500 italic">(live)</span> : !isReal ? <span className="ml-1 text-[9px] text-gray-500 italic">(stim.)</span> : null}</span>
                       </div>
                       <div className="flex justify-between items-center">
                         <span>FM: <span className="text-white font-semibold">{stats.fm != null ? stats.fm.toFixed(2) : '—'}</span></span>
