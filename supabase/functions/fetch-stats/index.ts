@@ -408,20 +408,34 @@ Deno.serve(async (req: Request) => {
 
     // Persist parsed data to Supabase tables so the client can read them.
     // Batch upserts to avoid edge function timeouts with hundreds of rows.
-    if (data.formations && data.formations.length > 0) {
-      await supabase.from("team_formations").upsert(data.formations, { onConflict: "matchday,squadra" });
+    // Wrapped in try/catch so a DB error doesn't mask the fetched data.
+    const persistErrors: string[] = [];
+    try {
+      if (data.formations && data.formations.length > 0) {
+        const res = await supabase.from("team_formations").upsert(data.formations, { onConflict: "matchday,squadra" });
+        if (res.error) persistErrors.push(`formations: ${res.error.message}`);
+      }
+      if (data.injuries && data.injuries.length > 0) {
+        const res = await supabase.from("team_injuries").upsert(data.injuries, { onConflict: "matchday,squadra" });
+        if (res.error) persistErrors.push(`injuries: ${res.error.message}`);
+      }
+      if (data.stats && data.stats.length > 0) {
+        const res = await supabase.from("player_stats").upsert(data.stats, { onConflict: "nome,squadra" });
+        if (res.error) persistErrors.push(`stats: ${res.error.message}`);
+      }
+      if (data.coaches && data.coaches.length > 0) {
+        const res = await supabase.from("coaches").upsert(data.coaches, { onConflict: "squadra" });
+        if (res.error) persistErrors.push(`coaches: ${res.error.message}`);
+      }
+      if (data.standings && data.standings.length > 0) {
+        const res = await supabase.from("standings").upsert(data.standings, { onConflict: "squadra" });
+        if (res.error) persistErrors.push(`standings: ${res.error.message}`);
+      }
+    } catch (persistErr) {
+      persistErrors.push(`unexpected: ${(persistErr as Error).message}`);
     }
-    if (data.injuries && data.injuries.length > 0) {
-      await supabase.from("team_injuries").upsert(data.injuries, { onConflict: "matchday,squadra" });
-    }
-    if (data.stats && data.stats.length > 0) {
-      await supabase.from("player_stats").upsert(data.stats, { onConflict: "nome,squadra" });
-    }
-    if (data.coaches && data.coaches.length > 0) {
-      await supabase.from("coaches").upsert(data.coaches, { onConflict: "squadra" });
-    }
-    if (data.standings && data.standings.length > 0) {
-      await supabase.from("standings").upsert(data.standings, { onConflict: "squadra" });
+    if (persistErrors.length > 0) {
+      results.persist = { status: "error", error: persistErrors.join("; ") };
     }
 
     return new Response(

@@ -103,13 +103,20 @@ function App() {
       const resp = await fetch(fnUrl, {
         headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
       });
-      if (!resp.ok) throw new Error(`Errore ${resp.status}`);
+      if (!resp.ok) {
+        const errText = await resp.text().catch(() => '');
+        throw new Error(`Errore ${resp.status}: ${errText.slice(0, 200)}`);
+      }
       const body = await resp.json();
       if (body.error) throw new Error(body.error);
       // Apply the downloaded data to localDb immediately so the Rosa and
       // Formazione views can read live stats/titolarita/injuries without
       // waiting for the useLiveData round-trip.
-      if (body.data) applySyncResult(body.data);
+      if (body.data) {
+        try { applySyncResult(body.data); } catch (applyErr) {
+          console.warn('applySyncResult failed:', applyErr);
+        }
+      }
       const r = body.results ?? {};
       const parts: string[] = [];
       if (r.formazioni?.count != null) parts.push(`${r.formazioni.count} formazioni`);
