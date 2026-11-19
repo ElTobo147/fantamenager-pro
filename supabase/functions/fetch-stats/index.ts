@@ -406,6 +406,33 @@ Deno.serve(async (req: Request) => {
       }
     }
 
+    // Persist parsed data to Supabase tables so the client can read them
+    if (data.formations && data.formations.length > 0) {
+      for (const f of data.formations) {
+        await supabase.from("team_formations").upsert(f, { onConflict: "matchday,squadra" });
+      }
+    }
+    if (data.injuries && data.injuries.length > 0) {
+      for (const inj of data.injuries) {
+        await supabase.from("team_injuries").upsert(inj, { onConflict: "matchday,squadra" });
+      }
+    }
+    if (data.stats && data.stats.length > 0) {
+      for (const s of data.stats) {
+        await supabase.from("player_stats").upsert(s, { onConflict: "nome,squadra" });
+      }
+    }
+    if (data.coaches && data.coaches.length > 0) {
+      for (const c of data.coaches) {
+        await supabase.from("coaches").upsert(c, { onConflict: "squadra" });
+      }
+    }
+    if (data.standings && data.standings.length > 0) {
+      for (const s of data.standings) {
+        await supabase.from("standings").upsert(s, { onConflict: "squadra" });
+      }
+    }
+
     return new Response(
       JSON.stringify({ message: "Sync completed", results, data }),
       { headers: { ...corsHeaders, "Content-Type": "application/json" } },

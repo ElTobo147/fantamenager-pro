@@ -5,6 +5,7 @@ import { PLAYER_DB } from './constants';
 import { randomBonus } from './lib/players';
 import { getPlayerStats } from './data/stats';
 import { getTitolarita, hasTitolaritaData, TITOLARE_VALUE } from './data/titolarita';
+import { applySyncResult } from './lib/localDb';
 import { useMatchday } from './hooks/useMatchday';
 import { useRoster } from './hooks/useRoster';
 import { useLiveData } from './hooks/useLiveData';
@@ -105,6 +106,10 @@ function App() {
       if (!resp.ok) throw new Error(`Errore ${resp.status}`);
       const body = await resp.json();
       if (body.error) throw new Error(body.error);
+      // Apply the downloaded data to localDb immediately so the Rosa and
+      // Formazione views can read live stats/titolarita/injuries without
+      // waiting for the useLiveData round-trip.
+      if (body.data) applySyncResult(body.data);
       const r = body.results ?? {};
       const parts: string[] = [];
       if (r.formazioni?.count != null) parts.push(`${r.formazioni.count} formazioni`);
