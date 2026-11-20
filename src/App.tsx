@@ -7,7 +7,7 @@ import { getPlayerStats } from './data/stats';
 import { applySyncResult } from './lib/localDb';
 import { useMatchday } from './hooks/useMatchday';
 import { useRoster } from './hooks/useRoster';
-import { useLiveData } from './hooks/useLiveData';
+import { useLiveData, type LiveStatsRow, type LiveFormationRow, type LiveInjuryRow } from './hooks/useLiveData';
 import { useEnrichedTeam, enrichRoster } from './hooks/useEnrichedTeam';
 import { useAuth } from './hooks/useAuth';
 import { supabase } from './lib/supabase';
@@ -69,7 +69,7 @@ function App() {
     live.injuries,
   );
 
-  function loadSample() {
+  async function loadSample() {
     const samples: Player[] = SAMPLE.map((s) => {
       const db = PLAYER_DB.find(
         (p) => p.nome === s.nome && p.squadra === s.squadra && p.ruolo === s.ruolo,
@@ -77,7 +77,16 @@ function App() {
       if (!db) return null;
       return makePlayer(db);
     }).filter(Boolean) as Player[];
+
+    setSaving(true);
+    const saved = await saveAll(samples);
+    setSaving(false);
+    if (!saved) {
+      setSyncMessage('La rosa di esempio non è stata salvata. Riprova.');
+      return;
+    }
     setPlayers(samples);
+    setSyncMessage('Rosa di esempio caricata e salvata.');
   }
 
   function resetData() {
@@ -111,21 +120,41 @@ function App() {
           console.warn('applySyncResult failed:', applyErr);
         }
       }
-      const r = body.results ?? {};
-      // Apply the downloaded data directly onto the roster players so
-      // Titolarità, Gol, Assist and FantaMedia are real values on each card,
-      // ready for the ideal-formation algorithm.
-      const liveData = body.data ?? {};
+      const [statsRes, formationsRes, injuriesRes] = await Promise.all([
+        supabase.from('player_stats').select('nome, squadra, gol, assist, fm, pv'),
+        supabase.from('team_formations').select('matchday, squadra, titolari, panchina'),
+        supabase.from('team_injuries').select('matchday, squadra, players'),
+      ]);
+      if (statsRes.error) throw statsRes.error;
+      if (formationsRes.error) throw formationsRes.error;
+      if (injuriesRes.error) throw injuriesRes.error;
+
+      const liveStats: LiveStatsRow[] = (statsRes.data ?? []).map((row) => ({
+        nome: row.nome as string,
+        squadra: row.squadra as string,
+        gol: (row.gol as number) ?? 0,
+        assist: (row.assist as number) ?? 0,
+        fm: (row.fm as number) ?? 0,
+        pv: (row.pv as number) ?? 0,
+      }));
+      const liveFormations: LiveFormationRow[] = (formationsRes.data ?? []).map((row) => ({
+        matchday: row.matchday as number,
+        squadra: row.squadra as string,
+        titolari: (row.titolari as string[]) ?? [],
+        panchina: (row.panchina as string[]) ?? [],
+      }));
+      const liveInjuries: LiveInjuryRow[] = (injuriesRes.data ?? []).map((row) => ({
+        matchday: row.matchday as number,
+        squadra: row.squadra as string,
+        players: (row.players as { nome: string; nota?: string }[]) ?? [],
+      }));
+
+      // Read the persisted download and apply it directly to the current roster.
       if (players.length > 0) {
-        const enriched = enrichRoster(
-          players,
-          matchdayNum,
-          liveData.stats ?? [],
-          liveData.formations ?? [],
-          liveData.injuries ?? [],
-        );
-        setPlayers(enriched);
+        setPlayers(enrichRoster(players, matchdayNum, liveStats, liveFormations, liveInjuries));
       }
+
+      const r = body.results ?? {};
       const parts: string[] = [];
       if (r.formazioni?.count != null) parts.push(`${r.formazioni.count} formazioni`);
       if (r.infortunati?.count != null) parts.push(`${r.infortunati.count} squadre infortunati`);

@@ -110,8 +110,7 @@ function findLiveTitolarita(
 
 /**
  * Merge a roster player with live stats data.
- * Live stats override hardcoded stats, but only for fields that are non-zero
- * (fm/pv = 0 in Supabase means "not scraped yet", so we keep the estimate).
+ * Downloaded goals, assists, FantaMedia and appearances always override estimates.
  */
 function mergeStats(base: PlayerStatsData, live: LiveStatsRow | null): PlayerStatsData {
   if (!live) return base;
@@ -120,8 +119,8 @@ function mergeStats(base: PlayerStatsData, live: LiveStatsRow | null): PlayerSta
     assist: live.assist,
     xg: base.xg, // keep estimated xg — Supabase fm=0 would destroy it
     xa: base.xa, // keep estimated xa
-    fm: live.fm > 0 ? live.fm : base.fm,
-    pv: live.pv > 0 ? live.pv : base.pv,
+    fm: live.fm,
+    pv: live.pv,
   };
 }
 

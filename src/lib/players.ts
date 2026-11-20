@@ -144,6 +144,11 @@ export function calcolaXfp(
     } else {
       xfp += stats.xg * 0.3;
     }
+
+    // A real FantaMedia is a direct signal for the ideal-formation ranking.
+    if (stats.fm != null && stats.fm > 0) {
+      xfp += (stats.fm - 6) * 0.6;
+    }
   }
 
   // Team metrics
