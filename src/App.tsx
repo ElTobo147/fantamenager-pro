@@ -8,7 +8,7 @@ import { applySyncResult } from './lib/localDb';
 import { useMatchday } from './hooks/useMatchday';
 import { useRoster } from './hooks/useRoster';
 import { useLiveData } from './hooks/useLiveData';
-import { useEnrichedTeam } from './hooks/useEnrichedTeam';
+import { useEnrichedTeam, enrichRoster } from './hooks/useEnrichedTeam';
 import { useAuth } from './hooks/useAuth';
 import { supabase } from './lib/supabase';
 import RosterManager from './components/RosterManager';
@@ -112,6 +112,20 @@ function App() {
         }
       }
       const r = body.results ?? {};
+      // Apply the downloaded data directly onto the roster players so
+      // Titolarità, Gol, Assist and FantaMedia are real values on each card,
+      // ready for the ideal-formation algorithm.
+      const liveData = body.data ?? {};
+      if (players.length > 0) {
+        const enriched = enrichRoster(
+          players,
+          matchdayNum,
+          liveData.stats ?? [],
+          liveData.formations ?? [],
+          liveData.injuries ?? [],
+        );
+        setPlayers(enriched);
+      }
       const parts: string[] = [];
       if (r.formazioni?.count != null) parts.push(`${r.formazioni.count} formazioni`);
       if (r.infortunati?.count != null) parts.push(`${r.infortunati.count} squadre infortunati`);

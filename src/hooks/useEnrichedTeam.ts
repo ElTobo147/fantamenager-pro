@@ -131,8 +131,44 @@ export interface EnrichedPlayer extends Player {
 }
 
 /**
- * The core merge hook: takes the roster and live data, returns enriched players
+ * The core merge function: takes the roster and live data, returns enriched players
  * with stats and titolarita joined by player name.
+ */
+export function enrichRoster(
+  players: Player[],
+  matchdayNum: number,
+  liveStats: LiveStatsRow[],
+  liveFormations: LiveFormationRow[],
+  liveInjuries: LiveInjuryRow[],
+): EnrichedPlayer[] {
+  const statsMap = buildStatsMap(liveStats);
+
+  return players.map((p) => {
+    // 1. Find live stats by name
+    const liveStat = findLiveStat(statsMap, p.nome, p.squadra);
+    const baseStats = getPlayerStats(p.nome, p.squadra, p.ruolo, p.qt);
+    const mergedStats = mergeStats(baseStats, liveStat);
+
+    // 2. Find live titolarita
+    const liveTit = findLiveTitolarita(liveFormations, liveInjuries, matchdayNum, p.nome, p.squadra);
+    const hasLiveData = liveFormations.some((f) => f.matchday === matchdayNum) ||
+                        liveInjuries.some((f) => f.matchday === matchdayNum);
+    const titolarita = hasLiveData
+      ? (liveTit ?? (hasTitolaritaData(matchdayNum) ? getTitolarita(matchdayNum, p.nome, p.squadra) : TITOLARE_VALUE))
+      : TITOLARE_VALUE;
+
+    return {
+      ...p,
+      stats: mergedStats,
+      percentualeTitolarita: titolarita,
+      liveStatsFound: !!liveStat,
+      liveTitolaritaFound: liveTit !== null,
+    } as EnrichedPlayer;
+  });
+}
+
+/**
+ * The core merge hook: same as enrichRoster, memoized on live data changes.
  */
 export function useEnrichedTeam(
   players: Player[],
@@ -141,48 +177,8 @@ export function useEnrichedTeam(
   liveFormations: LiveFormationRow[],
   liveInjuries: LiveInjuryRow[],
 ): EnrichedPlayer[] {
-  const statsMap = useMemo(() => buildStatsMap(liveStats), [liveStats]);
-
-  const enriched = useMemo(() => {
-    const result = players.map((p) => {
-      // 1. Find live stats by name
-      const liveStat = findLiveStat(statsMap, p.nome, p.squadra);
-      const baseStats = getPlayerStats(p.nome, p.squadra, p.ruolo, p.qt);
-      const mergedStats = mergeStats(baseStats, liveStat);
-
-      // 2. Find live titolarita
-      const liveTit = findLiveTitolarita(liveFormations, liveInjuries, matchdayNum, p.nome, p.squadra);
-      const hasLiveData = liveFormations.some((f) => f.matchday === matchdayNum) ||
-                          liveInjuries.some((f) => f.matchday === matchdayNum);
-      const titolarita = hasLiveData
-        ? (liveTit ?? (hasTitolaritaData(matchdayNum) ? getTitolarita(matchdayNum, p.nome, p.squadra) : TITOLARE_VALUE))
-        : TITOLARE_VALUE;
-
-      // 3. Debug log for the first player to prove the merge worked
-      if (players.indexOf(p) === 0) {
-        console.log('[useEnrichedTeam] Merge debug for first player:', {
-          nome: p.nome,
-          squadra: p.squadra,
-          liveStatFound: !!liveStat,
-          liveStat: liveStat,
-          mergedStats: mergedStats,
-          liveTitolarita: liveTit,
-          finalTitolarita: titolarita,
-          hasLiveData,
-        });
-      }
-
-      return {
-        ...p,
-        stats: mergedStats,
-        percentualeTitolarita: titolarita,
-        liveStatsFound: !!liveStat,
-        liveTitolaritaFound: liveTit !== null,
-      } as EnrichedPlayer;
-    });
-
-    return result;
-  }, [players, matchdayNum, statsMap, liveFormations, liveInjuries]);
-
-  return enriched;
+  return useMemo(
+    () => enrichRoster(players, matchdayNum, liveStats, liveFormations, liveInjuries),
+    [players, matchdayNum, liveStats, liveFormations, liveInjuries],
+  );
 }
