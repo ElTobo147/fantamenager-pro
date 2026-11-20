@@ -62,7 +62,7 @@ export function SyncReportContent() {
     setError(null);
     try {
       const [statsRes, standingsRes, coachesRes, formationsRes, injuriesRes, sourcesRes] = await Promise.all([
-        supabase.from('player_stats').select('nome, squadra, gol, assist, fm, pv').order('fm', { ascending: false }).limit(100),
+        supabase.from('player_stats').select('nome, squadra, gol, assist, fm, pv').order('fm', { ascending: false }),
         supabase.from('standings').select('*').order('posizione'),
         supabase.from('coaches').select('squadra, allenatore, statuso').order('squadra'),
         supabase.from('team_formations').select('squadra, titolari').order('squadra'),
