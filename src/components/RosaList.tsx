@@ -3,7 +3,7 @@ import type { Player, Calendario } from '../types';
 import type { EnrichedPlayer } from '../hooks/useEnrichedTeam';
 import { RUOLO_STYLES, RUOLI } from '../constants';
 import { formatXfp, matchLabel } from '../lib/players';
-import { getTitolaritaStatus } from '../data/titolarita';
+import { getTitolaritaStatus, hasTitolaritaData } from '../data/titolarita';
 
 interface Props {
   players: EnrichedPlayer[];

@@ -231,6 +231,7 @@ export default function RosterManager({ players, onAdd, onRemove, calendario, ma
                       </div>
                       <div className="flex justify-between items-center">
                         <span>FM: <span className="text-white font-semibold">{stats.fm != null ? stats.fm.toFixed(2) : '—'}</span></span>
+                        <span>MV: <span className="text-white font-semibold">{stats.mv != null && stats.mv > 0 ? stats.mv.toFixed(2) : '—'}</span></span>
                         <span>PV: <span className="text-white font-semibold">{stats.pv != null ? stats.pv : '—'}</span></span>
                       </div>
                     </div>

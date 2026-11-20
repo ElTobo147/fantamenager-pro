@@ -121,7 +121,7 @@ function App() {
         }
       }
       const [statsRes, formationsRes, injuriesRes] = await Promise.all([
-        supabase.from('player_stats').select('nome, squadra, gol, assist, fm, pv'),
+        supabase.from('player_stats').select('nome, squadra, gol, assist, fm, mv, pv'),
         supabase.from('team_formations').select('matchday, squadra, titolari, panchina'),
         supabase.from('team_injuries').select('matchday, squadra, players'),
       ]);
@@ -135,6 +135,7 @@ function App() {
         gol: (row.gol as number) ?? 0,
         assist: (row.assist as number) ?? 0,
         fm: (row.fm as number) ?? 0,
+        mv: (row.mv as number) ?? 0,
         pv: (row.pv as number) ?? 0,
       }));
       const liveFormations: LiveFormationRow[] = (formationsRes.data ?? []).map((row) => ({

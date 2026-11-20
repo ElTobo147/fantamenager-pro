@@ -96,8 +96,8 @@ function parseInjuries(html: string): Record<string, { nome: string; nota: strin
   return result;
 }
 
-function parseStats(html: string): { nome: string; squadra: string; pv: number; fm: number; gol: number; golSubiti: number; assist: number }[] {
-  const out: { nome: string; squadra: string; pv: number; fm: number; gol: number; golSubiti: number; assist: number }[] = [];
+function parseStats(html: string): { nome: string; squadra: string; pv: number; mv: number; fm: number; gol: number; golSubiti: number; assist: number }[] {
+  const out: { nome: string; squadra: string; pv: number; mv: number; fm: number; gol: number; golSubiti: number; assist: number }[] = [];
   const rowRe = /<tr[^>]*>([\s\S]*?)<\/tr>/gi;
   const cellRe = /<t[dh][^>]*>([\s\S]*?)<\/t[dh]>/gi;
   let row: RegExpExecArray | null;
@@ -117,14 +117,17 @@ function parseStats(html: string): { nome: string; squadra: string; pv: number; 
     const nameMatch = rowHtml.match(/\/serie-a\/squadre\/[a-z0-9-]+\/[a-z0-9-]+\/\d+"[^>]*>([\s\S]*?)<\/a>/i);
     const nome = nameMatch ? nameMatch[1].replace(/<[^>]*>/g, "").trim() : "";
     if (!nome) continue;
+    // Columns on fantacalcio.it/statistiche-serie-a:
+    // PV | MV | FM | Gol | GS | Rig("x / y", filtered out by the numeric regex) | RP | Ass | Amm | Esp
     const nums = cells.filter((c) => /^-?\d+([.,]\d+)?$/.test(c));
     const toNum = (s: string) => parseFloat(s.replace(",", ".")) || 0;
     const pv = toNum(nums[0] ?? "0");
+    const mv = toNum(nums[1] ?? "0");
     const fm = toNum(nums[2] ?? "0");
     const gol = Math.round(toNum(nums[3] ?? "0"));
     const golSubiti = Math.round(toNum(nums[4] ?? "0"));
     const assist = Math.round(toNum(nums[6] ?? "0"));
-    out.push({ nome, squadra, pv, fm, gol, golSubiti, assist });
+    out.push({ nome, squadra, pv, mv, fm, gol, golSubiti, assist });
   }
   return out;
 }
@@ -243,7 +246,7 @@ Deno.serve(async (req: Request) => {
     const data: {
       formations?: { matchday: number; squadra: string; titolari: string[]; panchina: string[] }[];
       injuries?: { matchday: number; squadra: string; players: { nome: string; nota?: string }[] }[];
-      stats?: { nome: string; squadra: string; gol: number; assist: number; fm: number; pv: number }[];
+      stats?: { nome: string; squadra: string; gol: number; assist: number; fm: number; mv: number; pv: number }[];
       coaches?: { squadra: string; allenatore: string; statuso: string }[];
       standings?: { posizione: number; squadra: string; gare: number; vittorie: number; pareggi: number; sconfitte: number; gol_fatti: number; gol_subiti: number; punti: number }[];
     } = {};
@@ -338,7 +341,7 @@ Deno.serve(async (req: Request) => {
         if (!srcUrl) throw new Error("Nessun URL configurato per 'stats'");
         const html = await fetchWithTimeout(srcUrl);
         const parsed = parseStats(html);
-        const stats = parsed.map((p) => ({ nome: p.nome, squadra: p.squadra, gol: p.gol, assist: p.assist, fm: p.fm, pv: p.pv }));
+        const stats = parsed.map((p) => ({ nome: p.nome, squadra: p.squadra, gol: p.gol, assist: p.assist, fm: p.fm, mv: p.mv, pv: p.pv }));
         data.stats = stats;
         results.stats = { status: "ok", count: stats.length };
         await supabase.from("data_sync_log").insert({ source: "fantacalcio_stats", status: `ok:${stats.length}` });

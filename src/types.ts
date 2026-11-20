@@ -14,6 +14,7 @@ export interface PlayerStatsData {
   xg: number;
   xa: number;
   fm?: number;
+  mv?: number;
   pv?: number;
 }
 

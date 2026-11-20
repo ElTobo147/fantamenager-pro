@@ -19,6 +19,7 @@ export interface StatRow {
   gol: number;
   assist: number;
   fm: number;
+  mv: number;
   pv: number;
 }
 
@@ -170,7 +171,7 @@ export function saveFormations(rows: FormationRow[]): void {
   const existing = getFormations();
   const map = new Map(existing.map((r) => [`${r.matchday}|${r.squadra}`, r]));
   for (const row of rows) {
-    map.set(`${row.matchday}|${r.squadra}`, row);
+    map.set(`${row.matchday}|${row.squadra}`, row);
   }
   write(KEYS.formations, [...map.values()]);
 }
@@ -184,7 +185,7 @@ export function saveInjuries(rows: InjuryRow[]): void {
   const existing = getInjuries();
   const map = new Map(existing.map((r) => [`${r.matchday}|${r.squadra}`, r]));
   for (const row of rows) {
-    map.set(`${row.matchday}|${r.squadra}`, row);
+    map.set(`${row.matchday}|${row.squadra}`, row);
   }
   write(KEYS.injuries, [...map.values()]);
 }

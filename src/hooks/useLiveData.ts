@@ -16,6 +16,7 @@ export interface LiveStatsRow {
   gol: number;
   assist: number;
   fm: number;
+  mv: number;
   pv: number;
 }
 
@@ -70,7 +71,7 @@ export function useLiveData(matchdayNum: number): SyncInfo {
         const [formationsRes, injuriesRes, statsRes, coachesRes, logRes] = await Promise.all([
           supabase.from('team_formations').select('matchday, squadra, titolari, panchina'),
           supabase.from('team_injuries').select('matchday, squadra, players'),
-          supabase.from('player_stats').select('nome, squadra, gol, assist, fm, pv'),
+          supabase.from('player_stats').select('nome, squadra, gol, assist, fm, mv, pv'),
           supabase.from('coaches').select('squadra, allenatore, statuso'),
           supabase.from('data_sync_log').select('fetched_at').order('fetched_at', { ascending: false }).limit(1).maybeSingle(),
         ]);
@@ -87,6 +88,7 @@ export function useLiveData(matchdayNum: number): SyncInfo {
           gol: (r.gol as number) ?? 0,
           assist: (r.assist as number) ?? 0,
           fm: (r.fm as number) ?? 0,
+          mv: (r.mv as number) ?? 0,
           pv: (r.pv as number) ?? 0,
         }));
         const liveFormations: LiveFormationRow[] = (formationsRes.data ?? []).map((r) => ({

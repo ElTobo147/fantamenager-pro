@@ -120,6 +120,7 @@ function mergeStats(base: PlayerStatsData, live: LiveStatsRow | null): PlayerSta
     xg: base.xg, // keep estimated xg — Supabase fm=0 would destroy it
     xa: base.xa, // keep estimated xa
     fm: live.fm,
+    mv: live.mv,
     pv: live.pv,
   };
 }
