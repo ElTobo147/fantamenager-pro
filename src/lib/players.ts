@@ -119,8 +119,11 @@ export function calcolaXfp(
   // If no match (riposo), player can't score
   if (!partita) return 0;
 
-  // Injured = 0
-  const titolarita = getTitolarita(matchdayNum, giocatore.nome, giocatore.squadra);
+  // Use the titolarita from the enriched player if it was set by the merge
+  // (useEnrichedTeam). Fall back to the static/hardcoded titolarita otherwise.
+  const titolarita = giocatore.percentualeTitolarita != null
+    ? giocatore.percentualeTitolarita
+    : getTitolarita(matchdayNum, giocatore.nome, giocatore.squadra);
   if (titolarita === INJURED_VALUE) return 0;
 
   const isHome = partita.casa;

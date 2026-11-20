@@ -59,6 +59,19 @@ export default function RosterManager({ players, onAdd, onRemove, calendario, ma
       (filterRole === 'ALL' || p.ruolo === filterRole),
   );
 
+  // Debug: prove the merge happened for the first enriched player
+  if (filtered.length > 0) {
+    const dbg = filtered[0];
+    console.log('[RosterManager] Merge proof:', {
+      nome: dbg.nome,
+      squadra: dbg.squadra,
+      liveStatsFound: dbg.liveStatsFound,
+      liveTitolaritaFound: dbg.liveTitolaritaFound,
+      percentualeTitolarita: dbg.percentualeTitolarita,
+      stats: dbg.stats,
+    });
+  }
+
   return (
     <div className="space-y-6">
       <div className="bg-gray-800/70 backdrop-blur p-5 rounded-2xl border border-gray-700/60 shadow-xl">
@@ -169,7 +182,7 @@ export default function RosterManager({ players, onAdd, onRemove, calendario, ma
                 <div className="mt-1.5 pt-1.5 border-t border-gray-800">
                   <div className="flex justify-between items-center text-gray-400">
                     <span>
-                      Titolarità: {g.liveTitolaritaFound ? (
+                      Titolarità: {g.percentualeTitolarita != null ? (
                         <span className={`font-semibold ${
                           g.percentualeTitolarita === TITOLARE_VALUE ? 'text-green-400'
                             : g.percentualeTitolarita === PANCHINA_VALUE ? 'text-yellow-400'
